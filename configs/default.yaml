@@ -1,0 +1,164 @@
+# ============================================================
+# 台风路径预测 - 默认配置
+# 用法：python scripts/train.py --config configs/default.yaml
+# 命令行参数可以覆盖任意字段，例如：
+#   python scripts/train.py --set train.epochs=5 --set model.d_model=64
+# ============================================================
+
+seed: 42
+device: auto            # auto | cpu | cuda
+
+# 数据根目录。留空表示使用 <项目>/data。
+# 也可用环境变量 TYPHOON_DATA_ROOT 覆盖（优先级最高），便于把数据放在外部盘：
+#   export TYPHOON_DATA_ROOT=/mnt/datasets/typhoon
+# 下面的 data.raw_dir / data.processed_dir 都相对此根目录解析。
+data_root: null
+
+data:
+  basin: WP            # IBTrACS 盆地: WP/EP/NA/NI/SI/SP/SA (WP=西北太平洋)
+  # 数据来源: cma(本地 CMA 最佳路径, 无需联网) | ibtracs | synthetic(离线冒烟)
+  source: cma
+  # CMA 数据目录（CHSATdata.zip 解压后的 *SAT.txt 所在目录）
+  cma_dir: data/raw/cma_attachments/extracted
+  raw_dir: data/raw
+  processed_dir: data/processed
+  # IBTrACS 版本与地址（NCEI 官方）
+  ibtracs_version: v04r01
+  ibtracs_base_url: https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/
+  # 使用哪个 CSV 子集: WP | NA | EP | NI | SI | SP | SA | since1980 | last3years
+  # 默认 WP：西北太平洋子集 114.6MB，而全球版 since1980 是 145.2MB；
+  # 国内到 NCEI 很慢，只分析台风时用 WP 子集最省时间。
+  ibtracs_suffix: WP
+  # 单次下载的时间上限（秒）。到期会安全中断并保留已完成分块，
+  # 下次运行 prepare_data.py 自动续传，不会重传已完成部分。
+  download_time_budget_s: 300
+  download_workers: 24
+  # 时间采样间隔（小时）。IBTrACS 原始是 6h，设成 6 就是直接用原始点
+  interval_hours: 6
+  # 一个样本：过去 in_len 步 -> 未来 out_len 步
+  in_len: 12           # 12 * 6h = 72h 历史
+  out_len: 4           # 4 * 6h = 24h 预测
+  # 只保留强度达到阈值的时刻（WMO_WIND >= 阈值 knots，34kt≈热带风暴级）
+  min_wind_knots: 34
+  # 强度缺失时是否保留该点
+  drop_missing_wind: true
+  # 海域裁剪（WP 粗裁剪，仅用于过滤异常点；None 表示不裁剪）
+  lon_range: [90.0, 200.0]   # 使用 0-360 表示，跨 180 线用环形编码处理
+  lat_range: [0.0, 50.0]
+  # 强度下限（m/s）用于筛选"真正需要预测的台风段"
+  min_wind_ms: 17.2
+  # 验证/测试划分（按年份切分，防止数据泄漏）
+  # 本工程的 CMA 附件数据覆盖 2004-2013，因此按此划分；
+  # 若换成 IBTrACS(1980-) 则可改成 val_years: [2016,2019] / test_years: [2020,2023]
+  val_years: [2010, 2011]
+  test_years: [2012, 2013]
+  # 合成数据参数（source=synthetic 时生效，用于无需联网的冒烟测试）
+  synthetic:
+    n_storms: 400
+    start_year: 2010       # 覆盖 val_years/test_years，否则验证集为空
+    n_years: 14
+    points_per_storm: 48
+
+features:
+  # 输入特征（顺序即模型输入通道顺序）
+  # 所有位置特征都会在 dataset 里做"相对起点"变换，避免绝对经纬度分布不均
+  list:
+    - dlat           # 相对上一时刻的纬度增量（度）
+    - dlon           # 相对上一时刻的经度增量（度），已处理跨 180 线
+    - dist_prev      # 相对上一时刻的位移距离（km）
+    - sin_heading    # 运动方位角编码（北=0，顺时针）
+    - cos_heading
+    - wind_ms         # 最大风速（m/s）
+    - dpres_hpa      # 中心气压（hPa，相对 1010 的压差）
+    - lat_norm       # 归一化纬度（绝对值，提供地理位置信息）
+
+model:
+  name: transformer    # transformer | gru | persistence(基线) | linear(基线)
+  d_model: 128
+  nhead: 8
+  num_encoder_layers: 4
+  num_decoder_layers: 2
+  dim_feedforward: 512
+  dropout: 0.15
+  # 预测方式: delta(预测相对最后观测点的增量) | absolute(直接回归坐标)
+  pred_mode: delta
+  # 是否使用 Haversine 距离作为损失
+  huber_delta_km: 100.0
+
+train:
+  batch_size: 64
+  epochs: 60
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  grad_clip: 1.0
+  warmup_epochs: 3
+  early_stop_patience: 12
+  loss: haversine     # haversine | huber
+  num_workers: 0
+  amp: true           # 仅在 cuda 上生效
+  log_interval: 20
+
+eval:
+  # 误差从哪一步开始统计（0 表示第一个预测点）
+  horizons_hours: [6, 12, 18, 24]
+
+output:
+  dir: outputs
+  ckpt_name: best.pt
+  run_name: default
+
+# ------------------------------------------------------------
+# 卫星云图强度预测（FYSATTY 数据集）
+# ------------------------------------------------------------
+satellite:
+  # 卫星数据包目录（*.zip，内含 Tcsat NetCDF）
+  zip_dir: data/raw/bsts
+  patch_size: 32         # 中心裁剪 patch 边长（4km/像素 -> 128km）
+  patch_cache: sat_patches.npz
+  in_len: 8              # 过去 8 步 × 3h = 24h
+  out_len: 4             # 未来 4 步 × 3h = 12h
+  interval_h: 3.0
+  # 模型
+  model:
+    name: fusion_transformer   # fusion_transformer | gru(纯时序) | persistence
+    d_model: 128
+    nhead: 8
+    num_layers: 3
+    dim_feedforward: 256
+    dropout: 0.15
+    img_feat: 64
+  train:
+    batch_size: 64
+    epochs: 60
+    lr: 3.0e-4
+    weight_decay: 1.0e-4
+    grad_clip: 1.0
+    early_stop_patience: 15
+    num_workers: 0
+    amp: true
+  # 按台风名切分（小样本，必须按台风而不是按时间切，避免同台风泄漏）
+  val_names: []          # 留空则自动按台风随机划分 15% 验证
+  test_ratio: 0.15
+  run_name: sat_intensity
+
+  # RI（快速增强）事件预测 —— 综合「长窗口 + 事件分类」
+  ri:
+    in_len: 8              # 过去 24h
+    horizon: 8             # 未来 24h
+    threshold_ms: 15.0     # RI 判定：24h 内增幅 >= 15 m/s（样本少时可用 10）
+    model:
+      name: feature_transformer   # feature_transformer | cnn_transformer | gru | persistence
+      d_model: 96
+      nhead: 4
+      num_layers: 2
+      dim_feedforward: 192
+      dropout: 0.30
+    train:
+      batch_size: 64
+      epochs: 80
+      lr: 5.0e-4
+      weight_decay: 1.0e-3
+      grad_clip: 1.0
+      early_stop_patience: 20
+      num_workers: 0
+      amp: true

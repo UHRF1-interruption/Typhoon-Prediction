@@ -1,0 +1,14 @@
+# 说明：本机 conda base 已提供 numpy/pandas/pyarrow/pyyaml/torch，
+# 工作区内 .venv 用 --system-site-packages 复用它们，仅需额外装 matplotlib。
+# 其它平台从零安装（CERNET 镜像）：
+#   python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple -r requirements.txt
+
+numpy>=2.0
+pandas>=2.2
+pyarrow>=16.0
+PyYAML>=6.0
+matplotlib>=3.9
+# CPU 版（无 GPU）：
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# CUDA 版按本机驱动选择，见 https://pytorch.org/get-started/locally/
+torch>=2.4

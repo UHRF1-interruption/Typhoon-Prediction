@@ -1,0 +1,30 @@
+# ---- 数据（与代码分离，见 DATASETS.md）----
+# 注意: 必须写 "data" 而不是 "data/"！
+#   "data/"  只匹配目录
+#   "data"   同时匹配目录和软链接
+# 本项目 data 可能是指向 /mnt/datasets/typhoon 的软链接，
+# 若漏掉这条，git 会把软链接本身（一个路径字符串）提交上去，
+# 别人克隆后得到一个断链。
+data
+
+# 但保留数据模板目录，方便别人了解需要哪些文件
+!data.sample/
+!data.sample/**
+
+# ---- 训练产物 ----
+outputs/
+*.pt
+*.ckpt
+
+# ---- Python ----
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+*~
