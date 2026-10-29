@@ -1,18 +1,24 @@
-# ---- 数据（与代码分离，见 DATASETS.md）----
-# 注意: 必须写 "data" 而不是 "data/"！
-#   "data/"  只匹配目录
-#   "data"   同时匹配目录和软链接
-# 本项目 data 可能是指向 /mnt/datasets/typhoon 的软链接，
-# 若漏掉这条，git 会把软链接本身（一个路径字符串）提交上去，
-# 别人克隆后得到一个断链。
-data
+# ---- 数据（与代码分离，见 docs/DATASETS.md）----
+# 关键: 必须写 "/data"（带前导斜杠），不能用 "data" 或 "data/"
+#   "data"   会匹配任意层级名为 data 的目录，连 src/data/ 和 scripts/data/ 都被忽略
+#   "data/"  只匹配目录，不匹配软链接（软链接会被当成文件提交）
+#   "/data"  只匹配项目根目录，且同时匹配目录和软链接  ← 正确
+/data
 
-# 但保留数据模板目录，方便别人了解需要哪些文件
+# 保留数据结构模板
 !data.sample/
 !data.sample/**
 
+# ---- 临时/草稿（不入库）----
+.scratch/
+
 # ---- 训练产物 ----
-outputs/
+# 忽略 outputs 下全部内容，但保留被 README / 技术报告引用的图表与指标
+# 注意: 必须先忽略 outputs/* 再白名单子目录，直接写 !outputs/xxx/*.png 无效
+#       （父目录被排除时 git 不会进入其中查找）
+outputs/*
+!outputs/baselines/
+!outputs/comparison/
 *.pt
 *.ckpt
 
