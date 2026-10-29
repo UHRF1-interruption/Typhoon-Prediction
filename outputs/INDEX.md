@@ -64,16 +64,26 @@
 查任意文件的配置与对应报告位置：
 
 ```bash
-.venv/bin/python -c "import json;print(json.load(open('outputs/sat_intensity/cv5_summary.json'))['_meta'])"
+.venv/bin/python -c "import json;print(json.load(open('outputs/sat_intensity_history/cv5_summary.json'))['_meta'])"
 ```
 
 > **命名规则**：脚本输出 `cv{N}_{配置指纹}_{hash}_summary.json`，指纹只含影响结果的
 > `satellite.*` 参数（不含 device/run_name）；无覆盖参数时退回 `cv{N}_summary.json`。
-> 因此 `cv5_summary.json` 永远是**默认配置**（当前 64px）的结果，
-> 重新以默认配置运行会覆盖它——这是设计行为。
+> 因此 `cv5_summary.json` 永远是**默认配置**的结果，重新以默认配置运行会覆盖它。
+
+### 目录名约定（2026-10-30 起）
+
+| 目录 | 性质 | 说明 |
+|---|---|---|
+| `sat_intensity_history/` | **归档，只读** | 上表 #1~#4 的证据都在这里。混装 32px 与 64px 各轮，不要再往里写新结果 |
+| `sat_intensity_64px/` | **当前默认配置的输出** | 由 `satellite.run_name` 决定，初始为空，跑实验时才创建 |
+
+改动 `patch_size` 或特征维数后，**请一并修改 `configs/default.yaml` 的
+`satellite.run_name`**（如 `sat_intensity_32px`），否则新一轮结果会覆盖
+`sat_intensity_64px/` 里的同名文件。
 
 **历史提醒**：#2 的数据原本只存在于 `.scratch/`（未入库、随时可能被清理），
-2026-10-30 整理时补存为正式文件并补了元数据。`sat_intensity/summary.json`
+2026-10-30 整理时补存为正式文件并补了元数据。`sat_intensity_history/summary.json`
 是更早的单次划分结果，仅供追溯。
 
 ### 地形 / 暖心特征消融（结论：均无影响）

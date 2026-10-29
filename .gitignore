@@ -35,7 +35,10 @@ outputs/*
 !outputs/segment_approaches/
 !outputs/stratified_ablation/
 # 强度：卫星云图结论（报告 §4.1）+ 地形/暖心消融（§4.3/§4.4）
-!outputs/sat_intensity/
+# sat_intensity_history/ = 历史归档（混装 32px 与 64px 各轮）
+# sat_intensity_64px/    = 当前默认配置的输出目录（见 satellite.run_name）
+!outputs/sat_intensity_history/
+!outputs/sat_intensity_64px/
 !outputs/intensity_rerun_base/
 !outputs/intensity_rerun_terrain/
 !outputs/intensity_rerun_warmcore/

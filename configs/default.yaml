@@ -148,7 +148,10 @@ satellite:
   # 按台风名切分（小样本，必须按台风而不是按时间切，避免同台风泄漏）
   val_names: []          # 留空则自动按台风随机划分 15% 验证
   test_ratio: 0.15
-  run_name: sat_intensity
+  # 输出目录 outputs/<run_name>/。**名字里带上关键配置**，避免换配置后结果互相覆盖：
+  # 旧目录 sat_intensity/ 曾混装 32px 与 64px 各轮结果，且默认配置运行会覆盖
+  # cv5_summary.json。改了 patch_size / 特征维数后请同步修改这里的名字。
+  run_name: sat_intensity_64px
 
   # RI（快速增强）事件预测 —— 综合「长窗口 + 事件分类」
   ri:

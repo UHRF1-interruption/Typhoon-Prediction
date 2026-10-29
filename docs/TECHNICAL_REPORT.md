@@ -311,9 +311,9 @@ d=−2.27，胜率 5/5）。说明：
 | 持续法 vs GRU | +0.637（GRU 更好） | 0/15 | 2.5e-13 | +6.80 |
 
 > **数据位置**：上表四行分别对应 `outputs/intensity_rerun_base/cv5_summary.json`、
-> `outputs/sat_intensity/cv5_32px-255norm-15feat_summary.json`、
-> `outputs/sat_intensity/cv5_satellite-model-dropout-0-25_65c72974_summary.json`、
-> `outputs/sat_intensity/cv5_summary.json`，各文件 `_meta` 字段标注了对应行号。
+> `outputs/sat_intensity_history/cv5_32px-255norm-15feat_summary.json`、
+> `outputs/sat_intensity_history/cv5_satellite-model-dropout-0-25_65c72974_summary.json`、
+> `outputs/sat_intensity_history/cv5_summary.json`，各文件 `_meta` 字段标注了对应行号。
 > 完整目录说明见 [outputs/INDEX.md](../outputs/INDEX.md)。
 
 > p 值由 `scipy.stats.ttest_1samp` 对逐 job 差值做单样本 t 检验得到。各 job 的
