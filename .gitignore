@@ -47,6 +47,8 @@ outputs/*
 !outputs/ri_events/
 # 数据构建日志：卫星数据规模演进（报告 §2.4）
 !outputs/build_logs/
+# 报告 §4 配图（强度/云图消融/RI/特征消融），图 4-1 ~ 4-5
+!outputs/figures/
 # 模型权重与逐样本预测数组体积大且可重跑生成，即使目录被白名单也要排除
 *.pt
 *.ckpt
