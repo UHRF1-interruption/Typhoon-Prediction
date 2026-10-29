@@ -1,0 +1,99 @@
+{
+  "env_source": ".scratch/env_era5_v3.parquet",
+  "seeds": [
+    2
+  ],
+  "results": {
+    "baseline(仅轨迹)": [
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 2,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          57.17305374145508,
+          136.0659942626953,
+          262.11932373046875,
+          414.8666687011719
+        ],
+        "mae_overall": 217.5562286376953,
+        "best_epoch": 24
+      }
+    ],
+    "+环境场": [
+      {
+        "tag": "+环境场",
+        "seed": 2,
+        "n_features": 10,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_grad_lat",
+          "sst"
+        ],
+        "mae_by_step": [
+          55.74125289916992,
+          132.9092559814453,
+          256.2916259765625,
+          406.2346496582031
+        ],
+        "mae_overall": 212.7942352294922,
+        "best_epoch": 29
+      }
+    ],
+    "仅环境场": [
+      {
+        "tag": "仅环境场",
+        "seed": 2,
+        "n_features": 2,
+        "feature_names": [
+          "h500_grad_lat",
+          "sst"
+        ],
+        "mae_by_step": [
+          92.86461639404297,
+          189.7211151123047,
+          314.3553771972656,
+          460.8650817871094
+        ],
+        "mae_overall": 264.4515686035156,
+        "best_epoch": 26
+      }
+    ]
+  },
+  "paired_tests": [
+    {
+      "a": "+环境场",
+      "b": "baseline(仅轨迹)",
+      "mean_a": 212.7942352294922,
+      "mean_b": 217.5562286376953,
+      "mean_diff": -4.761993408203125,
+      "n": 1,
+      "a_better_folds": 1
+    },
+    {
+      "a": "+环境场",
+      "b": "仅环境场",
+      "mean_a": 212.7942352294922,
+      "mean_b": 264.4515686035156,
+      "mean_diff": -51.65733337402344,
+      "n": 1,
+      "a_better_folds": 1
+    }
+  ]
+}

@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 
 from .features import bearing_deg, haversine_km, wrap_dlon
+from .patch_features import stack_patch_features
 
 # 标量特征（每个时间步）
 SCALAR_FEATURES = [
@@ -190,7 +191,8 @@ def build_intensity_samples(scalars: pd.DataFrame, cfg: SatConfig,
                 if any((np.asarray(g) > 0).mean() < 0.5 for g in got):
                     continue
                 S.append(s_win)
-                P.append(np.stack(got))
+                # 只记录帧引用，不展开成实体数组（见函数末尾 pframes 说明）
+                P.append(got)
             else:
                 S.append(s_win)
             Y.append(y_win)
@@ -209,13 +211,38 @@ def build_intensity_samples(scalars: pd.DataFrame, cfg: SatConfig,
     # 最后输入时刻的强度作为残差基准（残差预测更稳）
     out["last_wind"] = out["s"][:, -1, 0].astype(np.float32)
     if cfg.use_patch:
-        out["p"] = np.stack(P).astype(np.float32)
-        # 预先计算云图手工特征 (N, T, F_img)，供特征版模型使用
-        from .patch_features import stack_patch_features
-        out["pfeat"] = stack_patch_features(out["p"]).astype(np.float32)
+        # 把所有被引用到的帧去重成一张紧凑表 pframes (U, C, S, S)，
+        # out["p"] 只存表内下标 out["p"][j] -> in_len 个下标。
+        # 这样训练端按需取帧，不必把 (N, in_len, C, S, S) 实体展开：
+        # 64px 下展开需约 5.4GB（N≈1.5万），而唯一帧通常只有几千张（几百 MB），
+        # 且训练/验证/测试三个 Dataset 共享同一张表。
+        uniq: dict[int, int] = {}          # id(帧) -> 表内下标
+        frames, p_idx = [], []
+        for got in P:
+            row = []
+            for g in got:
+                key = id(g)
+                j = uniq.get(key)
+                if j is None:
+                    j = len(frames)
+                    uniq[key] = j
+                    frames.append(g)
+                row.append(j)
+            p_idx.append(row)
+        # 只有所有帧都不共享底层存储（例如来自 npz memmap 的视图）时才 stack，
+        # 否则保留 float32；避免为了统一 dtype 再多复制一份。
+        stacked = (np.stack(frames) if frames
+                   else np.zeros((0,) + P[0][0].shape, np.float32))
+        out["pframes"] = stacked if stacked.dtype == np.float32 else stacked.astype(np.float32)
+        out["p"] = p_idx
+        # 特征先按唯一帧算一次（省时间），再按下标展开成每个样本的 (in_len, F)。
+        # 模型需要 (B, T, F) 序列，不能直接把帧表喂进去。
+        frame_feat = stack_patch_features(out["pframes"]).astype(np.float32)
+        out["pfeat"] = frame_feat[np.asarray(p_idx, dtype=np.int64)]
     msg = f"[sat] 强度样本 {len(out['y'])}, 标量 {out['s'].shape}"
     if cfg.use_patch:
-        msg += f", 云图 {out['p'].shape}, 云图特征 {out['pfeat'].shape}"
+        msg += (f", 云图唯一帧 {out['pframes'].shape}"
+                f", 云图特征 {out['pfeat'].shape}")
     print(msg)
     return out
 
@@ -227,3 +254,17 @@ def fit_scalar_scaler(s: np.ndarray, feature_names: list[str]) -> dict:
     std = np.nanstd(flat, axis=0)
     std = np.where(std < 1e-6, 1.0, std)
     return {"names": feature_names, "mean": mean.tolist(), "std": std.tolist()}
+
+
+def take_patches(bundle: dict, idx) -> np.ndarray:
+    """取 bundle 中第 idx 个样本的云图 patch 栈 -> (n, in_len, C, S, S)。
+
+    兼容两种 bundle 布局：
+      * 新: bundle["p"] 是帧下标列表，帧本体在共享表 bundle["pframes"]
+      * 旧: bundle["p"] 本身就是 (N, in_len, C, S, S) 实体数组
+    """
+    p = bundle["p"]
+    if "pframes" in bundle:
+        sel = np.asarray([p[j] for j in np.atleast_1d(idx)])
+        return bundle["pframes"][sel]
+    return np.asarray(p)[np.atleast_1d(idx)]

@@ -1,0 +1,105 @@
+{
+  "env_source": ".scratch/env_era5_v2.parquet",
+  "seeds": [
+    5
+  ],
+  "results": {
+    "baseline(仅轨迹)": [
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 5,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          64.94261932373047,
+          149.278564453125,
+          274.7259216308594,
+          409.34918212890625
+        ],
+        "mae_overall": 224.57403564453125,
+        "best_epoch": 29
+      }
+    ],
+    "+环境场": [
+      {
+        "tag": "+环境场",
+        "seed": 5,
+        "n_features": 13,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          65.02806091308594,
+          154.95433044433594,
+          278.00701904296875,
+          412.9380798339844
+        ],
+        "mae_overall": 227.73190307617188,
+        "best_epoch": 28
+      }
+    ],
+    "仅环境场": [
+      {
+        "tag": "仅环境场",
+        "seed": 5,
+        "n_features": 5,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          79.49968719482422,
+          183.25228881835938,
+          308.6745300292969,
+          442.54010009765625
+        ],
+        "mae_overall": 253.49163818359375,
+        "best_epoch": 24
+      }
+    ]
+  },
+  "paired_tests": [
+    {
+      "a": "+环境场",
+      "b": "baseline(仅轨迹)",
+      "mean_a": 227.73190307617188,
+      "mean_b": 224.57403564453125,
+      "mean_diff": 3.157867431640625,
+      "n": 1,
+      "a_better_folds": 0
+    },
+    {
+      "a": "+环境场",
+      "b": "仅环境场",
+      "mean_a": 227.73190307617188,
+      "mean_b": 253.49163818359375,
+      "mean_diff": -25.759735107421875,
+      "n": 1,
+      "a_better_folds": 1
+    }
+  ]
+}

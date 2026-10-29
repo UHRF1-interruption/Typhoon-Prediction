@@ -243,13 +243,18 @@ class IntensityFeatureTransformer(nn.Module):
 
 def build_intensity_model(cfg, scalar_dim: int, in_len: int, out_len: int,
                           use_patch: bool, patch_size: int,
-                          patch_chans: int = 4) -> nn.Module:
-    """按配置构建强度预测模型。"""
+                          patch_chans: int = 4, img_dim: int | None = None) -> nn.Module:
+    """按配置构建强度预测模型。
+
+    img_dim: 云图手工特征维数。为 None 时退回配置值/默认 15；
+             训练脚本会从实际 pfeat 形状传入，避免特征表扩充后维度错配。
+    """
     name = str(getattr(cfg, "name", "fusion_transformer")).lower()
     if name in ("feature_transformer", "feat_transformer"):
         return IntensityFeatureTransformer(
             scalar_dim=scalar_dim, out_len=out_len, in_len=in_len,
-            img_dim=int(getattr(cfg, "img_feat_dim", 15)),
+            img_dim=int(img_dim if img_dim is not None
+                        else getattr(cfg, "img_feat_dim", 15)),
             d_model=int(getattr(cfg, "d_model", 128)),
             nhead=int(getattr(cfg, "nhead", 8)),
             num_layers=int(getattr(cfg, "num_layers", 2)),

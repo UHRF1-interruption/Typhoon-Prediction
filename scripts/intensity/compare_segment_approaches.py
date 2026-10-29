@@ -41,6 +41,8 @@ import torch  # noqa: E402
 from torch.utils.data import DataLoader, Dataset  # noqa: E402
 
 from src.config import load_config  # noqa: E402
+from src.data.fysatty import patch_cache_name  # noqa: E402
+from src.data.sat_intensity import take_patches  # noqa: E402
 from src.data.sat_intensity import (  # noqa: E402
     SCALAR_FEATURES, SatConfig, build_intensity_samples,
 )
@@ -63,8 +65,8 @@ class SegDataset(Dataset):
         self.s = bundle["s"][idx]
         self.y = bundle["y"][idx]
         self.last = bundle["last_wind"][idx]
-        self.p = bundle.get("p")
-        self.p = self.p[idx] if self.p is not None else None
+        # 帧下标记法（见 sat_intensity.build_intensity_samples），按需取帧
+        self.p = take_patches(bundle, idx) if "p" in bundle else None
         self.pfeat = bundle.get("pfeat")
         self.pfeat = self.pfeat[idx] if self.pfeat is not None else None
         self.seg = bundle["_seg_idx"][idx]          # int 数组 0/1/2
@@ -115,11 +117,14 @@ def train_model(cfg, bundle, splits, scaler, onehot: bool, epochs: int,
     # 注意: ds.s 是标准化后的原始特征（不含 one-hot），
     # one-hot 在 __getitem__ 里拼接，因此要用 batch 实际维度
     feat_dim = ds["train"].s.shape[-1] + (len(SEGMENTS) if onehot else 0)
-    patch_size = int(bundle["p"].shape[-1]) if "p" in bundle else 32
-    patch_chans = int(bundle["p"].shape[2]) if "p" in bundle else 3
+    _g = (bundle["pframes"][0] if "pframes" in bundle else bundle["p"][0][0]) if "p" in bundle else None
+    patch_size = int(_g.shape[-1]) if _g is not None else 32
+    patch_chans = int(_g.shape[0]) if _g is not None else 3
     model = build_intensity_model(sc.model, feat_dim, bundle["s"].shape[1],
                                   bundle["y"].shape[1], True, patch_size,
-                                  patch_chans=patch_chans).to(device)
+                                  patch_chans=patch_chans,
+                                  img_dim=(int(bundle["pfeat"].shape[-1])
+                                           if "pfeat" in bundle else None)).to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=float(sc.train.lr),
                             weight_decay=float(sc.train.weight_decay))
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=max(1, epochs))
@@ -190,7 +195,7 @@ def main() -> int:
     sat = align_terrain_to_satellites(sat, terr)
     sat = forward_fill_terrain(sat)
 
-    cache = ROOT / cfg.data.processed_dir / sc.patch_cache
+    cache = ROOT / cfg.data.processed_dir / patch_cache_name(cfg)
     d = np.load(cache, allow_pickle=False)
     patches = {}
     for k, p in zip(d["keys"], d["patches"]):

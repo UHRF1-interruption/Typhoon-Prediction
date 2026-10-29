@@ -31,7 +31,7 @@ sys.path.insert(0, str(ROOT))
 import numpy as np  # noqa: E402
 
 from src.config import load_config  # noqa: E402
-from src.data.fysatty import extract_patch, list_satellite_files  # noqa: E402
+from src.data.fysatty import extract_patch, list_satellite_files, patch_cache_name  # noqa: E402
 
 
 def main() -> int:
@@ -45,7 +45,7 @@ def main() -> int:
     cfg = load_config(args.config, args.set)
     size = args.size or int(cfg.satellite.patch_size)
     raw_dir = _data_path(cfg, cfg.data.raw_dir) / "bsts"
-    out_path = _data_path(cfg, cfg.data.processed_dir) / cfg.satellite.patch_cache
+    out_path = _data_path(cfg, cfg.data.processed_dir) / patch_cache_name(cfg)
 
     zip_dir = _data_path(cfg, cfg.satellite.zip_dir)
     # 清单文件存在就用它，否则直接扫描目录（便于你后续追加新数据包）
@@ -72,6 +72,7 @@ def main() -> int:
     t0 = time.time()
     keys, patches = [], []
     n_fail = 0
+    fail_types = {}          # 异常类型 -> 数量，用于区分"文件坏了"还是"代码有问题"
     for i, row in enumerate(files.itertuples(index=False), 1):
         try:
             r = extract_patch(row.zip_path, row.member, half_size=size // 2, out_size=size)
@@ -79,8 +80,10 @@ def main() -> int:
             patches.append(r["patch"].astype(np.float32))
         except Exception as exc:
             n_fail += 1
-            if n_fail <= 5:
-                print(f"[patch] 失败 {row.member.split('/')[-1][:45]}: {type(exc).__name__}")
+            et = type(exc).__name__
+            fail_types[et] = fail_types.get(et, 0) + 1
+            if n_fail <= 10:
+                print(f"[patch] 失败 {row.member.split('/')[-1][:55]}: {et}")
         if i % 500 == 0 or i == len(files):
             el = time.time() - t0
             eta = el / i * (len(files) - i)
@@ -96,6 +99,10 @@ def main() -> int:
     print(f"[patch] 完成: {len(keys)} 帧, 形状 {arr.shape}, "
           f"文件 {out_path.stat().st_size / 1e6:.1f} MB, 失败 {n_fail} 帧")
     print(f"[patch] 总耗时 {(time.time() - t0) / 60:.1f} 分钟 -> {out_path}")
+    if fail_types:
+        print(f"[patch] 失败类型统计: {fail_types}")
+        if fail_types.get("CorruptFileError"):
+            print("        CorruptFileError = 源文件 HDF5 元数据损坏，数据不可恢复")
     return 0
 
 

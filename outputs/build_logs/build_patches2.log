@@ -1,0 +1,159 @@
+[sat] 共 14564 个文件, 68 个台风, 卫星 ['FY2-G', 'FY2-H', 'FY4-A', 'FY4-B'], 年份 2022, 2023, 2024
+[patch] 去重后 4253 帧（每时次选优先级最高的卫星），patch=32x32
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 500/4253 已用 0.5 分钟, 预计还需 4.0 分钟
+[patch] 1000/4253 已用 1.1 分钟, 预计还需 3.4 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 1500/4253 已用 1.6 分钟, 预计还需 3.0 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 2000/4253 已用 2.1 分钟, 预计还需 2.4 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 2500/4253 已用 2.7 分钟, 预计还需 1.9 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 3000/4253 已用 3.2 分钟, 预计还需 1.3 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 3500/4253 已用 3.7 分钟, 预计还需 0.8 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 4000/4253 已用 4.3 分钟, 预计还需 0.3 分钟
+[patch] 4253/4253 已用 4.6 分钟, 预计还需 0.0 分钟
+[patch] 完成: 4253 帧, 形状 (4253, 3, 32, 32), 文件 20.3 MB, 失败 0 帧
+[patch] 总耗时 4.6 分钟 -> /home/haru/Project/ds/typhoon-transformer/data/processed/sat_patches.npz

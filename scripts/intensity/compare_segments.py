@@ -30,6 +30,8 @@ import torch  # noqa: E402
 from torch.utils.data import DataLoader  # noqa: E402
 
 from src.config import load_config  # noqa: E402
+from src.data.fysatty import patch_cache_name  # noqa: E402
+from src.data.sat_intensity import take_patches  # noqa: E402
 from src.data.sat_intensity import SatConfig, build_intensity_samples, fit_scalar_scaler  # noqa: E402
 from src.data.terrain_align import align_terrain_to_satellites, forward_fill_terrain  # noqa: E402
 from src.data.terrain_segment import SEGMENTS, assign_segment, sample_segment_labels  # noqa: E402
@@ -66,7 +68,7 @@ def train_one(cfg, bundle, splits, epochs: int, device: str, tag: str,
                     "y": torch.from_numpy(bundle["y"][j].astype(np.float32)),
                     "last": torch.tensor(float(bundle["last_wind"][j]), dtype=torch.float32)}
             if "p" in bundle:
-                item["p"] = torch.from_numpy((bundle["p"][j] / 255.0).astype(np.float32))
+                item["p"] = torch.from_numpy((take_patches(bundle, j)[0] / 255.0).astype(np.float32))
             if "pfeat" in bundle:
                 item["pfeat"] = torch.from_numpy(bundle["pfeat"][j].astype(np.float32))
             return item
@@ -74,11 +76,14 @@ def train_one(cfg, bundle, splits, epochs: int, device: str, tag: str,
     bs = int(sc.train.batch_size)
     dl = {k: DataLoader(DS(v), batch_size=bs, shuffle=(k == "train"))
           for k, v in splits.items() if len(v) > 0}
-    patch_size = int(bundle["p"].shape[-1]) if "p" in bundle else 32
-    patch_chans = int(bundle["p"].shape[2]) if "p" in bundle else 3
+    _g = (bundle["pframes"][0] if "pframes" in bundle else bundle["p"][0][0]) if "p" in bundle else None
+    patch_size = int(_g.shape[-1]) if _g is not None else 32
+    patch_chans = int(_g.shape[0]) if _g is not None else 3
     model = build_intensity_model(sc.model, bundle["s"].shape[-1], bundle["s"].shape[1],
                                   bundle["y"].shape[1], True, patch_size,
-                                  patch_chans=patch_chans).to(device)
+                                  patch_chans=patch_chans,
+                                  img_dim=(int(bundle["pfeat"].shape[-1])
+                                           if "pfeat" in bundle else None)).to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=float(sc.train.lr),
                             weight_decay=float(sc.train.weight_decay))
     best_val, best_state = float("inf"), None
@@ -144,7 +149,7 @@ def main() -> int:
     sat = align_terrain_to_satellites(sat, terr)
     sat = forward_fill_terrain(sat)
 
-    cache = ROOT / cfg.data.processed_dir / sc.patch_cache
+    cache = ROOT / cfg.data.processed_dir / patch_cache_name(cfg)
     d = np.load(cache, allow_pickle=False)
     patches = {}
     for k, p in zip(d["keys"], d["patches"]):

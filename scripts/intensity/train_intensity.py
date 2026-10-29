@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import sys
 import time
 from pathlib import Path
@@ -36,6 +37,7 @@ import torch  # noqa: E402
 from torch.utils.data import DataLoader, Dataset  # noqa: E402
 
 from src.config import load_config  # noqa: E402
+from src.data.fysatty import patch_cache_name  # noqa: E402
 from src.data.sat_intensity import (  # noqa: E402
     SCALAR_FEATURES, SatConfig, build_intensity_samples, fit_scalar_scaler,
 )
@@ -55,7 +57,13 @@ def resolve_device(pref: str) -> torch.device:
 
 
 def load_patches(cache_path: Path) -> dict:
-    """读取缓存的 patch，返回 {(name, timestamp): patch}。"""
+    """读取缓存的 patch，返回 {(name, timestamp): (C,S,S)} 视图。
+
+    视图共享同一个底层数组，**不复制**帧数据：64px 下全量约 800MB，
+    若逐帧 list 化会再翻一倍。调用方不要修改返回值。
+    （不用 mmap：npz 是压缩格式，mmap 读不了；且只读 mmap 会让后续
+      np.stack 无法直接接管内存，反而更慢更卡。）
+    """
     if not cache_path.exists():
         raise FileNotFoundError(
             f"缺少云图缓存 {cache_path}，请先运行: "
@@ -65,9 +73,9 @@ def load_patches(cache_path: Path) -> dict:
     data = np.load(cache_path, allow_pickle=False)
     keys, patches = data["keys"], data["patches"]
     out = {}
-    for k, p in zip(keys, patches):
+    for i, k in enumerate(keys):
         name, ts = str(k).split("|", 1)
-        out[(name, pd.Timestamp(ts))] = p
+        out[(name, pd.Timestamp(ts))] = patches[i]      # 视图，共享同一底层数组
     print(f"[intensity] 载入云图 cache {len(out)} 帧, 形状 {patches.shape[1:]}")
     return out
 
@@ -77,7 +85,13 @@ class IntensityDataset(Dataset):
         self.s = bundle["s"][idx]
         self.y = bundle["y"][idx]
         self.last = bundle["last_wind"][idx]
-        self.p = bundle.get("p")[idx] if "p" in bundle else None
+        # bundle["p"][j] 是第 j 个样本的帧下标（in_len 个），指向共享表 pframes。
+        # 若在这里展开并整体标准化，会为每个 Dataset 复制约 N*in_len*3*S*S
+        # 的 float32：64px 下每个 train/val/test 各约 5.4GB，三份同时存在会吃光内存。
+        # 因此只保留引用，在 __getitem__ 里按需取帧并标准化。
+        self.p = bundle.get("p")
+        self.pframes = bundle.get("pframes")
+        self.p_idx = idx if self.p is not None else None
         self.pfeat = bundle.get("pfeat")[idx] if "pfeat" in bundle else None
         if scaler is not None:
             mean = np.asarray(scaler["mean"], np.float32)
@@ -89,12 +103,25 @@ class IntensityDataset(Dataset):
                 fm = np.asarray(scaler["img_mean"], np.float32)
                 fs = np.asarray(scaler["img_std"], np.float32)
                 self.pfeat = (self.pfeat - fm) / fs
-        # 云图按 255 归一化（原始是 0-255 的亮温/反照率编码）
-        if self.p is not None:
-            self.p = self.p / 255.0
+        # 云图像素标准化参数：用**训练集实测亮温的均值/标准差**逐通道标准化。
+        # 旧实现是 p / 255.0，但数据里是开尔文（实际范围约 101-340 K），
+        # 除完得到 0.40-1.33、均值 0.89、标准差仅约 0.1：相当于把云图缩小 10 倍，
+        # ReLU 网络对它几乎不敏感。scaler 里若没有像素统计量则退回除以 255。
+        pm = scaler.get("pix_mean") if scaler else None
+        ps = scaler.get("pix_std") if scaler else None
+        if pm is not None and ps is not None:
+            self._pix_mean = np.asarray(pm, np.float32)[:, None, None]
+            self._pix_std = np.asarray(ps, np.float32)[:, None, None]
+        else:
+            self._pix_mean, self._pix_std = 0.0, 255.0
 
     def __len__(self) -> int:
         return len(self.y)
+
+    def _patch(self, j: int) -> np.ndarray:
+        """取第 j 个样本的 patch 栈并标准化 -> (in_len, C, S, S) float32。"""
+        arr = self.pframes[self.p[self.p_idx[j]]].astype(np.float32)  # (in_len, C, S, S)
+        return (arr - self._pix_mean) / self._pix_std
 
     def __getitem__(self, i: int) -> dict:
         item = {
@@ -103,7 +130,7 @@ class IntensityDataset(Dataset):
             "last": torch.tensor(float(self.last[i]), dtype=torch.float32),
         }
         if self.p is not None:
-            item["p"] = torch.from_numpy(self.p[i].astype(np.float32))
+            item["p"] = torch.from_numpy(self._patch(i))
         if self.pfeat is not None:
             item["pfeat"] = torch.from_numpy(self.pfeat[i].astype(np.float32))
         return item
@@ -154,6 +181,19 @@ def run_training(cfg, bundle: dict, splits: dict, use_patch: bool) -> dict:
         img_std = np.where(img_std < 1e-6, 1.0, img_std)
         scaler["img_mean"] = img_mean.tolist()
         scaler["img_std"] = img_std.tolist()
+    if "p" in bundle:
+        # 云图像素标准化参数，同样**只用训练集**拟合（避免测试集信息泄漏）。
+        # 形状 (C,)：逐通道在全部训练帧、全部像素上统计。
+        # 训练帧可能被多个窗口共享，只取去重后的唯一帧，既省内存也避免重复计数。
+        uniq = sorted({int(f) for j in splits["train"] for f in bundle["p"][j]})
+        tr_pix = bundle["pframes"][uniq]
+        pix_mean = np.nanmean(tr_pix, axis=(0, 2, 3))
+        pix_std = np.nanstd(tr_pix, axis=(0, 2, 3))
+        pix_std = np.where(pix_std < 1e-6, 1.0, pix_std)
+        scaler["pix_mean"] = pix_mean.tolist()
+        scaler["pix_std"] = pix_std.tolist()
+        print(f"[pix] 训练集亮温 均值={np.round(pix_mean, 1).tolist()} "
+              f"标准差={np.round(pix_std, 2).tolist()} (K，逐通道)")
     ds = {
         "train": IntensityDataset(bundle, splits["train"], scaler),
         "val": IntensityDataset(bundle, splits["val"], scaler),
@@ -164,12 +204,14 @@ def run_training(cfg, bundle: dict, splits: dict, use_patch: bool) -> dict:
                         num_workers=int(sc.train.num_workers))
           for k, v in ds.items()}
 
-    patch_size = int(bundle["p"].shape[-1]) if "p" in bundle else int(sc.patch_size)
-    patch_chans = int(bundle["p"].shape[2]) if "p" in bundle else 4
+    g0 = bundle["pframes"][bundle["p"][splits["train"][0]][0]] if "p" in bundle else None
+    patch_size = int(g0.shape[-1]) if g0 is not None else int(sc.patch_size)
+    patch_chans = int(g0.shape[0]) if g0 is not None else 3
+    img_dim = int(bundle["pfeat"].shape[-1]) if "pfeat" in bundle else None
     model = build_intensity_model(sc.model, bundle["s"].shape[-1],
                                   bundle["s"].shape[1], bundle["y"].shape[1],
                                   use_patch and "p" in bundle, patch_size,
-                                  patch_chans=patch_chans).to(device)
+                                  patch_chans=patch_chans, img_dim=img_dim).to(device)
     n_param = sum(p.numel() for p in model.parameters() if p.requires_grad)
     tag = f"{sc.model.name}{'+云图' if getattr(model, 'use_patch', False) else ''}"
     print(f"\n{'#' * 60}\n# {tag}  参数量={n_param:,}  设备={device}\n{'#' * 60}")
@@ -326,8 +368,22 @@ def split_by_storm(bundle: dict, test_ratio: float, seed: int) -> dict:
     return {"train": tr, "val": mask(val_names), "test": mask(test_names)}
 
 
+def _nan_agg(x: np.ndarray, fn) -> float:
+    """忽略 nan 求均值/标准差；**全部为 nan 时返回 nan**（不填 0 冒充数值）。
+
+    持续法的趋势相关恒为 nan（基准恒定、变化量无方差），若在这里
+    用 np.nanmean 会抛 "Mean of empty slice" 警告并被静默填成 nan 之外的值。
+    """
+    x = np.asarray(x, dtype=float)
+    ok = np.isfinite(x)
+    if not ok.any():
+        return float("nan")
+    with np.errstate(invalid="ignore"):
+        return float(fn(x[ok]))
+
+
 def summarize_cv(results_by_fold: dict) -> dict:
-    """把各折结果汇总成 均值±标准差。"""
+    """把各 job 结果汇总成 均值±标准差（nan 安全）。"""
     out = {}
     tags = list(next(iter(results_by_fold.values())).keys())
     for tag in tags:
@@ -337,17 +393,91 @@ def summarize_cv(results_by_fold: dict) -> dict:
             [c if c == c else np.nan for c in f[tag]["metrics"]["trend_corr_by_step"]]
             for f in results_by_fold.values()
         ])
+        # 每个 job 内跨时效求平均相关；整个 job 无有效值时为 nan
+        corr_per_job = np.array([_nan_agg(corr[i], np.mean) for i in range(corr.shape[0])])
         out[tag] = {
             "mae_mean": maes.mean(axis=0),
             "mae_std": maes.std(axis=0),
             "overall_mean": float(overall.mean()),
             "overall_std": float(overall.std()),
-            "corr_mean": float(np.nanmean(corr)),
-            "corr_std": float(np.nanstd(np.nanmean(corr, axis=1))),
+            "corr_mean": _nan_agg(corr, np.mean),
+            "corr_std": _nan_agg(corr_per_job, np.std),
+            "n_corr_jobs": int(np.isfinite(corr_per_job).sum()),
             "n_params": next(iter(results_by_fold.values()))[tag]["n_params"],
             "mae_per_fold": maes.tolist(),
         }
     return out
+
+
+def cv_out_path(out_dir: Path, cv: int, overrides: list[str]) -> Path:
+    """CV 汇总文件名带上**影响模型**的配置指纹，避免不同实验互相覆盖。
+
+    只认 satellite.* / seed= 这类改变结果的覆盖项；device、run_name、batch_size
+    等不影响数值的参数不参与，免得换个设备就生成新文件名。
+    没有任何相关覆盖时仍用旧名 cv{N}_summary.json，保持向后兼容。
+    """
+    key = sorted(o for o in overrides
+                 if (o.startswith("satellite.") and not o.startswith("satellite.run_name"))
+                 or o.startswith("seed="))
+    if not key:
+        return out_dir / f"cv{cv}_summary.json"
+    import hashlib
+    joined = "|".join(key)
+    digest = hashlib.sha1(joined.encode("utf-8")).hexdigest()[:8]
+    slug = re.sub(r"[^0-9A-Za-z]+", "-", joined).strip("-")[:60]
+    return out_dir / f"cv{cv}_{slug}_{digest}_summary.json"
+
+
+def paired_vs(results_by_fold: dict, vs: str = "gru") -> dict:
+    """对照模型做配对比较：每个 job 是同一套切分下的两种模型，逐 job 取差值。
+
+    每个 job 的 mae_overall 已是该 job 整个测试集的样本均值，配对已吸收
+    "台风难度差异"这一主要噪声源。但同一划分 seed 内的 K 折测试集互斥，
+    不同划分 seed 之间台风会重叠，故 p 值偏乐观，必须结合胜率看。
+    """
+    tags = list(next(iter(results_by_fold.values())).keys())
+    if vs not in tags:
+        return {"error": f"对照模型 {vs} 不在 {tags}"}
+    out = {"baseline": vs, "n_jobs": len(results_by_fold)}
+    for tag in tags:
+        if tag == vs:
+            continue
+        d = np.array([f[tag]["metrics"]["mae_overall"] - f[vs]["metrics"]["mae_overall"]
+                      for f in results_by_fold.values()])
+        n = len(d)
+        mean, sd = float(d.mean()), float(d.std(ddof=1)) if n > 1 else 0.0
+        t = mean / (sd / np.sqrt(n)) if sd > 0 else float("nan")
+        entry = {"delta": mean, "sd": sd, "wins": int((d < 0).sum()),
+                 "win_rate": float((d < 0).mean()), "n": n, "t": float(t)}
+        try:
+            from scipy import stats  # 可选依赖
+            entry["p"] = float(stats.ttest_1samp(d, 0.0).pvalue)
+        except Exception:
+            entry["p"] = float("nan")
+        out[tag] = entry
+    return out
+
+
+def print_paired(res: dict) -> None:
+    if "error" in res:
+        print(f"[paired] {res['error']}  ← 数值可疑！")
+        return
+    print(f"\n配对比较（对照 = {res['baseline']}，{res['n_jobs']} job，负值=更好）")
+    print("| 模型 | ΔMAE | 胜率 | t | p |")
+    print("|---|---|---|---|---|")
+    for tag, e in res.items():
+        if tag in ("baseline", "n_jobs") or not isinstance(e, dict):
+            continue
+        p = "nan" if e["p"] != e["p"] else (f"{e['p']:.2g}" if e["p"] >= 1e-4 else "<1e-4")
+        print(f"| {tag} | {e['delta']:+.3f} | {e['wins']}/{e['n']} "
+              f"({e['win_rate']:.0%}) | {e['t']:+.2f} | {p} |")
+
+
+def _fmt_pm(mean: float, std: float, sign: str = "") -> str:
+    """均值±标准差；无有效值时显示 n/a，绝不显示 +0.000 之类的假数。"""
+    if not (np.isfinite(mean) and np.isfinite(std)):
+        return "n/a"
+    return f"{mean:{sign}.3f}±{std:.3f}" if sign else f"{mean:.2f}±{std:.2f}"
 
 
 def print_cv_table(cv: dict, horizon: np.ndarray) -> None:
@@ -357,8 +487,9 @@ def print_cv_table(cv: dict, horizon: np.ndarray) -> None:
     for tag, v in cv.items():
         cells = " | ".join(f"{m:.2f}±{s:.2f}"
                            for m, s in zip(v["mae_mean"], v["mae_std"]))
+        corr = _fmt_pm(v["corr_mean"], v["corr_std"], "+")
         print(f"| {tag} | {cells} | {v['overall_mean']:.2f}±{v['overall_std']:.2f} "
-              f"| {v['corr_mean']:+.3f}±{v['corr_std']:.3f} |")
+              f"| {corr} |")
 
 
 def main() -> int:
@@ -372,6 +503,9 @@ def main() -> int:
     ap.add_argument("--fold-seeds", nargs="*", type=int, default=[],
                     help="用多个折划分 seed 重复 K 折，检验结论对划分的稳健性。"
                          "路径实验证明单次划分的结论可能不成立")
+    ap.add_argument("--vs", default="gru",
+                    help="CV 模式下与哪个模型做配对比较（胜率 + 配对 t 检验）。"
+                         "设为空字符串跳过")
     ap.add_argument("--terrain", default=None,
                     help="地形特征 parquet（如 env_terrain.parquet）。"
                          "提供后会把 7 维地形特征加入标量输入")
@@ -391,7 +525,7 @@ def main() -> int:
         return 1
     scalars = pd.read_parquet(scalars_path)
 
-    cache = _data_path(cfg, cfg.data.processed_dir) / sc.patch_cache
+    cache = _data_path(cfg, cfg.data.processed_dir) / patch_cache_name(cfg)
     patches = load_patches(cache)
 
     use_terrain = bool(args.terrain)
@@ -448,6 +582,9 @@ def main() -> int:
     if args.cv and args.cv > 1:
         fseeds = args.fold_seeds or [int(cfg.seed)]
         results_by_fold = {}
+        # 每个 job 的来源（划分 seed + 折号），per_fold 里必须带上，
+        # 否则多种划分混在一起看不出方差来自"折"还是"划分"。
+        job_meta = {}
         fi = 0
         for fs in fseeds:
             folds = kfold_by_storm(bundle, args.cv, int(fs))
@@ -460,30 +597,65 @@ def main() -> int:
                     r = run_training(sub_cfg, sub_bundle, splits, use_patch)
                     res[r["tag"]] = r
                 results_by_fold[fi] = res
+                job_meta[str(fi)] = {
+                    "fold_seed": int(fs),
+                    "fold": k,
+                    "n_top_tr": int(len(set(bundle["name"][splits["train"]].tolist()))),
+                    "n_top_val": int(len(set(bundle["name"][splits["val"]].tolist()))),
+                    "n_top_test": int(len(set(bundle["name"][splits["test"]].tolist()))),
+                }
                 fi += 1
         print(f"\n[folds] 共 {len(results_by_fold)} 个 job "
               f"({args.cv} 折 × {len(fseeds)} 种划分 {fseeds})")
 
         cv = summarize_cv(results_by_fold)
         print("\n" + "=" * 70)
-        print(f"{args.cv} 折交叉验证汇总（测试集，MAE 单位 m/s，均值±标准差）")
+        print(f"{args.cv} 折交叉验证汇总（测试集，MAE 单位 m/s）"
+              f"  [n={len(results_by_fold)} job = {args.cv} 折 × {len(fseeds)} 种划分 {fseeds}]")
         print("=" * 70)
         print_cv_table(cv, horizon)
+        print("\n列顺序: ± 前 = 各 job 均值；± 后 = 各 job 标准差（非均值标准误）")
+        print("       两种划分之间台风重叠，job 之间不独立，勿据此下结论；"
+              "胜率/配对检验见 --vs")
 
         payload = {
+            # n_folds 只是折数；真正决定统计量的是 n_jobs。
             "n_folds": args.cv,
+            "n_fold_seeds": len(fseeds),
+            "fold_seeds": [int(s) for s in fseeds],
+            "n_jobs": len(results_by_fold),
+            "metric": "MAE m/s, test set, 3/6/9/12h",
+            # 口径声明：汇总用各 job 均值，std 为跨 job 标准差（ddof=0），
+            # 且在同一个配置内所有 job 共用模型 seed（见 config.seed），
+            # 因此 std 只反映"折/划分间的数据差异"，不含训练随机性。
+            "aggregation": {
+                "mean": "mean over jobs",
+                "std": "std over jobs (ddof=0)",
+                "model_seed": int(cfg.seed),
+                "note": "job 间不独立（台风在不同划分间重叠），std 不是均值标准误",
+            },
             "summary": {tag: {k: (v.tolist() if isinstance(v, np.ndarray) else v)
                               for k, v in d.items()}
                         for tag, d in cv.items()},
             "per_fold": {
-                str(fi): {tag: {"mae_by_step": r["metrics"]["mae_by_step"].tolist(),
-                                "overall": r["metrics"]["mae_overall"],
-                                "best_epoch": r["best_epoch"]}
-                          for tag, r in res.items()}
+                str(fi): {
+                    "fold_seed": job_meta[str(fi)]["fold_seed"],
+                    "fold": job_meta[str(fi)]["fold"],
+                    "n_storms": {k: job_meta[str(fi)][f"n_top_{k}"]
+                                 for k in ("tr", "val", "test")},
+                    **{tag: {"mae_by_step": r["metrics"]["mae_by_step"].tolist(),
+                             "overall": r["metrics"]["mae_overall"],
+                             "best_epoch": r["best_epoch"]}
+                       for tag, r in res.items()},
+                }
                 for fi, res in results_by_fold.items()
             },
         }
-        path = out_dir / f"cv{args.cv}_summary.json"
+        if args.vs:
+            payload["paired"] = paired_vs(results_by_fold, vs=args.vs)
+            print_paired(payload["paired"])
+        path = cv_out_path(out_dir, args.cv, args.set)
+        payload["output"] = str(path.relative_to(ROOT))
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"\nCV 结果已保存: {path}")
         return 0
@@ -505,8 +677,9 @@ def main() -> int:
     for tag, r in results.items():
         m = r["metrics"]
         cells = " | ".join(f"{v:.2f}" for v in m["mae_by_step"])
-        corr = np.nanmean(m["trend_corr_by_step"])
-        print(f"| {tag} | {cells} | {m['mae_overall']:.2f} | {corr:+.3f} |")
+        corr = _nan_agg(m["trend_corr_by_step"], np.mean)
+        print(f"| {tag} | {cells} | {m['mae_overall']:.2f} | "
+              f"{'n/a' if not np.isfinite(corr) else f'{corr:+.3f}'} |")
 
     summary = {tag: {"mae_by_step": r["metrics"]["mae_by_step"].tolist(),
                      "rmse_by_step": r["metrics"]["rmse_by_step"].tolist(),

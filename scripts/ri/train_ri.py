@@ -36,6 +36,7 @@ import torch  # noqa: E402
 from torch.utils.data import DataLoader, Dataset  # noqa: E402
 
 from src.config import load_config  # noqa: E402
+from src.data.fysatty import patch_cache_name  # noqa: E402
 from src.data.ri_events import RIConfig, build_ri_samples, class_weights  # noqa: E402
 from src.data.sat_intensity import SCALAR_FEATURES, fit_scalar_scaler  # noqa: E402
 from src.models.ri_model import build_ri_model  # noqa: E402
@@ -345,7 +346,7 @@ def main() -> int:
     import pandas as pd
 
     scalars = pd.read_parquet(_data_path(cfg, cfg.data.processed_dir) / "sat_scalars.parquet")
-    cache = _data_path(cfg, cfg.data.processed_dir) / sc.patch_cache
+    cache = _data_path(cfg, cfg.data.processed_dir) / patch_cache_name(cfg)
     if not cache.exists():
         print(f"[RI] 缺少云图缓存 {cache}，请先运行 build_sat_patches.py")
         return 1

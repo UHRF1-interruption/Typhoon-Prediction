@@ -113,7 +113,13 @@ output:
 satellite:
   # 卫星数据包目录（*.zip，内含 Tcsat NetCDF）
   zip_dir: data/raw/bsts
-  patch_size: 32         # 中心裁剪 patch 边长（4km/像素 -> 128km）
+  # 中心裁剪 patch 边长（4km/像素）。64 像素 = 边长 256km，即 ±128km 视野。
+  # 依据：IR1 平均亮温与当前强度的相关在 ±64km 为 -0.46，±128km 为 -0.55（最优），
+  # ±256km 降到 -0.50，±512km 只有 -0.30；且按半径拆看，32px patch 内
+  # 外圈（8<r<16px）r=-0.44 远强于核心（r<3）r=-0.19。
+  # 旧值 32 只覆盖 ±64km，恰好丢掉信息量最大的雨带/外圈。
+  patch_size: 64
+  # 注意：换尺寸后必须重建缓存（数据形状不同），文件名跟随尺寸以免覆盖旧缓存。
   patch_cache: sat_patches.npz
   in_len: 8              # 过去 8 步 × 3h = 24h
   out_len: 4             # 未来 4 步 × 3h = 12h
@@ -128,7 +134,10 @@ satellite:
     dropout: 0.15
     img_feat: 64
   train:
-    batch_size: 64
+    # 64px patch 下每个样本云图 8×3×64×64×4B ≈ 375KB，单 batch 反向峰值约 10MB/样本
+    # （实测 batch=16/32/64/128 对应整进程峰值 0.78/0.97/1.33/2.01 GB）。
+    # 15GB 内存机器跑 5 折 × 3 划分建议 ≤32；显存充足再调大。
+    batch_size: 32
     epochs: 60
     lr: 3.0e-4
     weight_decay: 1.0e-4

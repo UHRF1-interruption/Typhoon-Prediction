@@ -1,0 +1,64 @@
+[sat] 共 9574 个文件, 43 个台风, 卫星 ['FY2-G', 'FY2-H', 'FY4-A', 'FY4-B'], 年份 2023, 2024
+[patch] 去重后 2907 帧（每时次选优先级最高的卫星），patch=32x32
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 500/2907 已用 0.6 分钟, 预计还需 2.7 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 1000/2907 已用 1.1 分钟, 预计还需 2.2 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 1500/2907 已用 1.7 分钟, 预计还需 1.6 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 2000/2907 已用 2.3 分钟, 预计还需 1.0 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 2500/2907 已用 2.8 分钟, 预计还需 0.5 分钟
+/home/haru/Project/ds/typhoon-transformer/src/data/fysatty.py:170: RuntimeWarning: Mean of empty slice
+  m = np.nanmean(patch[c])
+[patch] 2907/2907 已用 3.3 分钟, 预计还需 0.0 分钟
+[patch] 完成: 2907 帧, 形状 (2907, 3, 32, 32), 文件 14.0 MB, 失败 0 帧
+[patch] 总耗时 3.3 分钟 -> /home/haru/Project/ds/typhoon-transformer/data/processed/sat_patches.npz

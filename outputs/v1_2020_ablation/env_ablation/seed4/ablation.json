@@ -1,0 +1,113 @@
+{
+  "env_source": ".scratch/env_era5.parquet",
+  "seeds": [
+    4
+  ],
+  "results": {
+    "baseline(仅轨迹)": [
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 4,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          75.65302276611328,
+          169.10165405273438,
+          278.5574645996094,
+          402.37017822265625
+        ],
+        "mae_overall": 231.42054748535156,
+        "best_epoch": 28
+      }
+    ],
+    "+环境场": [
+      {
+        "tag": "+环境场",
+        "seed": 4,
+        "n_features": 17,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          74.97206115722656,
+          163.77635192871094,
+          276.1977844238281,
+          398.7783203125
+        ],
+        "mae_overall": 228.43115234375,
+        "best_epoch": 29
+      }
+    ],
+    "仅环境场": [
+      {
+        "tag": "仅环境场",
+        "seed": 4,
+        "n_features": 9,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          91.17790222167969,
+          192.1959686279297,
+          300.91815185546875,
+          418.9580078125
+        ],
+        "mae_overall": 250.81259155273438,
+        "best_epoch": 29
+      }
+    ]
+  },
+  "paired_tests": [
+    {
+      "a": "+环境场",
+      "b": "baseline(仅轨迹)",
+      "mean_a": 228.43115234375,
+      "mean_b": 231.42054748535156,
+      "mean_diff": -2.9893951416015625,
+      "n": 1,
+      "a_better_folds": 1
+    },
+    {
+      "a": "+环境场",
+      "b": "仅环境场",
+      "mean_a": 228.43115234375,
+      "mean_b": 250.81259155273438,
+      "mean_diff": -22.381439208984375,
+      "n": 1,
+      "a_better_folds": 1
+    }
+  ]
+}
