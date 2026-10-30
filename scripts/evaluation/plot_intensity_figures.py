@@ -183,7 +183,11 @@ def fig_ri_auc(ri_dir: Path, out: Path) -> None:
     # AUC 的无技术基线是 0.5；从 0.5 起画，避免截断 y 轴夸大组间差异
     ax.set_ylim(0.5, 1.02)
     ax.set_ylabel("AUC (10-fold CV)")
-    ax.set_title("Rapid-intensification event detection: AUC by model and threshold")
+    if len(series) == 1:
+        thr_only = next(iter(series))
+        ax.set_title(f"Rapid-intensification detection: AUC at threshold {int(thr_only)} m/s")
+    else:
+        ax.set_title("Rapid-intensification event detection: AUC by model and threshold")
     ax.axhline(0.5, color="gray", linestyle="--", linewidth=1.0, alpha=0.7)
     ax.grid(axis="y", alpha=0.3)
     ax.legend(fontsize=9)
@@ -255,7 +259,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="生成技术报告 §4 的配图")
     ap.add_argument("--out-dir", default=str(ROOT / "outputs" / "figures"))
     ap.add_argument("--history", default=str(ROOT / "outputs" / "sat_intensity_history"))
-    ap.add_argument("--ri-dir", default=str(ROOT / "outputs" / "ri_events"))
+    ap.add_argument("--ri-dir", default=str(ROOT / "outputs" / "ri_events_64px"))
     args = ap.parse_args()
 
     out_dir = Path(args.out_dir)

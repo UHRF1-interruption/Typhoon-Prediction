@@ -121,7 +121,12 @@ class RIDataset(Dataset):
         self.delta = bundle["delta"][idx]
         self.with_img = with_img and "p" in bundle
         self.use_cnn = use_cnn
-        self.p = bundle["p"][idx] if (self.with_img and use_cnn) else None
+        # bundle["p"][j] 是帧下标，指向共享表 pframes（见 ri_events.build_ri_samples）。
+        # 不在这里展开，否则每个 Dataset 都会复制一份 (N,in_len,C,S,S)：
+        # 64px 下 12275 个样本约 5.6 GB，三份直接 OOM。
+        self.p = bundle["p"] if (self.with_img and use_cnn) else None
+        self.pframes = bundle.get("pframes")
+        self.p_idx = idx
         self.pfeat = bundle["pfeat"][idx] if (self.with_img and not use_cnn) else None
         if scaler is not None:
             mean = np.asarray(scaler["mean"], np.float32)
@@ -131,8 +136,15 @@ class RIDataset(Dataset):
                 fm = np.asarray(scaler["img_mean"], np.float32)
                 fs = np.asarray(scaler["img_std"], np.float32)
                 self.pfeat = (self.pfeat - fm) / fs
-        if self.p is not None:
-            self.p = self.p / 255.0
+        # 亮温像素标准化：用训练集逐通道均值/标准差；旧实现是 /255，
+        # 但数据是开尔文（101-340 K），除后标准差仅约 0.1，等于把云图缩小 10 倍。
+        pm = scaler.get("pix_mean") if scaler else None
+        ps = scaler.get("pix_std") if scaler else None
+        if pm is not None and ps is not None:
+            self._pix_mean = np.asarray(pm, np.float32)[:, None, None]
+            self._pix_std = np.asarray(ps, np.float32)[:, None, None]
+        else:
+            self._pix_mean, self._pix_std = 0.0, 255.0
 
     def __len__(self) -> int:
         return len(self.y)
@@ -144,7 +156,8 @@ class RIDataset(Dataset):
         }
         # 显式检查属性，避免 None 掩盖问题
         if getattr(self, "p", None) is not None:
-            item["p"] = torch.from_numpy(self.p[i].astype(np.float32))
+            arr = self.pframes[self.p[self.p_idx[i]]].astype(np.float32)
+            item["p"] = torch.from_numpy((arr - self._pix_mean) / self._pix_std)
         if getattr(self, "pfeat", None) is not None:
             item["pfeat"] = torch.from_numpy(self.pfeat[i].astype(np.float32))
         return item
@@ -182,6 +195,14 @@ def run_training(cfg, bundle: dict, splits: dict, mname: str) -> dict:
         s_ = np.nanstd(tr_feat, axis=0)
         scaler["img_mean"] = m_.tolist()
         scaler["img_std"] = np.where(s_ < 1e-6, 1.0, s_).tolist()
+    if "pframes" in bundle and use_cnn:
+        # 像素标准化参数：只用训练集、只统计去重后的唯一帧
+        uniq = sorted({int(f) for j in splits["train"] for f in bundle["p"][j]})
+        trpix = bundle["pframes"][uniq]
+        pmean = np.nanmean(trpix, axis=(0, 2, 3))
+        pstd = np.nanstd(trpix, axis=(0, 2, 3))
+        scaler["pix_mean"] = pmean.tolist()
+        scaler["pix_std"] = np.where(pstd < 1e-6, 1.0, pstd).tolist()
 
     datasets = {k: RIDataset(bundle, splits[k], scaler, with_img, use_cnn)
                 for k in ("train", "val", "test")}
@@ -202,7 +223,11 @@ def run_training(cfg, bundle: dict, splits: dict, mname: str) -> dict:
         return _finish(tag, 0, bundle["y"][splits["val"]], val_score,
                        bundle["y"][splits["test"]], test_score, pos_rate, [], mname)
 
-    patch_chans = int(bundle["p"].shape[2]) if "p" in bundle else 3
+    # p 现在是帧下标列表，通道数要从共享帧表取
+    if "pframes" in bundle:
+        patch_chans = int(bundle["pframes"].shape[1])
+    else:
+        patch_chans = int(bundle["p"].shape[2]) if "p" in bundle else 3
     img_dim = int(bundle["pfeat"].shape[-1]) if "pfeat" in bundle else 0
     model = build_ri_model(rc.model, bundle["s"].shape[-1], img_dim,
                            bundle["s"].shape[1], patch_chans,
@@ -368,7 +393,8 @@ def main() -> int:
     models = (["cnn_transformer", "feature_transformer", "gru", "persistence"]
               if args.compare else [str(rc_cfg.model)])
 
-    out_dir = ROOT / cfg.output.dir / "ri_events"
+    ri_run = str(getattr(rc_cfg, "run_name", "ri_events"))
+    out_dir = ROOT / cfg.output.dir / ri_run
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if args.cv and args.cv > 1:

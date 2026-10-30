@@ -104,12 +104,23 @@
 
 ## 三、RI 快速增强
 
-| 文件 | 内容 | 对应报告 |
-|---|---|---|
-| `ri_events/cv10_thr10_summary.json` | 10 折，阈值 10 m/s（正样本 11.7%） | §4.2 |
-| `ri_events/cv10_thr15_summary.json` | 10 折，阈值 15 m/s | §4.2 |
+| 文件 | 内容 | 数据规模 | 对应报告 |
+|---|---|---|---|
+| **`ri_events_64px/cv10_thr15_summary.json`** | **当前结果**：10 折，阈值 15 m/s | **224 台风**（正样本 4.8%） | §4.2.1 |
+| `ri_events_history/cv10_thr15_summary.json` | 旧结果：10 折，阈值 15 m/s | 90 台风 | §4.2.1 对照 |
+| `ri_events_history/cv10_thr10_summary.json` | 10 折，阈值 10 m/s | 90 台风 | §4.2.2（**待重跑**） |
 
-含 `paired_tests` 字段，可直接查看配对检验结果。
+含 `paired_tests` 字段（AUC / PR-AUC / CSI 各一组配对 t + Wilcoxon）。
+
+**阈值 10 尚未在 224 台风上重跑**，重跑命令：
+
+```bash
+MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python -u scripts/ri/train_ri.py \
+    --compare --cv 10 --set device=cuda satellite.ri.threshold_ms=10
+```
+
+> ⚠️ 注意是 `--set satellite.ri.threshold_ms=10`，脚本**没有** `--threshold` 参数。
+> 输出目录由 `satellite.ri.run_name` 决定（当前 `ri_events_64px`）。
 
 ---
 

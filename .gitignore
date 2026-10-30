@@ -44,7 +44,9 @@ outputs/*
 !outputs/intensity_rerun_warmcore/
 !outputs/intensity_rerun_summary.json
 # RI 事件（报告 §4.2）
-!outputs/ri_events/
+!outputs/ri_events_history/
+# ri_events_64px/ = 当前配置的 RI 输出（见 satellite.ri.run_name）
+!outputs/ri_events_64px/
 # 数据构建日志：卫星数据规模演进（报告 §2.4）
 !outputs/build_logs/
 # 报告 §4 配图（强度/云图消融/RI/特征消融），图 4-1 ~ 4-5

@@ -98,7 +98,7 @@ def build_ri_samples(scalars: pd.DataFrame, cfg: RIConfig,
                 if any((np.asarray(gg) > 0).mean() < 0.5 for gg in got):
                     skipped_patch += 1
                     continue
-                P.append(np.stack(got))
+                P.append(got)          # 只记帧引用，不展开（见函数末尾 pframes）
 
             S.append(s_win)
             Y.append(label)
@@ -119,14 +119,34 @@ def build_ri_samples(scalars: pd.DataFrame, cfg: RIConfig,
         "end_time": np.array([str(t) for t in times]),
     }
     if cfg.use_patch:
-        out["p"] = np.stack(P).astype(np.float32)
+        # 帧下标记法：滑动窗口高度重叠（同一帧被多个窗口引用），若把
+        # (N, in_len, C, S, S) 展开成实体数组，64px 下 12275 个样本需 5.6 GB。
+        # 改为去重成共享帧表 + 下标，训练端按需取帧。
+        uniq: dict[int, int] = {}
+        frames, p_idx = [], []
+        for got in P:
+            row = []
+            for g in got:
+                key = id(g)
+                j = uniq.get(key)
+                if j is None:
+                    j = len(frames)
+                    uniq[key] = j
+                    frames.append(g)
+                row.append(j)
+            p_idx.append(row)
+        stacked = (np.stack(frames) if frames
+                   else np.zeros((0,) + P[0][0].shape, np.float32))
+        out["pframes"] = stacked if stacked.dtype == np.float32 else stacked.astype(np.float32)
+        out["p"] = p_idx
         from .patch_features import stack_patch_features
-        out["pfeat"] = stack_patch_features(out["p"]).astype(np.float32)
+        frame_feat = stack_patch_features(out["pframes"]).astype(np.float32)
+        out["pfeat"] = frame_feat[np.asarray(p_idx, dtype=np.int64)]
 
     pos = int(out["y"].sum())
     print(f"[RI] 样本 {len(out['y'])}, 正样本 {pos} ({pos / len(out['y']) * 100:.1f}%), "
           f"阈值 {cfg.ri_threshold_ms} m/s, 窗口 {cfg.in_len}->{cfg.horizon} 步"
-          + (f", 云图 {out['p'].shape}" if cfg.use_patch else "")
+          + (f", 云图唯一帧 {out['pframes'].shape}" if cfg.use_patch else "")
           + (f", 跳过(缺帧) {skipped_patch}" if skipped_patch else ""))
     return out
 
