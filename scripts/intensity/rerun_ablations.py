@@ -24,8 +24,18 @@
     # 推荐（5 折 × 2 划分 = 10 job/变体）
     python scripts/intensity/rerun_ablations.py --device cuda
 
-    # 更稳健（5 折 × 3 划分 = 15 job/变体，约 30 分钟）
+    # 更稳健（5 折 × 3 划分 = 15 job/变体）
     python scripts/intensity/rerun_ablations.py --device cuda --fold-seeds 42 0 7
+
+    # 改结果目录名（避免覆盖已有的 intensity_rerun_* 结果）
+    python scripts/intensity/rerun_ablations.py --device cuda \
+        --fold-seeds 42 0 7 --out intensity_rerun_224
+
+耗时（GPU，2026-10 实测锚点）：32px/90 台风 约 7 分钟/变体；
+64px/224 台风 约 35-70 分钟/变体（数据 2.5 倍、patch 面积 4 倍、batch 减半）。
+
+注意：子进程输出是**流式转发**的，但变体结果文件只在全部折跑完后才写出。
+中途想看进度只能看终端行。
 """
 from __future__ import annotations
 
@@ -61,12 +71,26 @@ def main() -> int:
     ap.add_argument("--variants", nargs="*", default=list(VARIANTS))
     ap.add_argument("--terrain", default=".scratch/env_terrain.parquet")
     ap.add_argument("--out", default="intensity_rerun")
+    ap.add_argument("--overwrite", action="store_true",
+                    help="允许覆盖已存在的结果目录（默认拒绝）")
     args = ap.parse_args()
 
     od = out_dir()              # 配置里的 output.dir（通常就是 "outputs"）
     out_root = ROOT / od        # 不要再拼 "outputs"，否则变成 outputs/outputs
     out_root.mkdir(parents=True, exist_ok=True)
     n_jobs = args.folds * len(args.fold_seeds)
+
+    # 防覆盖：目标目录已存在且含结果时，除非显式 --overwrite 否则退出
+    clash = [n for n in args.variants
+             if (out_root / f"{args.out}_{n}" / f"cv{args.folds}_summary.json").exists()]
+    if clash and not args.overwrite:
+        print("[中止] 以下结果目录已有结果，继续会覆盖：", flush=True)
+        for n in clash:
+            p = out_root / f"{args.out}_{n}" / f"cv{args.folds}_summary.json"
+            print(f"  {p.relative_to(ROOT)}", flush=True)
+        print("\n换个名字（如 --out intensity_rerun_224），或加 --overwrite 强制覆盖。",
+              flush=True)
+        return 2
 
     print("=" * 74)
     print("强度消融统一重跑")
@@ -95,13 +119,30 @@ def main() -> int:
 
         print(f"\n{'=' * 74}\n变体 {name}: {desc}\n{'=' * 74}", flush=True)
         t0 = time.time()
-        proc = subprocess.run(cmd, capture_output=True, text=True,
-                              env={**os.environ, "MPLCONFIGDIR": "/tmp/mpl-cache"})
+        # 流式转发子进程输出：原先用 capture_output=True 会把整段输出缓冲到
+        # 变体结束才打印，长任务（>30 分钟）看起来像卡死。这里逐行 tee 到终端
+        # 与日志文件，既能看到进度，也保留完整记录。
+        log_path = out_root / f"{args.out}_{name}.log"
+        tail: list[str] = []
+        with open(log_path, "w", encoding="utf-8") as logf:
+            proc = subprocess.Popen(
+                cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                text=True, bufsize=1,
+                env={**os.environ, "MPLCONFIGDIR": "/tmp/mpl-cache"})
+            assert proc.stdout is not None
+            for line in proc.stdout:
+                print("  " + line.rstrip(), flush=True)
+                logf.write(line)
+                tail.append(line)
+                if len(tail) > 400:
+                    del tail[:200]
+            rc = proc.wait()
         el = time.time() - t0
-        if proc.returncode != 0:
-            print(f"  [失败] 退出码 {proc.returncode}", flush=True)
-            print(proc.stderr[-800:], flush=True)
-            summary[name] = {"ok": False, "error": proc.stderr[-500:]}
+        if rc != 0:
+            err = "".join(tail)[-800:]
+            print(f"  [失败] 退出码 {rc}，完整日志 {log_path}", flush=True)
+            print(err, flush=True)
+            summary[name] = {"ok": False, "error": err[-500:]}
             continue
         res_path = out_root / run_name / f"cv{args.folds}_summary.json"
         if not res_path.exists():
