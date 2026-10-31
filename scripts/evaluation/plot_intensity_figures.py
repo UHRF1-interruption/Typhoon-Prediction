@@ -197,22 +197,18 @@ def fig_ri_auc(ri_dir: Path, out: Path) -> None:
     print(f"[plot] RI AUC 对比 -> {out}")
 
 
-def fig_feature_ablation(variants: list[tuple[str, Path]], out: Path) -> None:
+def fig_feature_ablation(variants: list[tuple[str, Path]], out: Path,
+                         base_path: Path) -> None:
     """地形 / 暖心特征消融：相对 base 的 ΔMAE（逐 job 平均）。
 
-    每个变体的 base 是同目录的 intensity_rerun_base，保证同数据集同划分。
+    base_path 必须**显式传入**：早期版本从变体路径反推
+    （`变体目录/../intensity_rerun_base`），当变体改名为 224 台风批量时
+    会反推到 90 台风的 base，导致跨数据集比较而不会报错。显式传入后
+    由调用方负责保证 base 与变体同源。
     """
-    base_path = None
-    for _, p in variants:
-        cand = p.parent.parent / "intensity_rerun_base" / p.name
-        if cand.exists():
-            base_path = cand
-            break
-    if base_path is None:
-        print("[skip] 找不到 intensity_rerun_base，跳过特征消融图")
-        return
     base = _per_fold(base_path)
     if not base:
+        print(f"[skip] base 无数据：{base_path}")
         return
 
     # 排除 persistence：特征只进标量输入，持续法不看特征，ΔMAE 恒为 0，
@@ -246,7 +242,8 @@ def fig_feature_ablation(variants: list[tuple[str, Path]], out: Path) -> None:
     ax.set_xticks(x)
     ax.set_xticklabels([r[0] for r in rows], fontsize=9)
     ax.set_ylabel("ΔMAE vs base (m/s)   ← better | worse →")
-    ax.set_title("Terrain / warm-core features: no model improves over base")
+    ax.set_title("Feature ablation on 224 storms: warm-core hurts, terrain is neutral\n"
+                 "(bar = mean ΔMAE over 15 jobs, whisker = std; positive = worse)")
     ax.grid(axis="y", alpha=0.3)
     ax.legend(fontsize=9)
     fig.tight_layout()
@@ -260,6 +257,8 @@ def main() -> int:
     ap.add_argument("--out-dir", default=str(ROOT / "outputs" / "figures"))
     ap.add_argument("--history", default=str(ROOT / "outputs" / "sat_intensity_history"))
     ap.add_argument("--ri-dir", default=str(ROOT / "outputs" / "ri_events_64px"))
+    ap.add_argument("--ablation", default=str(ROOT / "outputs"),
+                    help="特征消融结果所在目录（读 intensity_rerun_224_*）")
     args = ap.parse_args()
 
     out_dir = Path(args.out_dir)
@@ -285,12 +284,17 @@ def main() -> int:
     fig_ri_auc(Path(args.ri_dir), out_dir / "ri_auc_compare.png")
 
     # 图 D：地形 / 暖心消融
+    # 224 台风版本（2026-10-30 重跑）。base 必须与变体同源，否则会变成
+    # 跨数据集的错误比较。
+    abl = Path(args.ablation) if getattr(args, "ablation", None) else \
+        ROOT / "outputs"
     fig_feature_ablation(
         [
-            ("+ warm-core", ROOT / "outputs" / "intensity_rerun_warmcore" / "cv5_summary.json"),
-            ("+ terrain", ROOT / "outputs" / "intensity_rerun_terrain" / "cv5_summary.json"),
+            ("+ warm-core", abl / "intensity_rerun_224_warmcore" / "cv5_summary.json"),
+            ("+ terrain", abl / "intensity_rerun_224_terrain" / "cv5_summary.json"),
         ],
         out=out_dir / "feature_ablation_delta.png",
+        base_path=abl / "intensity_rerun_224_base" / "cv5_summary.json",
     )
     return 0
 

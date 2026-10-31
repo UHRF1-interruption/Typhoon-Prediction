@@ -1,0 +1,78 @@
+seed: 42
+device: cuda
+data:
+  basin: WP
+  source: cma
+  cma_dir: data/raw/cma_attachments/extracted
+  raw_dir: data/raw
+  processed_dir: data/processed
+  ibtracs_version: v04r01
+  ibtracs_base_url: https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/
+  ibtracs_suffix: WP
+  download_time_budget_s: 300
+  download_workers: 24
+  interval_hours: 6
+  in_len: 12
+  out_len: 4
+  min_wind_knots: 34
+  drop_missing_wind: true
+  lon_range:
+  - 90.0
+  - 200.0
+  lat_range:
+  - 0.0
+  - 50.0
+  min_wind_ms: 17.2
+  val_years:
+  - 2010
+  - 2011
+  test_years:
+  - 2012
+  - 2013
+  synthetic:
+    n_storms: 400
+    start_year: 2010
+    n_years: 14
+    points_per_storm: 48
+features:
+  list:
+  - dlat
+  - dlon
+  - dist_prev
+  - sin_heading
+  - cos_heading
+  - wind_ms
+  - dpres_hpa
+  - lat_norm
+model:
+  name: transformer
+  d_model: 128
+  nhead: 8
+  num_encoder_layers: 4
+  num_decoder_layers: 2
+  dim_feedforward: 512
+  dropout: 0.15
+  pred_mode: delta
+  huber_delta_km: 100.0
+train:
+  batch_size: 256
+  epochs: 60
+  lr: 0.0001
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  warmup_epochs: 3
+  early_stop_patience: 12
+  loss: haversine
+  num_workers: 0
+  amp: true
+  log_interval: 20
+eval:
+  horizons_hours:
+  - 6
+  - 12
+  - 18
+  - 24
+output:
+  dir: outputs
+  ckpt_name: best.pt
+  run_name: default

@@ -1,0 +1,1933 @@
+[intensity] 载入云图 cache 17193 帧, 形状 (3, 64, 64)
+[terrain] 载入 72206 行地形特征
+[terrain-align] 卫星时次匹配 13204/17323 (76.2%)
+[terrain-align] 合并后完整地形特征 76.2%
+[sat] 强度样本 13079, 标量 (13079, 8, 15), 云图唯一帧 (15354, 3, 64, 64), 云图特征 (13079, 8, 23)
+[intensity] 样本 13079, 台风 222
+[fold 0] 台风 train=151 val=26 test=45 | 样本 train=9170 val=1425 test=2484
+[fold 1] 台风 train=151 val=26 test=45 | 样本 train=9170 val=1547 test=2362
+[fold 2] 台风 train=152 val=26 test=44 | 样本 train=8459 val=1547 test=3073
+[fold 3] 台风 train=152 val=26 test=44 | 样本 train=8725 val=1547 test=2807
+[fold 4] 台风 train=152 val=26 test=44 | 样本 train=9179 val=1547 test=2353
+
+======================================================================
+划分seed=42 fold 1/5
+======================================================================
+[pix] 训练集亮温 均值=[221.3000030517578, 232.0, 230.39999389648438] 标准差=[21.790000915527344, 33.04999923706055, 32.150001525878906] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9170 val=1425 test=2484
+[epoch  0] train=1.087 val_mae=1.70 m/s 8.2s
+[epoch  1] train=0.930 val_mae=1.76 m/s 7.7s
+[epoch  2] train=0.890 val_mae=1.69 m/s 7.7s
+[epoch  3] train=0.846 val_mae=1.76 m/s 7.8s
+[epoch  4] train=0.825 val_mae=1.75 m/s 7.8s
+[epoch  5] train=0.801 val_mae=1.72 m/s 7.8s
+[epoch  6] train=0.788 val_mae=1.76 m/s 7.8s
+[epoch  7] train=0.759 val_mae=1.78 m/s 7.8s
+[epoch  8] train=0.746 val_mae=1.83 m/s 7.9s
+[epoch  9] train=0.732 val_mae=1.78 m/s 7.8s
+[epoch 10] train=0.721 val_mae=1.80 m/s 7.9s
+[epoch 11] train=0.707 val_mae=1.79 m/s 7.9s
+[epoch 12] train=0.690 val_mae=1.77 m/s 7.8s
+[epoch 13] train=0.675 val_mae=1.77 m/s 7.9s
+[epoch 14] train=0.669 val_mae=1.86 m/s 7.9s
+[epoch 15] train=0.651 val_mae=1.77 m/s 7.9s
+[epoch 16] train=0.641 val_mae=1.77 m/s 7.9s
+[epoch 17] train=0.631 val_mae=1.79 m/s 7.9s
+[早停] epoch 17，最佳 epoch 2
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.18  趋势相关=+0.653
+     6h  MAE=1.51 m/s  RMSE=2.12  趋势相关=+0.680
+     9h  MAE=2.10 m/s  RMSE=2.91  趋势相关=+0.703
+    12h  MAE=2.64 m/s  RMSE=3.66  趋势相关=+0.713
+  平均 MAE=1.77 m/s  (最佳 epoch 2)
+[pix] 训练集亮温 均值=[221.3000030517578, 232.0, 230.39999389648438] 标准差=[21.790000915527344, 33.04999923706055, 32.150001525878906] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9170 val=1425 test=2484
+[epoch  0] train=1.123 val_mae=1.83 m/s 4.3s
+[epoch  1] train=0.957 val_mae=1.67 m/s 4.4s
+[epoch  2] train=0.869 val_mae=1.70 m/s 4.2s
+[epoch  3] train=0.822 val_mae=1.80 m/s 4.1s
+[epoch  4] train=0.783 val_mae=1.78 m/s 4.3s
+[epoch  5] train=0.744 val_mae=1.81 m/s 4.3s
+[epoch  6] train=0.722 val_mae=1.71 m/s 4.3s
+[epoch  7] train=0.693 val_mae=1.78 m/s 4.3s
+[epoch  8] train=0.661 val_mae=1.84 m/s 4.3s
+[epoch  9] train=0.634 val_mae=1.75 m/s 4.3s
+[epoch 10] train=0.619 val_mae=2.05 m/s 4.2s
+[epoch 11] train=0.599 val_mae=1.94 m/s 4.3s
+[epoch 12] train=0.578 val_mae=1.79 m/s 4.2s
+[epoch 13] train=0.553 val_mae=1.86 m/s 4.2s
+[epoch 14] train=0.544 val_mae=1.99 m/s 4.0s
+[epoch 15] train=0.525 val_mae=1.88 m/s 4.0s
+[epoch 16] train=0.515 val_mae=1.98 m/s 4.1s
+[早停] epoch 16，最佳 epoch 1
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.19  趋势相关=+0.639
+     6h  MAE=1.52 m/s  RMSE=2.16  趋势相关=+0.662
+     9h  MAE=2.13 m/s  RMSE=3.00  趋势相关=+0.679
+    12h  MAE=2.69 m/s  RMSE=3.81  趋势相关=+0.686
+  平均 MAE=1.79 m/s  (最佳 epoch 1)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9170 val=1425 test=2484
+[epoch  0] train=1.097 val_mae=1.60 m/s 0.7s
+[epoch  1] train=0.906 val_mae=1.62 m/s 0.7s
+[epoch  2] train=0.871 val_mae=1.60 m/s 0.7s
+[epoch  3] train=0.846 val_mae=1.61 m/s 0.8s
+[epoch  4] train=0.829 val_mae=1.56 m/s 0.8s
+[epoch  5] train=0.819 val_mae=1.51 m/s 0.8s
+[epoch  6] train=0.807 val_mae=1.57 m/s 0.8s
+[epoch  7] train=0.797 val_mae=1.53 m/s 0.8s
+[epoch  8] train=0.784 val_mae=1.55 m/s 0.8s
+[epoch  9] train=0.772 val_mae=1.55 m/s 0.8s
+[epoch 10] train=0.763 val_mae=1.54 m/s 0.8s
+[epoch 11] train=0.760 val_mae=1.60 m/s 0.8s
+[epoch 12] train=0.754 val_mae=1.53 m/s 0.8s
+[epoch 13] train=0.743 val_mae=1.55 m/s 0.8s
+[epoch 14] train=0.734 val_mae=1.55 m/s 0.8s
+[epoch 15] train=0.730 val_mae=1.54 m/s 0.7s
+[epoch 16] train=0.716 val_mae=1.59 m/s 0.7s
+[epoch 17] train=0.713 val_mae=1.60 m/s 0.7s
+[epoch 18] train=0.706 val_mae=1.58 m/s 0.7s
+[epoch 19] train=0.695 val_mae=1.55 m/s 0.7s
+[epoch 20] train=0.687 val_mae=1.59 m/s 0.7s
+[早停] epoch 20，最佳 epoch 5
+
+[gru] 测试集强度误差:
+     3h  MAE=0.71 m/s  RMSE=1.03  趋势相关=+0.750
+     6h  MAE=1.37 m/s  RMSE=1.96  趋势相关=+0.737
+     9h  MAE=1.98 m/s  RMSE=2.74  趋势相关=+0.745
+    12h  MAE=2.51 m/s  RMSE=3.46  趋势相关=+0.750
+  平均 MAE=1.64 m/s  (最佳 epoch 5)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9170 val=1425 test=2484
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.92 m/s  RMSE=1.54  趋势相关=+nan
+     6h  MAE=1.84 m/s  RMSE=2.88  趋势相关=+nan
+     9h  MAE=2.75 m/s  RMSE=4.08  趋势相关=+nan
+    12h  MAE=3.62 m/s  RMSE=5.22  趋势相关=+nan
+  平均 MAE=2.28 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=42 fold 2/5
+======================================================================
+[pix] 训练集亮温 均值=[221.39999389648438, 231.6999969482422, 230.0] 标准差=[21.450000762939453, 32.70000076293945, 31.969999313354492] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9170 val=1547 test=2362
+[epoch  0] train=1.094 val_mae=1.80 m/s 7.8s
+[epoch  1] train=0.958 val_mae=1.81 m/s 7.8s
+[epoch  2] train=0.903 val_mae=1.70 m/s 7.8s
+[epoch  3] train=0.863 val_mae=1.75 m/s 7.8s
+[epoch  4] train=0.828 val_mae=1.78 m/s 7.9s
+[epoch  5] train=0.819 val_mae=1.70 m/s 7.9s
+[epoch  6] train=0.791 val_mae=1.68 m/s 7.9s
+[epoch  7] train=0.773 val_mae=1.81 m/s 7.9s
+[epoch  8] train=0.766 val_mae=1.75 m/s 8.0s
+[epoch  9] train=0.741 val_mae=1.89 m/s 7.9s
+[epoch 10] train=0.735 val_mae=1.71 m/s 8.0s
+[epoch 11] train=0.709 val_mae=1.79 m/s 8.0s
+[epoch 12] train=0.702 val_mae=1.78 m/s 7.9s
+[epoch 13] train=0.681 val_mae=1.76 m/s 7.9s
+[epoch 14] train=0.667 val_mae=1.80 m/s 7.9s
+[epoch 15] train=0.657 val_mae=1.79 m/s 7.9s
+[epoch 16] train=0.647 val_mae=1.89 m/s 7.9s
+[epoch 17] train=0.634 val_mae=1.97 m/s 7.9s
+[epoch 18] train=0.632 val_mae=1.92 m/s 7.9s
+[epoch 19] train=0.611 val_mae=1.88 m/s 8.0s
+[epoch 20] train=0.605 val_mae=1.97 m/s 8.0s
+[epoch 21] train=0.591 val_mae=1.92 m/s 8.0s
+[早停] epoch 21，最佳 epoch 6
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.75 m/s  RMSE=1.07  趋势相关=+0.708
+     6h  MAE=1.36 m/s  RMSE=1.94  趋势相关=+0.729
+     9h  MAE=1.92 m/s  RMSE=2.67  趋势相关=+0.750
+    12h  MAE=2.41 m/s  RMSE=3.31  趋势相关=+0.769
+  平均 MAE=1.61 m/s  (最佳 epoch 6)
+[pix] 训练集亮温 均值=[221.39999389648438, 231.6999969482422, 230.0] 标准差=[21.450000762939453, 32.70000076293945, 31.969999313354492] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9170 val=1547 test=2362
+[epoch  0] train=1.136 val_mae=1.88 m/s 4.1s
+[epoch  1] train=0.980 val_mae=1.85 m/s 4.2s
+[epoch  2] train=0.898 val_mae=1.76 m/s 4.0s
+[epoch  3] train=0.858 val_mae=1.79 m/s 4.3s
+[epoch  4] train=0.804 val_mae=1.79 m/s 4.3s
+[epoch  5] train=0.769 val_mae=1.77 m/s 4.2s
+[epoch  6] train=0.730 val_mae=1.83 m/s 4.1s
+[epoch  7] train=0.707 val_mae=1.95 m/s 4.1s
+[epoch  8] train=0.685 val_mae=1.86 m/s 4.1s
+[epoch  9] train=0.651 val_mae=1.90 m/s 4.1s
+[epoch 10] train=0.632 val_mae=1.93 m/s 4.1s
+[epoch 11] train=0.615 val_mae=2.00 m/s 4.3s
+[epoch 12] train=0.590 val_mae=1.93 m/s 4.1s
+[epoch 13] train=0.567 val_mae=1.91 m/s 4.2s
+[epoch 14] train=0.551 val_mae=2.00 m/s 4.0s
+[epoch 15] train=0.537 val_mae=1.93 m/s 4.0s
+[epoch 16] train=0.523 val_mae=1.99 m/s 4.1s
+[epoch 17] train=0.503 val_mae=1.95 m/s 4.2s
+[早停] epoch 17，最佳 epoch 2
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.78 m/s  RMSE=1.14  趋势相关=+0.667
+     6h  MAE=1.42 m/s  RMSE=2.05  趋势相关=+0.695
+     9h  MAE=1.98 m/s  RMSE=2.82  趋势相关=+0.717
+    12h  MAE=2.50 m/s  RMSE=3.51  趋势相关=+0.735
+  平均 MAE=1.67 m/s  (最佳 epoch 2)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9170 val=1547 test=2362
+[epoch  0] train=1.084 val_mae=1.67 m/s 0.8s
+[epoch  1] train=0.913 val_mae=1.62 m/s 0.8s
+[epoch  2] train=0.884 val_mae=1.61 m/s 0.8s
+[epoch  3] train=0.863 val_mae=1.62 m/s 0.8s
+[epoch  4] train=0.841 val_mae=1.60 m/s 0.8s
+[epoch  5] train=0.829 val_mae=1.61 m/s 0.8s
+[epoch  6] train=0.818 val_mae=1.63 m/s 0.8s
+[epoch  7] train=0.809 val_mae=1.64 m/s 0.8s
+[epoch  8] train=0.799 val_mae=1.63 m/s 0.8s
+[epoch  9] train=0.796 val_mae=1.66 m/s 0.8s
+[epoch 10] train=0.785 val_mae=1.66 m/s 0.8s
+[epoch 11] train=0.776 val_mae=1.64 m/s 0.8s
+[epoch 12] train=0.767 val_mae=1.64 m/s 0.8s
+[epoch 13] train=0.755 val_mae=1.64 m/s 0.8s
+[epoch 14] train=0.750 val_mae=1.66 m/s 0.8s
+[epoch 15] train=0.735 val_mae=1.65 m/s 0.8s
+[epoch 16] train=0.737 val_mae=1.69 m/s 0.8s
+[epoch 17] train=0.720 val_mae=1.69 m/s 0.8s
+[epoch 18] train=0.717 val_mae=1.72 m/s 0.8s
+[epoch 19] train=0.708 val_mae=1.70 m/s 0.8s
+[早停] epoch 19，最佳 epoch 4
+
+[gru] 测试集强度误差:
+     3h  MAE=0.65 m/s  RMSE=0.98  趋势相关=+0.766
+     6h  MAE=1.27 m/s  RMSE=1.86  趋势相关=+0.759
+     9h  MAE=1.85 m/s  RMSE=2.62  趋势相关=+0.765
+    12h  MAE=2.34 m/s  RMSE=3.27  趋势相关=+0.777
+  平均 MAE=1.53 m/s  (最佳 epoch 4)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9170 val=1547 test=2362
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.89 m/s  RMSE=1.51  趋势相关=+nan
+     6h  MAE=1.76 m/s  RMSE=2.83  趋势相关=+nan
+     9h  MAE=2.64 m/s  RMSE=4.02  趋势相关=+nan
+    12h  MAE=3.48 m/s  RMSE=5.15  趋势相关=+nan
+  平均 MAE=2.19 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=42 fold 3/5
+======================================================================
+[pix] 训练集亮温 均值=[220.60000610351562, 230.39999389648438, 228.8000030517578] 标准差=[21.639999389648438, 32.709999084472656, 31.790000915527344] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8459 val=1547 test=3073
+[epoch  0] train=1.140 val_mae=1.96 m/s 7.3s
+[epoch  1] train=0.980 val_mae=1.76 m/s 7.4s
+[epoch  2] train=0.930 val_mae=1.81 m/s 7.4s
+[epoch  3] train=0.899 val_mae=1.80 m/s 7.4s
+[epoch  4] train=0.868 val_mae=1.74 m/s 7.4s
+[epoch  5] train=0.839 val_mae=1.72 m/s 7.3s
+[epoch  6] train=0.815 val_mae=1.76 m/s 7.4s
+[epoch  7] train=0.791 val_mae=1.81 m/s 7.5s
+[epoch  8] train=0.764 val_mae=1.74 m/s 7.4s
+[epoch  9] train=0.746 val_mae=1.83 m/s 7.4s
+[epoch 10] train=0.740 val_mae=1.80 m/s 7.4s
+[epoch 11] train=0.723 val_mae=1.77 m/s 7.4s
+[epoch 12] train=0.706 val_mae=1.89 m/s 7.4s
+[epoch 13] train=0.693 val_mae=1.85 m/s 7.4s
+[epoch 14] train=0.682 val_mae=1.94 m/s 7.4s
+[epoch 15] train=0.663 val_mae=1.81 m/s 7.4s
+[epoch 16] train=0.654 val_mae=1.92 m/s 7.4s
+[epoch 17] train=0.647 val_mae=1.82 m/s 7.4s
+[epoch 18] train=0.632 val_mae=1.86 m/s 7.5s
+[epoch 19] train=0.628 val_mae=1.84 m/s 7.5s
+[epoch 20] train=0.608 val_mae=1.90 m/s 7.4s
+[早停] epoch 20，最佳 epoch 5
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.70 m/s  RMSE=1.03  趋势相关=+0.708
+     6h  MAE=1.27 m/s  RMSE=1.86  趋势相关=+0.728
+     9h  MAE=1.79 m/s  RMSE=2.56  趋势相关=+0.751
+    12h  MAE=2.23 m/s  RMSE=3.16  趋势相关=+0.769
+  平均 MAE=1.50 m/s  (最佳 epoch 5)
+[pix] 训练集亮温 均值=[220.60000610351562, 230.39999389648438, 228.8000030517578] 标准差=[21.639999389648438, 32.709999084472656, 31.790000915527344] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8459 val=1547 test=3073
+[epoch  0] train=1.173 val_mae=1.85 m/s 3.9s
+[epoch  1] train=0.998 val_mae=1.91 m/s 3.9s
+[epoch  2] train=0.920 val_mae=1.72 m/s 3.8s
+[epoch  3] train=0.864 val_mae=1.77 m/s 3.8s
+[epoch  4] train=0.825 val_mae=1.70 m/s 3.8s
+[epoch  5] train=0.790 val_mae=1.77 m/s 3.7s
+[epoch  6] train=0.757 val_mae=1.80 m/s 3.6s
+[epoch  7] train=0.721 val_mae=1.77 m/s 3.6s
+[epoch  8] train=0.688 val_mae=1.89 m/s 3.7s
+[epoch  9] train=0.667 val_mae=1.84 m/s 3.9s
+[epoch 10] train=0.631 val_mae=1.87 m/s 3.9s
+[epoch 11] train=0.616 val_mae=1.87 m/s 3.8s
+[epoch 12] train=0.597 val_mae=1.82 m/s 3.6s
+[epoch 13] train=0.573 val_mae=1.86 m/s 3.7s
+[epoch 14] train=0.558 val_mae=1.94 m/s 3.7s
+[epoch 15] train=0.545 val_mae=1.85 m/s 3.7s
+[epoch 16] train=0.529 val_mae=1.84 m/s 3.6s
+[epoch 17] train=0.508 val_mae=1.88 m/s 3.6s
+[epoch 18] train=0.492 val_mae=1.85 m/s 3.6s
+[epoch 19] train=0.487 val_mae=1.94 m/s 3.6s
+[早停] epoch 19，最佳 epoch 4
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.75 m/s  RMSE=1.08  趋势相关=+0.688
+     6h  MAE=1.37 m/s  RMSE=1.96  趋势相关=+0.713
+     9h  MAE=1.92 m/s  RMSE=2.70  趋势相关=+0.737
+    12h  MAE=2.39 m/s  RMSE=3.36  趋势相关=+0.753
+  平均 MAE=1.61 m/s  (最佳 epoch 4)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8459 val=1547 test=3073
+[epoch  0] train=1.126 val_mae=1.66 m/s 0.7s
+[epoch  1] train=0.932 val_mae=1.61 m/s 0.7s
+[epoch  2] train=0.905 val_mae=1.60 m/s 0.7s
+[epoch  3] train=0.881 val_mae=1.61 m/s 0.7s
+[epoch  4] train=0.866 val_mae=1.62 m/s 0.7s
+[epoch  5] train=0.855 val_mae=1.65 m/s 0.7s
+[epoch  6] train=0.843 val_mae=1.69 m/s 0.7s
+[epoch  7] train=0.831 val_mae=1.61 m/s 0.7s
+[epoch  8] train=0.820 val_mae=1.63 m/s 0.7s
+[epoch  9] train=0.812 val_mae=1.61 m/s 0.7s
+[epoch 10] train=0.806 val_mae=1.60 m/s 0.7s
+[epoch 11] train=0.793 val_mae=1.58 m/s 0.7s
+[epoch 12] train=0.786 val_mae=1.59 m/s 0.7s
+[epoch 13] train=0.775 val_mae=1.62 m/s 0.7s
+[epoch 14] train=0.770 val_mae=1.69 m/s 0.7s
+[epoch 15] train=0.759 val_mae=1.62 m/s 0.7s
+[epoch 16] train=0.752 val_mae=1.59 m/s 0.7s
+[epoch 17] train=0.742 val_mae=1.64 m/s 0.7s
+[epoch 18] train=0.730 val_mae=1.67 m/s 0.7s
+[epoch 19] train=0.722 val_mae=1.66 m/s 0.7s
+[epoch 20] train=0.719 val_mae=1.66 m/s 0.7s
+[epoch 21] train=0.706 val_mae=1.64 m/s 0.7s
+[epoch 22] train=0.697 val_mae=1.62 m/s 0.7s
+[epoch 23] train=0.690 val_mae=1.68 m/s 0.7s
+[epoch 24] train=0.681 val_mae=1.65 m/s 0.7s
+[epoch 25] train=0.677 val_mae=1.72 m/s 0.7s
+[epoch 26] train=0.671 val_mae=1.71 m/s 0.7s
+[早停] epoch 26，最佳 epoch 11
+
+[gru] 测试集强度误差:
+     3h  MAE=0.61 m/s  RMSE=0.95  趋势相关=+0.765
+     6h  MAE=1.23 m/s  RMSE=1.81  趋势相关=+0.751
+     9h  MAE=1.78 m/s  RMSE=2.53  趋势相关=+0.762
+    12h  MAE=2.25 m/s  RMSE=3.17  趋势相关=+0.773
+  平均 MAE=1.47 m/s  (最佳 epoch 11)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8459 val=1547 test=3073
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.46  趋势相关=+nan
+     6h  MAE=1.64 m/s  RMSE=2.72  趋势相关=+nan
+     9h  MAE=2.44 m/s  RMSE=3.86  趋势相关=+nan
+    12h  MAE=3.20 m/s  RMSE=4.93  趋势相关=+nan
+  平均 MAE=2.03 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=42 fold 4/5
+======================================================================
+[pix] 训练集亮温 均值=[220.3000030517578, 230.60000610351562, 229.0] 标准差=[22.420000076293945, 33.72999954223633, 32.79999923706055] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8725 val=1547 test=2807
+[epoch  0] train=1.144 val_mae=1.83 m/s 7.6s
+[epoch  1] train=0.979 val_mae=1.81 m/s 7.5s
+[epoch  2] train=0.935 val_mae=1.75 m/s 7.6s
+[epoch  3] train=0.894 val_mae=1.77 m/s 7.5s
+[epoch  4] train=0.871 val_mae=1.76 m/s 7.6s
+[epoch  5] train=0.839 val_mae=1.74 m/s 7.6s
+[epoch  6] train=0.809 val_mae=1.75 m/s 7.5s
+[epoch  7] train=0.793 val_mae=1.77 m/s 7.6s
+[epoch  8] train=0.777 val_mae=1.70 m/s 7.7s
+[epoch  9] train=0.756 val_mae=1.89 m/s 7.6s
+[epoch 10] train=0.746 val_mae=1.82 m/s 7.6s
+[epoch 11] train=0.729 val_mae=1.82 m/s 7.6s
+[epoch 12] train=0.719 val_mae=1.79 m/s 7.6s
+[epoch 13] train=0.702 val_mae=1.83 m/s 7.7s
+[epoch 14] train=0.690 val_mae=1.82 m/s 7.6s
+[epoch 15] train=0.677 val_mae=1.93 m/s 7.7s
+[epoch 16] train=0.655 val_mae=2.01 m/s 7.7s
+[epoch 17] train=0.656 val_mae=1.87 m/s 7.6s
+[epoch 18] train=0.639 val_mae=1.96 m/s 7.7s
+[epoch 19] train=0.627 val_mae=1.91 m/s 7.8s
+[epoch 20] train=0.617 val_mae=2.03 m/s 7.7s
+[epoch 21] train=0.606 val_mae=1.96 m/s 7.7s
+[epoch 22] train=0.593 val_mae=1.96 m/s 7.6s
+[epoch 23] train=0.591 val_mae=2.04 m/s 7.7s
+[早停] epoch 23，最佳 epoch 8
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.75 m/s  RMSE=1.11  趋势相关=+0.666
+     6h  MAE=1.34 m/s  RMSE=1.95  趋势相关=+0.697
+     9h  MAE=1.85 m/s  RMSE=2.64  趋势相关=+0.723
+    12h  MAE=2.30 m/s  RMSE=3.25  趋势相关=+0.742
+  平均 MAE=1.56 m/s  (最佳 epoch 8)
+[pix] 训练集亮温 均值=[220.3000030517578, 230.60000610351562, 229.0] 标准差=[22.420000076293945, 33.72999954223633, 32.79999923706055] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8725 val=1547 test=2807
+[epoch  0] train=1.158 val_mae=1.85 m/s 3.9s
+[epoch  1] train=0.982 val_mae=1.87 m/s 3.7s
+[epoch  2] train=0.902 val_mae=1.83 m/s 3.8s
+[epoch  3] train=0.847 val_mae=1.77 m/s 4.1s
+[epoch  4] train=0.804 val_mae=1.88 m/s 3.9s
+[epoch  5] train=0.771 val_mae=1.85 m/s 4.0s
+[epoch  6] train=0.733 val_mae=1.81 m/s 3.9s
+[epoch  7] train=0.704 val_mae=1.80 m/s 3.8s
+[epoch  8] train=0.686 val_mae=1.75 m/s 3.8s
+[epoch  9] train=0.652 val_mae=1.90 m/s 3.9s
+[epoch 10] train=0.628 val_mae=1.87 m/s 3.9s
+[epoch 11] train=0.612 val_mae=1.85 m/s 3.9s
+[epoch 12] train=0.593 val_mae=1.90 m/s 3.8s
+[epoch 13] train=0.576 val_mae=1.97 m/s 3.8s
+[epoch 14] train=0.560 val_mae=1.96 m/s 3.8s
+[epoch 15] train=0.544 val_mae=1.93 m/s 3.8s
+[epoch 16] train=0.525 val_mae=1.85 m/s 4.0s
+[epoch 17] train=0.513 val_mae=1.94 m/s 3.8s
+[epoch 18] train=0.493 val_mae=1.94 m/s 3.8s
+[epoch 19] train=0.479 val_mae=1.90 m/s 3.9s
+[epoch 20] train=0.461 val_mae=2.02 m/s 3.8s
+[epoch 21] train=0.454 val_mae=1.97 m/s 3.9s
+[epoch 22] train=0.439 val_mae=2.07 m/s 4.0s
+[epoch 23] train=0.429 val_mae=1.91 m/s 4.0s
+[早停] epoch 23，最佳 epoch 8
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.80 m/s  RMSE=1.17  趋势相关=+0.619
+     6h  MAE=1.44 m/s  RMSE=2.09  趋势相关=+0.651
+     9h  MAE=1.99 m/s  RMSE=2.83  趋势相关=+0.681
+    12h  MAE=2.47 m/s  RMSE=3.51  趋势相关=+0.702
+  平均 MAE=1.68 m/s  (最佳 epoch 8)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8725 val=1547 test=2807
+[epoch  0] train=1.119 val_mae=1.71 m/s 0.7s
+[epoch  1] train=0.929 val_mae=1.61 m/s 0.7s
+[epoch  2] train=0.897 val_mae=1.63 m/s 0.7s
+[epoch  3] train=0.876 val_mae=1.65 m/s 0.7s
+[epoch  4] train=0.861 val_mae=1.66 m/s 0.7s
+[epoch  5] train=0.850 val_mae=1.69 m/s 0.7s
+[epoch  6] train=0.839 val_mae=1.74 m/s 0.7s
+[epoch  7] train=0.822 val_mae=1.68 m/s 0.7s
+[epoch  8] train=0.816 val_mae=1.67 m/s 0.7s
+[epoch  9] train=0.806 val_mae=1.72 m/s 0.8s
+[epoch 10] train=0.798 val_mae=1.68 m/s 0.7s
+[epoch 11] train=0.796 val_mae=1.68 m/s 0.7s
+[epoch 12] train=0.782 val_mae=1.70 m/s 0.7s
+[epoch 13] train=0.774 val_mae=1.62 m/s 0.7s
+[epoch 14] train=0.769 val_mae=1.65 m/s 0.7s
+[epoch 15] train=0.759 val_mae=1.72 m/s 0.7s
+[epoch 16] train=0.751 val_mae=1.76 m/s 0.7s
+[早停] epoch 16，最佳 epoch 1
+
+[gru] 测试集强度误差:
+     3h  MAE=0.72 m/s  RMSE=1.06  趋势相关=+0.703
+     6h  MAE=1.31 m/s  RMSE=1.91  趋势相关=+0.712
+     9h  MAE=1.84 m/s  RMSE=2.62  趋势相关=+0.728
+    12h  MAE=2.31 m/s  RMSE=3.29  趋势相关=+0.737
+  平均 MAE=1.54 m/s  (最佳 epoch 1)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8725 val=1547 test=2807
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.86 m/s  RMSE=1.49  趋势相关=+nan
+     6h  MAE=1.71 m/s  RMSE=2.72  趋势相关=+nan
+     9h  MAE=2.53 m/s  RMSE=3.82  趋势相关=+nan
+    12h  MAE=3.31 m/s  RMSE=4.84  趋势相关=+nan
+  平均 MAE=2.10 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=42 fold 5/5
+======================================================================
+[pix] 训练集亮温 均值=[221.0, 230.89999389648438, 229.1999969482422] 标准差=[21.110000610351562, 32.52000045776367, 31.6200008392334] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9179 val=1547 test=2353
+[epoch  0] train=1.097 val_mae=1.89 m/s 7.8s
+[epoch  1] train=0.942 val_mae=1.80 m/s 7.9s
+[epoch  2] train=0.893 val_mae=1.80 m/s 7.9s
+[epoch  3] train=0.863 val_mae=1.85 m/s 7.9s
+[epoch  4] train=0.834 val_mae=1.78 m/s 8.0s
+[epoch  5] train=0.802 val_mae=1.84 m/s 7.9s
+[epoch  6] train=0.782 val_mae=1.77 m/s 8.0s
+[epoch  7] train=0.760 val_mae=1.77 m/s 8.0s
+[epoch  8] train=0.743 val_mae=1.75 m/s 7.9s
+[epoch  9] train=0.718 val_mae=1.77 m/s 7.9s
+[epoch 10] train=0.710 val_mae=1.90 m/s 7.9s
+[epoch 11] train=0.703 val_mae=1.89 m/s 7.9s
+[epoch 12] train=0.683 val_mae=1.87 m/s 8.0s
+[epoch 13] train=0.665 val_mae=1.86 m/s 7.9s
+[epoch 14] train=0.639 val_mae=1.90 m/s 7.9s
+[epoch 15] train=0.636 val_mae=1.87 m/s 7.9s
+[epoch 16] train=0.625 val_mae=1.94 m/s 8.0s
+[epoch 17] train=0.618 val_mae=1.95 m/s 7.9s
+[epoch 18] train=0.602 val_mae=2.03 m/s 7.9s
+[epoch 19] train=0.594 val_mae=1.99 m/s 8.0s
+[epoch 20] train=0.579 val_mae=1.93 m/s 7.9s
+[epoch 21] train=0.570 val_mae=1.96 m/s 8.0s
+[epoch 22] train=0.553 val_mae=1.93 m/s 8.0s
+[epoch 23] train=0.549 val_mae=1.99 m/s 8.0s
+[早停] epoch 23，最佳 epoch 8
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.80 m/s  RMSE=1.13  趋势相关=+0.681
+     6h  MAE=1.45 m/s  RMSE=2.05  趋势相关=+0.702
+     9h  MAE=2.02 m/s  RMSE=2.82  趋势相关=+0.722
+    12h  MAE=2.53 m/s  RMSE=3.53  趋势相关=+0.737
+  平均 MAE=1.70 m/s  (最佳 epoch 8)
+[pix] 训练集亮温 均值=[221.0, 230.89999389648438, 229.1999969482422] 标准差=[21.110000610351562, 32.52000045776367, 31.6200008392334] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9179 val=1547 test=2353
+[epoch  0] train=1.122 val_mae=1.85 m/s 4.2s
+[epoch  1] train=0.944 val_mae=1.89 m/s 4.0s
+[epoch  2] train=0.872 val_mae=1.76 m/s 4.2s
+[epoch  3] train=0.813 val_mae=1.72 m/s 4.3s
+[epoch  4] train=0.782 val_mae=1.96 m/s 4.2s
+[epoch  5] train=0.739 val_mae=1.82 m/s 4.2s
+[epoch  6] train=0.710 val_mae=1.80 m/s 4.3s
+[epoch  7] train=0.681 val_mae=1.80 m/s 4.3s
+[epoch  8] train=0.658 val_mae=2.00 m/s 3.9s
+[epoch  9] train=0.629 val_mae=1.92 m/s 4.2s
+[epoch 10] train=0.613 val_mae=1.79 m/s 4.1s
+[epoch 11] train=0.589 val_mae=1.90 m/s 4.2s
+[epoch 12] train=0.578 val_mae=1.88 m/s 4.2s
+[epoch 13] train=0.548 val_mae=2.00 m/s 4.3s
+[epoch 14] train=0.526 val_mae=1.88 m/s 4.3s
+[epoch 15] train=0.520 val_mae=1.89 m/s 3.9s
+[epoch 16] train=0.501 val_mae=1.92 m/s 4.1s
+[epoch 17] train=0.488 val_mae=1.99 m/s 4.1s
+[epoch 18] train=0.475 val_mae=2.05 m/s 4.1s
+[早停] epoch 18，最佳 epoch 3
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.81 m/s  RMSE=1.16  趋势相关=+0.661
+     6h  MAE=1.46 m/s  RMSE=2.08  趋势相关=+0.686
+     9h  MAE=2.04 m/s  RMSE=2.86  趋势相关=+0.709
+    12h  MAE=2.55 m/s  RMSE=3.56  趋势相关=+0.724
+  平均 MAE=1.71 m/s  (最佳 epoch 3)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9179 val=1547 test=2353
+[epoch  0] train=1.087 val_mae=1.68 m/s 0.8s
+[epoch  1] train=0.911 val_mae=1.63 m/s 0.8s
+[epoch  2] train=0.873 val_mae=1.63 m/s 0.8s
+[epoch  3] train=0.855 val_mae=1.62 m/s 0.8s
+[epoch  4] train=0.840 val_mae=1.61 m/s 0.8s
+[epoch  5] train=0.827 val_mae=1.62 m/s 0.8s
+[epoch  6] train=0.812 val_mae=1.61 m/s 0.8s
+[epoch  7] train=0.803 val_mae=1.64 m/s 0.8s
+[epoch  8] train=0.804 val_mae=1.61 m/s 0.8s
+[epoch  9] train=0.787 val_mae=1.61 m/s 0.8s
+[epoch 10] train=0.781 val_mae=1.67 m/s 0.8s
+[epoch 11] train=0.775 val_mae=1.62 m/s 0.8s
+[epoch 12] train=0.763 val_mae=1.62 m/s 0.8s
+[epoch 13] train=0.755 val_mae=1.66 m/s 0.8s
+[epoch 14] train=0.744 val_mae=1.63 m/s 0.8s
+[epoch 15] train=0.737 val_mae=1.68 m/s 0.8s
+[epoch 16] train=0.728 val_mae=1.65 m/s 0.8s
+[epoch 17] train=0.721 val_mae=1.65 m/s 0.8s
+[epoch 18] train=0.710 val_mae=1.67 m/s 0.8s
+[epoch 19] train=0.706 val_mae=1.63 m/s 0.8s
+[epoch 20] train=0.695 val_mae=1.68 m/s 0.8s
+[epoch 21] train=0.685 val_mae=1.69 m/s 0.8s
+[epoch 22] train=0.678 val_mae=1.69 m/s 0.8s
+[epoch 23] train=0.671 val_mae=1.74 m/s 0.8s
+[早停] epoch 23，最佳 epoch 8
+
+[gru] 测试集强度误差:
+     3h  MAE=0.65 m/s  RMSE=0.99  趋势相关=+0.769
+     6h  MAE=1.30 m/s  RMSE=1.88  趋势相关=+0.755
+     9h  MAE=1.87 m/s  RMSE=2.61  趋势相关=+0.764
+    12h  MAE=2.35 m/s  RMSE=3.28  趋势相关=+0.771
+  平均 MAE=1.54 m/s  (最佳 epoch 8)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9179 val=1547 test=2353
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.92 m/s  RMSE=1.54  趋势相关=+nan
+     6h  MAE=1.83 m/s  RMSE=2.85  趋势相关=+nan
+     9h  MAE=2.73 m/s  RMSE=4.04  趋势相关=+nan
+    12h  MAE=3.58 m/s  RMSE=5.15  趋势相关=+nan
+  平均 MAE=2.26 m/s  (最佳 epoch 0)
+[fold 0] 台风 train=151 val=26 test=45 | 样本 train=8937 val=1362 test=2780
+[fold 1] 台风 train=151 val=26 test=45 | 样本 train=8997 val=1611 test=2471
+[fold 2] 台风 train=152 val=26 test=44 | 样本 train=9087 val=1611 test=2381
+[fold 3] 台风 train=152 val=26 test=44 | 样本 train=8786 val=1611 test=2682
+[fold 4] 台风 train=152 val=26 test=44 | 样本 train=8703 val=1611 test=2765
+
+======================================================================
+划分seed=0 fold 1/5
+======================================================================
+[pix] 训练集亮温 均值=[221.0, 231.5, 229.89999389648438] 标准差=[21.889999389648438, 33.20000076293945, 32.2400016784668] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8937 val=1362 test=2780
+[epoch  0] train=1.119 val_mae=2.06 m/s 7.6s
+[epoch  1] train=0.959 val_mae=2.03 m/s 7.6s
+[epoch  2] train=0.903 val_mae=1.95 m/s 7.6s
+[epoch  3] train=0.869 val_mae=1.94 m/s 7.6s
+[epoch  4] train=0.832 val_mae=1.90 m/s 7.7s
+[epoch  5] train=0.809 val_mae=1.89 m/s 7.7s
+[epoch  6] train=0.784 val_mae=1.89 m/s 7.7s
+[epoch  7] train=0.770 val_mae=1.89 m/s 7.7s
+[epoch  8] train=0.759 val_mae=1.94 m/s 7.7s
+[epoch  9] train=0.741 val_mae=1.88 m/s 7.7s
+[epoch 10] train=0.726 val_mae=1.84 m/s 7.6s
+[epoch 11] train=0.709 val_mae=1.91 m/s 7.7s
+[epoch 12] train=0.703 val_mae=1.88 m/s 7.7s
+[epoch 13] train=0.684 val_mae=1.85 m/s 7.7s
+[epoch 14] train=0.677 val_mae=1.92 m/s 7.7s
+[epoch 15] train=0.660 val_mae=1.91 m/s 7.7s
+[epoch 16] train=0.647 val_mae=1.91 m/s 7.7s
+[epoch 17] train=0.636 val_mae=1.89 m/s 7.8s
+[epoch 18] train=0.628 val_mae=1.89 m/s 7.7s
+[epoch 19] train=0.617 val_mae=1.98 m/s 7.8s
+[epoch 20] train=0.601 val_mae=1.95 m/s 7.7s
+[epoch 21] train=0.597 val_mae=1.92 m/s 7.7s
+[epoch 22] train=0.592 val_mae=1.94 m/s 7.7s
+[epoch 23] train=0.577 val_mae=1.89 m/s 7.7s
+[epoch 24] train=0.567 val_mae=1.92 m/s 7.7s
+[epoch 25] train=0.555 val_mae=1.94 m/s 7.7s
+[早停] epoch 25，最佳 epoch 10
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.72 m/s  RMSE=1.06  趋势相关=+0.670
+     6h  MAE=1.30 m/s  RMSE=1.87  趋势相关=+0.695
+     9h  MAE=1.80 m/s  RMSE=2.53  趋势相关=+0.723
+    12h  MAE=2.23 m/s  RMSE=3.11  趋势相关=+0.742
+  平均 MAE=1.51 m/s  (最佳 epoch 10)
+[pix] 训练集亮温 均值=[221.0, 231.5, 229.89999389648438] 标准差=[21.889999389648438, 33.20000076293945, 32.2400016784668] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8937 val=1362 test=2780
+[epoch  0] train=1.145 val_mae=2.17 m/s 4.1s
+[epoch  1] train=0.966 val_mae=1.97 m/s 4.2s
+[epoch  2] train=0.892 val_mae=1.95 m/s 4.0s
+[epoch  3] train=0.838 val_mae=1.97 m/s 3.9s
+[epoch  4] train=0.791 val_mae=1.98 m/s 3.9s
+[epoch  5] train=0.750 val_mae=2.01 m/s 4.0s
+[epoch  6] train=0.724 val_mae=1.93 m/s 4.0s
+[epoch  7] train=0.689 val_mae=1.99 m/s 3.8s
+[epoch  8] train=0.657 val_mae=2.00 m/s 4.0s
+[epoch  9] train=0.634 val_mae=2.03 m/s 4.1s
+[epoch 10] train=0.608 val_mae=1.98 m/s 4.0s
+[epoch 11] train=0.592 val_mae=2.03 m/s 4.0s
+[epoch 12] train=0.574 val_mae=2.03 m/s 4.0s
+[epoch 13] train=0.550 val_mae=2.03 m/s 4.1s
+[epoch 14] train=0.530 val_mae=2.10 m/s 3.9s
+[epoch 15] train=0.526 val_mae=2.07 m/s 4.0s
+[epoch 16] train=0.510 val_mae=2.08 m/s 4.0s
+[epoch 17] train=0.504 val_mae=2.05 m/s 3.8s
+[epoch 18] train=0.485 val_mae=2.19 m/s 3.8s
+[epoch 19] train=0.466 val_mae=2.12 m/s 3.9s
+[epoch 20] train=0.460 val_mae=2.11 m/s 3.8s
+[epoch 21] train=0.441 val_mae=2.09 m/s 4.1s
+[早停] epoch 21，最佳 epoch 6
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.78 m/s  RMSE=1.11  趋势相关=+0.642
+     6h  MAE=1.37 m/s  RMSE=1.96  趋势相关=+0.676
+     9h  MAE=1.89 m/s  RMSE=2.64  趋势相关=+0.709
+    12h  MAE=2.34 m/s  RMSE=3.23  趋势相关=+0.731
+  平均 MAE=1.59 m/s  (最佳 epoch 6)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8937 val=1362 test=2780
+[epoch  0] train=1.096 val_mae=1.94 m/s 0.8s
+[epoch  1] train=0.909 val_mae=1.86 m/s 0.8s
+[epoch  2] train=0.879 val_mae=1.87 m/s 0.8s
+[epoch  3] train=0.854 val_mae=1.83 m/s 0.8s
+[epoch  4] train=0.841 val_mae=1.84 m/s 0.8s
+[epoch  5] train=0.832 val_mae=1.80 m/s 0.8s
+[epoch  6] train=0.821 val_mae=1.81 m/s 0.8s
+[epoch  7] train=0.813 val_mae=1.81 m/s 0.8s
+[epoch  8] train=0.802 val_mae=1.81 m/s 0.8s
+[epoch  9] train=0.791 val_mae=1.80 m/s 0.8s
+[epoch 10] train=0.782 val_mae=1.83 m/s 0.8s
+[epoch 11] train=0.772 val_mae=1.82 m/s 0.8s
+[epoch 12] train=0.767 val_mae=1.81 m/s 0.8s
+[epoch 13] train=0.761 val_mae=1.78 m/s 0.8s
+[epoch 14] train=0.755 val_mae=1.80 m/s 0.8s
+[epoch 15] train=0.744 val_mae=1.81 m/s 0.8s
+[epoch 16] train=0.735 val_mae=1.79 m/s 0.8s
+[epoch 17] train=0.729 val_mae=1.82 m/s 0.8s
+[epoch 18] train=0.722 val_mae=1.80 m/s 0.8s
+[epoch 19] train=0.712 val_mae=1.80 m/s 0.8s
+[epoch 20] train=0.704 val_mae=1.81 m/s 0.8s
+[epoch 21] train=0.702 val_mae=1.79 m/s 0.8s
+[epoch 22] train=0.692 val_mae=1.77 m/s 0.8s
+[epoch 23] train=0.687 val_mae=1.78 m/s 0.7s
+[epoch 24] train=0.680 val_mae=1.81 m/s 0.8s
+[epoch 25] train=0.673 val_mae=1.79 m/s 0.8s
+[epoch 26] train=0.663 val_mae=1.80 m/s 0.8s
+[epoch 27] train=0.657 val_mae=1.79 m/s 0.8s
+[epoch 28] train=0.652 val_mae=1.81 m/s 0.8s
+[epoch 29] train=0.649 val_mae=1.81 m/s 0.8s
+[epoch 30] train=0.643 val_mae=1.80 m/s 0.8s
+[epoch 31] train=0.635 val_mae=1.80 m/s 0.8s
+[epoch 32] train=0.628 val_mae=1.82 m/s 0.8s
+[epoch 33] train=0.626 val_mae=1.83 m/s 0.8s
+[epoch 34] train=0.618 val_mae=1.82 m/s 0.8s
+[epoch 35] train=0.614 val_mae=1.81 m/s 0.8s
+[epoch 36] train=0.610 val_mae=1.82 m/s 0.8s
+[epoch 37] train=0.606 val_mae=1.82 m/s 0.8s
+[早停] epoch 37，最佳 epoch 22
+
+[gru] 测试集强度误差:
+     3h  MAE=0.61 m/s  RMSE=0.94  趋势相关=+0.749
+     6h  MAE=1.23 m/s  RMSE=1.75  趋势相关=+0.740
+     9h  MAE=1.74 m/s  RMSE=2.37  趋势相关=+0.761
+    12h  MAE=2.15 m/s  RMSE=2.92  趋势相关=+0.777
+  平均 MAE=1.43 m/s  (最佳 epoch 22)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8937 val=1362 test=2780
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.42  趋势相关=+nan
+     6h  MAE=1.65 m/s  RMSE=2.60  趋势相关=+nan
+     9h  MAE=2.45 m/s  RMSE=3.65  趋势相关=+nan
+    12h  MAE=3.21 m/s  RMSE=4.63  趋势相关=+nan
+  平均 MAE=2.03 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=0 fold 2/5
+======================================================================
+[pix] 训练集亮温 均值=[221.0, 231.39999389648438, 229.8000030517578] 标准差=[21.6200008392334, 33.060001373291016, 32.150001525878906] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8997 val=1611 test=2471
+[epoch  0] train=1.116 val_mae=1.61 m/s 7.9s
+[epoch  1] train=0.950 val_mae=1.66 m/s 7.8s
+[epoch  2] train=0.904 val_mae=1.60 m/s 7.8s
+[epoch  3] train=0.869 val_mae=1.61 m/s 7.8s
+[epoch  4] train=0.833 val_mae=1.56 m/s 7.8s
+[epoch  5] train=0.805 val_mae=1.52 m/s 7.8s
+[epoch  6] train=0.789 val_mae=1.56 m/s 7.8s
+[epoch  7] train=0.779 val_mae=1.55 m/s 7.8s
+[epoch  8] train=0.756 val_mae=1.52 m/s 7.8s
+[epoch  9] train=0.742 val_mae=1.51 m/s 7.9s
+[epoch 10] train=0.721 val_mae=1.54 m/s 7.8s
+[epoch 11] train=0.703 val_mae=1.52 m/s 7.9s
+[epoch 12] train=0.690 val_mae=1.56 m/s 7.9s
+[epoch 13] train=0.679 val_mae=1.64 m/s 7.9s
+[epoch 14] train=0.668 val_mae=1.56 m/s 7.9s
+[epoch 15] train=0.654 val_mae=1.62 m/s 8.0s
+[epoch 16] train=0.635 val_mae=1.59 m/s 7.9s
+[epoch 17] train=0.626 val_mae=1.63 m/s 7.9s
+[epoch 18] train=0.613 val_mae=1.62 m/s 8.0s
+[epoch 19] train=0.603 val_mae=1.61 m/s 7.9s
+[epoch 20] train=0.601 val_mae=1.61 m/s 7.9s
+[epoch 21] train=0.588 val_mae=1.60 m/s 7.8s
+[epoch 22] train=0.578 val_mae=1.61 m/s 8.0s
+[epoch 23] train=0.565 val_mae=1.58 m/s 7.9s
+[epoch 24] train=0.558 val_mae=1.64 m/s 7.9s
+[早停] epoch 24，最佳 epoch 9
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.79 m/s  RMSE=1.15  趋势相关=+0.699
+     6h  MAE=1.43 m/s  RMSE=2.05  趋势相关=+0.723
+     9h  MAE=2.00 m/s  RMSE=2.80  趋势相关=+0.745
+    12h  MAE=2.52 m/s  RMSE=3.49  趋势相关=+0.758
+  平均 MAE=1.69 m/s  (最佳 epoch 9)
+[pix] 训练集亮温 均值=[221.0, 231.39999389648438, 229.8000030517578] 标准差=[21.6200008392334, 33.060001373291016, 32.150001525878906] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8997 val=1611 test=2471
+[epoch  0] train=1.142 val_mae=1.65 m/s 3.8s
+[epoch  1] train=0.963 val_mae=1.70 m/s 3.9s
+[epoch  2] train=0.895 val_mae=1.62 m/s 3.9s
+[epoch  3] train=0.827 val_mae=1.64 m/s 3.8s
+[epoch  4] train=0.791 val_mae=1.71 m/s 3.8s
+[epoch  5] train=0.751 val_mae=1.64 m/s 3.8s
+[epoch  6] train=0.704 val_mae=1.66 m/s 3.8s
+[epoch  7] train=0.686 val_mae=1.65 m/s 3.9s
+[epoch  8] train=0.664 val_mae=1.67 m/s 3.8s
+[epoch  9] train=0.623 val_mae=1.74 m/s 3.7s
+[epoch 10] train=0.602 val_mae=1.72 m/s 3.8s
+[epoch 11] train=0.580 val_mae=1.70 m/s 3.8s
+[epoch 12] train=0.563 val_mae=1.77 m/s 3.7s
+[epoch 13] train=0.549 val_mae=1.77 m/s 3.8s
+[epoch 14] train=0.531 val_mae=1.75 m/s 3.8s
+[epoch 15] train=0.516 val_mae=1.76 m/s 3.8s
+[epoch 16] train=0.502 val_mae=1.79 m/s 3.9s
+[epoch 17] train=0.483 val_mae=1.80 m/s 3.9s
+[早停] epoch 17，最佳 epoch 2
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.20  趋势相关=+0.660
+     6h  MAE=1.51 m/s  RMSE=2.15  趋势相关=+0.686
+     9h  MAE=2.12 m/s  RMSE=2.97  趋势相关=+0.706
+    12h  MAE=2.66 m/s  RMSE=3.74  趋势相关=+0.718
+  平均 MAE=1.78 m/s  (最佳 epoch 2)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8997 val=1611 test=2471
+[epoch  0] train=1.094 val_mae=1.57 m/s 0.8s
+[epoch  1] train=0.904 val_mae=1.57 m/s 0.7s
+[epoch  2] train=0.874 val_mae=1.52 m/s 0.8s
+[epoch  3] train=0.857 val_mae=1.53 m/s 0.8s
+[epoch  4] train=0.841 val_mae=1.52 m/s 0.8s
+[epoch  5] train=0.832 val_mae=1.50 m/s 0.8s
+[epoch  6] train=0.819 val_mae=1.51 m/s 0.8s
+[epoch  7] train=0.810 val_mae=1.51 m/s 0.8s
+[epoch  8] train=0.798 val_mae=1.50 m/s 0.8s
+[epoch  9] train=0.796 val_mae=1.54 m/s 0.8s
+[epoch 10] train=0.788 val_mae=1.49 m/s 0.8s
+[epoch 11] train=0.779 val_mae=1.49 m/s 0.8s
+[epoch 12] train=0.771 val_mae=1.48 m/s 0.8s
+[epoch 13] train=0.759 val_mae=1.52 m/s 0.8s
+[epoch 14] train=0.751 val_mae=1.53 m/s 0.8s
+[epoch 15] train=0.750 val_mae=1.50 m/s 0.8s
+[epoch 16] train=0.740 val_mae=1.51 m/s 0.8s
+[epoch 17] train=0.731 val_mae=1.51 m/s 0.8s
+[epoch 18] train=0.727 val_mae=1.52 m/s 0.8s
+[epoch 19] train=0.721 val_mae=1.50 m/s 0.8s
+[epoch 20] train=0.709 val_mae=1.50 m/s 0.8s
+[epoch 21] train=0.703 val_mae=1.53 m/s 0.8s
+[epoch 22] train=0.693 val_mae=1.52 m/s 0.8s
+[epoch 23] train=0.687 val_mae=1.50 m/s 0.8s
+[epoch 24] train=0.678 val_mae=1.53 m/s 0.8s
+[epoch 25] train=0.673 val_mae=1.52 m/s 0.8s
+[epoch 26] train=0.667 val_mae=1.53 m/s 0.8s
+[epoch 27] train=0.662 val_mae=1.51 m/s 0.8s
+[早停] epoch 27，最佳 epoch 12
+
+[gru] 测试集强度误差:
+     3h  MAE=0.66 m/s  RMSE=1.05  趋势相关=+0.756
+     6h  MAE=1.35 m/s  RMSE=1.97  趋势相关=+0.748
+     9h  MAE=1.93 m/s  RMSE=2.72  趋势相关=+0.762
+    12h  MAE=2.43 m/s  RMSE=3.40  趋势相关=+0.774
+  平均 MAE=1.59 m/s  (最佳 epoch 12)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8997 val=1611 test=2471
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.92 m/s  RMSE=1.59  趋势相关=+nan
+     6h  MAE=1.83 m/s  RMSE=2.96  趋势相关=+nan
+     9h  MAE=2.75 m/s  RMSE=4.19  趋势相关=+nan
+    12h  MAE=3.62 m/s  RMSE=5.35  趋势相关=+nan
+  平均 MAE=2.28 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=0 fold 3/5
+======================================================================
+[pix] 训练集亮温 均值=[220.39999389648438, 230.3000030517578, 228.6999969482422] 标准差=[21.440000534057617, 32.33000183105469, 31.3799991607666] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9087 val=1611 test=2381
+[epoch  0] train=1.138 val_mae=1.64 m/s 7.8s
+[epoch  1] train=0.972 val_mae=1.61 m/s 7.9s
+[epoch  2] train=0.931 val_mae=1.59 m/s 7.9s
+[epoch  3] train=0.894 val_mae=1.58 m/s 7.9s
+[epoch  4] train=0.870 val_mae=1.57 m/s 7.9s
+[epoch  5] train=0.836 val_mae=1.56 m/s 8.0s
+[epoch  6] train=0.811 val_mae=1.57 m/s 7.9s
+[epoch  7] train=0.790 val_mae=1.59 m/s 7.9s
+[epoch  8] train=0.774 val_mae=1.63 m/s 7.9s
+[epoch  9] train=0.754 val_mae=1.60 m/s 8.0s
+[epoch 10] train=0.735 val_mae=1.57 m/s 8.0s
+[epoch 11] train=0.727 val_mae=1.56 m/s 8.0s
+[epoch 12] train=0.716 val_mae=1.54 m/s 8.0s
+[epoch 13] train=0.696 val_mae=1.65 m/s 8.0s
+[epoch 14] train=0.686 val_mae=1.58 m/s 8.0s
+[epoch 15] train=0.669 val_mae=1.61 m/s 8.0s
+[epoch 16] train=0.661 val_mae=1.61 m/s 8.0s
+[epoch 17] train=0.644 val_mae=1.60 m/s 8.0s
+[epoch 18] train=0.642 val_mae=1.55 m/s 8.0s
+[epoch 19] train=0.626 val_mae=1.61 m/s 7.9s
+[epoch 20] train=0.621 val_mae=1.60 m/s 8.0s
+[epoch 21] train=0.613 val_mae=1.57 m/s 7.9s
+[epoch 22] train=0.602 val_mae=1.63 m/s 7.9s
+[epoch 23] train=0.591 val_mae=1.59 m/s 7.9s
+[epoch 24] train=0.583 val_mae=1.59 m/s 8.0s
+[epoch 25] train=0.573 val_mae=1.59 m/s 8.0s
+[epoch 26] train=0.561 val_mae=1.61 m/s 8.1s
+[epoch 27] train=0.559 val_mae=1.63 m/s 8.0s
+[早停] epoch 27，最佳 epoch 12
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.71 m/s  RMSE=1.01  趋势相关=+0.739
+     6h  MAE=1.32 m/s  RMSE=1.85  趋势相关=+0.757
+     9h  MAE=1.87 m/s  RMSE=2.56  趋势相关=+0.772
+    12h  MAE=2.36 m/s  RMSE=3.22  趋势相关=+0.783
+  平均 MAE=1.57 m/s  (最佳 epoch 12)
+[pix] 训练集亮温 均值=[220.39999389648438, 230.3000030517578, 228.6999969482422] 标准差=[21.440000534057617, 32.33000183105469, 31.3799991607666] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9087 val=1611 test=2381
+[epoch  0] train=1.173 val_mae=1.67 m/s 4.3s
+[epoch  1] train=0.996 val_mae=1.65 m/s 4.3s
+[epoch  2] train=0.917 val_mae=1.67 m/s 4.0s
+[epoch  3] train=0.858 val_mae=1.63 m/s 4.1s
+[epoch  4] train=0.819 val_mae=1.63 m/s 4.2s
+[epoch  5] train=0.773 val_mae=1.60 m/s 4.3s
+[epoch  6] train=0.744 val_mae=1.63 m/s 4.1s
+[epoch  7] train=0.714 val_mae=1.72 m/s 4.3s
+[epoch  8] train=0.684 val_mae=1.72 m/s 4.3s
+[epoch  9] train=0.661 val_mae=1.65 m/s 4.1s
+[epoch 10] train=0.636 val_mae=1.66 m/s 4.3s
+[epoch 11] train=0.612 val_mae=1.67 m/s 4.2s
+[epoch 12] train=0.592 val_mae=1.65 m/s 4.0s
+[epoch 13] train=0.571 val_mae=1.68 m/s 4.1s
+[epoch 14] train=0.562 val_mae=1.68 m/s 4.2s
+[epoch 15] train=0.535 val_mae=1.75 m/s 4.3s
+[epoch 16] train=0.521 val_mae=1.75 m/s 4.1s
+[epoch 17] train=0.505 val_mae=1.76 m/s 4.0s
+[epoch 18] train=0.495 val_mae=1.71 m/s 4.0s
+[epoch 19] train=0.480 val_mae=1.77 m/s 4.0s
+[epoch 20] train=0.466 val_mae=1.80 m/s 4.0s
+[早停] epoch 20，最佳 epoch 5
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.74 m/s  RMSE=1.04  趋势相关=+0.721
+     6h  MAE=1.36 m/s  RMSE=1.90  趋势相关=+0.740
+     9h  MAE=1.91 m/s  RMSE=2.64  趋势相关=+0.756
+    12h  MAE=2.42 m/s  RMSE=3.33  趋势相关=+0.766
+  平均 MAE=1.61 m/s  (最佳 epoch 5)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9087 val=1611 test=2381
+[epoch  0] train=1.126 val_mae=1.56 m/s 0.8s
+[epoch  1] train=0.934 val_mae=1.54 m/s 0.8s
+[epoch  2] train=0.898 val_mae=1.54 m/s 0.8s
+[epoch  3] train=0.882 val_mae=1.53 m/s 0.8s
+[epoch  4] train=0.861 val_mae=1.52 m/s 0.8s
+[epoch  5] train=0.852 val_mae=1.53 m/s 0.8s
+[epoch  6] train=0.838 val_mae=1.53 m/s 0.8s
+[epoch  7] train=0.825 val_mae=1.56 m/s 0.8s
+[epoch  8] train=0.813 val_mae=1.53 m/s 0.8s
+[epoch  9] train=0.809 val_mae=1.51 m/s 0.8s
+[epoch 10] train=0.806 val_mae=1.48 m/s 0.8s
+[epoch 11] train=0.791 val_mae=1.50 m/s 0.8s
+[epoch 12] train=0.777 val_mae=1.51 m/s 0.8s
+[epoch 13] train=0.770 val_mae=1.49 m/s 0.8s
+[epoch 14] train=0.760 val_mae=1.50 m/s 0.8s
+[epoch 15] train=0.760 val_mae=1.49 m/s 0.8s
+[epoch 16] train=0.748 val_mae=1.51 m/s 0.8s
+[epoch 17] train=0.741 val_mae=1.50 m/s 0.8s
+[epoch 18] train=0.732 val_mae=1.50 m/s 0.8s
+[epoch 19] train=0.722 val_mae=1.49 m/s 0.8s
+[epoch 20] train=0.713 val_mae=1.50 m/s 0.8s
+[epoch 21] train=0.708 val_mae=1.50 m/s 0.8s
+[epoch 22] train=0.699 val_mae=1.51 m/s 0.8s
+[epoch 23] train=0.693 val_mae=1.50 m/s 0.8s
+[epoch 24] train=0.687 val_mae=1.55 m/s 0.8s
+[epoch 25] train=0.681 val_mae=1.52 m/s 0.8s
+[早停] epoch 25，最佳 epoch 10
+
+[gru] 测试集强度误差:
+     3h  MAE=0.64 m/s  RMSE=0.94  趋势相关=+0.786
+     6h  MAE=1.28 m/s  RMSE=1.81  趋势相关=+0.772
+     9h  MAE=1.85 m/s  RMSE=2.55  趋势相关=+0.778
+    12h  MAE=2.35 m/s  RMSE=3.25  趋势相关=+0.781
+  平均 MAE=1.53 m/s  (最佳 epoch 10)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9087 val=1611 test=2381
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.91 m/s  RMSE=1.51  趋势相关=+nan
+     6h  MAE=1.82 m/s  RMSE=2.82  趋势相关=+nan
+     9h  MAE=2.70 m/s  RMSE=4.03  趋势相关=+nan
+    12h  MAE=3.55 m/s  RMSE=5.16  趋势相关=+nan
+  平均 MAE=2.25 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=0 fold 4/5
+======================================================================
+[pix] 训练集亮温 均值=[220.1999969482422, 230.3000030517578, 228.6999969482422] 标准差=[22.260000228881836, 33.310001373291016, 32.29999923706055] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8786 val=1611 test=2682
+[epoch  0] train=1.143 val_mae=1.61 m/s 7.6s
+[epoch  1] train=0.964 val_mae=1.64 m/s 7.6s
+[epoch  2] train=0.920 val_mae=1.63 m/s 7.5s
+[epoch  3] train=0.888 val_mae=1.64 m/s 7.6s
+[epoch  4] train=0.863 val_mae=1.59 m/s 7.6s
+[epoch  5] train=0.843 val_mae=1.54 m/s 7.6s
+[epoch  6] train=0.810 val_mae=1.54 m/s 7.6s
+[epoch  7] train=0.789 val_mae=1.49 m/s 7.6s
+[epoch  8] train=0.777 val_mae=1.51 m/s 7.6s
+[epoch  9] train=0.758 val_mae=1.57 m/s 7.7s
+[epoch 10] train=0.752 val_mae=1.54 m/s 7.7s
+[epoch 11] train=0.736 val_mae=1.60 m/s 7.7s
+[epoch 12] train=0.722 val_mae=1.57 m/s 7.7s
+[epoch 13] train=0.707 val_mae=1.55 m/s 7.7s
+[epoch 14] train=0.694 val_mae=1.57 m/s 7.7s
+[epoch 15] train=0.686 val_mae=1.54 m/s 7.7s
+[epoch 16] train=0.671 val_mae=1.60 m/s 7.7s
+[epoch 17] train=0.662 val_mae=1.56 m/s 7.8s
+[epoch 18] train=0.649 val_mae=1.63 m/s 7.7s
+[epoch 19] train=0.630 val_mae=1.61 m/s 7.7s
+[epoch 20] train=0.624 val_mae=1.57 m/s 7.7s
+[epoch 21] train=0.613 val_mae=1.62 m/s 7.8s
+[epoch 22] train=0.597 val_mae=1.60 m/s 7.7s
+[早停] epoch 22，最佳 epoch 7
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.77 m/s  RMSE=1.10  趋势相关=+0.638
+     6h  MAE=1.42 m/s  RMSE=2.03  趋势相关=+0.646
+     9h  MAE=2.01 m/s  RMSE=2.84  趋势相关=+0.664
+    12h  MAE=2.54 m/s  RMSE=3.57  趋势相关=+0.685
+  平均 MAE=1.68 m/s  (最佳 epoch 7)
+[pix] 训练集亮温 均值=[220.1999969482422, 230.3000030517578, 228.6999969482422] 标准差=[22.260000228881836, 33.310001373291016, 32.29999923706055] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8786 val=1611 test=2682
+[epoch  0] train=1.183 val_mae=1.65 m/s 3.9s
+[epoch  1] train=0.987 val_mae=1.64 m/s 3.8s
+[epoch  2] train=0.917 val_mae=1.61 m/s 4.0s
+[epoch  3] train=0.867 val_mae=1.62 m/s 4.0s
+[epoch  4] train=0.821 val_mae=1.61 m/s 4.0s
+[epoch  5] train=0.788 val_mae=1.62 m/s 4.1s
+[epoch  6] train=0.740 val_mae=1.64 m/s 4.1s
+[epoch  7] train=0.706 val_mae=1.80 m/s 4.1s
+[epoch  8] train=0.689 val_mae=1.62 m/s 4.0s
+[epoch  9] train=0.651 val_mae=1.67 m/s 3.9s
+[epoch 10] train=0.638 val_mae=1.70 m/s 3.9s
+[epoch 11] train=0.606 val_mae=1.72 m/s 4.0s
+[epoch 12] train=0.595 val_mae=1.73 m/s 4.0s
+[epoch 13] train=0.573 val_mae=1.74 m/s 4.0s
+[epoch 14] train=0.555 val_mae=1.75 m/s 4.2s
+[epoch 15] train=0.541 val_mae=1.71 m/s 4.3s
+[epoch 16] train=0.521 val_mae=1.77 m/s 4.1s
+[epoch 17] train=0.510 val_mae=1.76 m/s 4.1s
+[epoch 18] train=0.492 val_mae=1.73 m/s 3.9s
+[epoch 19] train=0.479 val_mae=1.75 m/s 4.1s
+[早停] epoch 19，最佳 epoch 4
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.81 m/s  RMSE=1.12  趋势相关=+0.625
+     6h  MAE=1.47 m/s  RMSE=2.04  趋势相关=+0.642
+     9h  MAE=2.08 m/s  RMSE=2.85  趋势相关=+0.659
+    12h  MAE=2.64 m/s  RMSE=3.62  趋势相关=+0.669
+  平均 MAE=1.75 m/s  (最佳 epoch 4)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8786 val=1611 test=2682
+[epoch  0] train=1.128 val_mae=1.58 m/s 0.8s
+[epoch  1] train=0.930 val_mae=1.51 m/s 0.8s
+[epoch  2] train=0.903 val_mae=1.55 m/s 0.7s
+[epoch  3] train=0.880 val_mae=1.53 m/s 0.8s
+[epoch  4] train=0.861 val_mae=1.52 m/s 0.7s
+[epoch  5] train=0.851 val_mae=1.54 m/s 0.7s
+[epoch  6] train=0.831 val_mae=1.50 m/s 0.7s
+[epoch  7] train=0.826 val_mae=1.52 m/s 0.7s
+[epoch  8] train=0.816 val_mae=1.53 m/s 0.7s
+[epoch  9] train=0.804 val_mae=1.51 m/s 0.7s
+[epoch 10] train=0.794 val_mae=1.52 m/s 0.7s
+[epoch 11] train=0.788 val_mae=1.50 m/s 0.8s
+[epoch 12] train=0.778 val_mae=1.52 m/s 0.8s
+[epoch 13] train=0.770 val_mae=1.55 m/s 0.8s
+[epoch 14] train=0.758 val_mae=1.52 m/s 0.8s
+[epoch 15] train=0.755 val_mae=1.49 m/s 0.8s
+[epoch 16] train=0.746 val_mae=1.49 m/s 0.8s
+[epoch 17] train=0.734 val_mae=1.49 m/s 0.8s
+[epoch 18] train=0.730 val_mae=1.50 m/s 0.7s
+[epoch 19] train=0.720 val_mae=1.53 m/s 0.8s
+[epoch 20] train=0.715 val_mae=1.53 m/s 0.8s
+[epoch 21] train=0.708 val_mae=1.50 m/s 0.7s
+[epoch 22] train=0.698 val_mae=1.51 m/s 0.7s
+[epoch 23] train=0.690 val_mae=1.49 m/s 0.7s
+[epoch 24] train=0.686 val_mae=1.51 m/s 0.8s
+[epoch 25] train=0.679 val_mae=1.50 m/s 0.7s
+[epoch 26] train=0.670 val_mae=1.53 m/s 0.7s
+[epoch 27] train=0.665 val_mae=1.52 m/s 0.7s
+[epoch 28] train=0.662 val_mae=1.50 m/s 0.7s
+[epoch 29] train=0.655 val_mae=1.52 m/s 0.8s
+[epoch 30] train=0.649 val_mae=1.49 m/s 0.8s
+[epoch 31] train=0.642 val_mae=1.53 m/s 0.8s
+[epoch 32] train=0.636 val_mae=1.51 m/s 0.8s
+[epoch 33] train=0.630 val_mae=1.49 m/s 0.8s
+[epoch 34] train=0.627 val_mae=1.51 m/s 0.7s
+[epoch 35] train=0.624 val_mae=1.51 m/s 0.7s
+[epoch 36] train=0.618 val_mae=1.54 m/s 0.7s
+[epoch 37] train=0.612 val_mae=1.52 m/s 0.7s
+[epoch 38] train=0.607 val_mae=1.52 m/s 0.7s
+[早停] epoch 38，最佳 epoch 23
+
+[gru] 测试集强度误差:
+     3h  MAE=0.64 m/s  RMSE=0.95  趋势相关=+0.739
+     6h  MAE=1.33 m/s  RMSE=1.88  趋势相关=+0.698
+     9h  MAE=1.95 m/s  RMSE=2.67  趋势相关=+0.699
+    12h  MAE=2.49 m/s  RMSE=3.38  趋势相关=+0.710
+  平均 MAE=1.60 m/s  (最佳 epoch 23)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8786 val=1611 test=2682
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.41  趋势相关=+nan
+     6h  MAE=1.64 m/s  RMSE=2.61  趋势相关=+nan
+     9h  MAE=2.46 m/s  RMSE=3.70  趋势相关=+nan
+    12h  MAE=3.25 m/s  RMSE=4.73  趋势相关=+nan
+  平均 MAE=2.05 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=0 fold 5/5
+======================================================================
+[pix] 训练集亮温 均值=[220.3000030517578, 230.10000610351562, 228.5] 标准差=[21.43000030517578, 32.54999923706055, 31.59000015258789] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8703 val=1611 test=2765
+[epoch  0] train=1.117 val_mae=1.66 m/s 7.6s
+[epoch  1] train=0.958 val_mae=1.61 m/s 7.5s
+[epoch  2] train=0.906 val_mae=1.77 m/s 7.6s
+[epoch  3] train=0.866 val_mae=1.61 m/s 7.7s
+[epoch  4] train=0.850 val_mae=1.59 m/s 7.6s
+[epoch  5] train=0.805 val_mae=1.55 m/s 7.6s
+[epoch  6] train=0.796 val_mae=1.57 m/s 7.7s
+[epoch  7] train=0.774 val_mae=1.65 m/s 7.7s
+[epoch  8] train=0.748 val_mae=1.62 m/s 7.7s
+[epoch  9] train=0.735 val_mae=1.59 m/s 7.7s
+[epoch 10] train=0.729 val_mae=1.56 m/s 7.7s
+[epoch 11] train=0.705 val_mae=1.64 m/s 7.7s
+[epoch 12] train=0.695 val_mae=1.61 m/s 7.7s
+[epoch 13] train=0.678 val_mae=1.61 m/s 7.7s
+[epoch 14] train=0.671 val_mae=1.66 m/s 7.7s
+[epoch 15] train=0.659 val_mae=1.66 m/s 7.7s
+[epoch 16] train=0.654 val_mae=1.60 m/s 7.7s
+[epoch 17] train=0.636 val_mae=1.66 m/s 7.7s
+[epoch 18] train=0.626 val_mae=1.62 m/s 7.7s
+[epoch 19] train=0.616 val_mae=1.62 m/s 7.7s
+[epoch 20] train=0.605 val_mae=1.66 m/s 7.7s
+[早停] epoch 20，最佳 epoch 5
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.76 m/s  RMSE=1.18  趋势相关=+0.674
+     6h  MAE=1.40 m/s  RMSE=2.14  趋势相关=+0.695
+     9h  MAE=1.96 m/s  RMSE=2.95  趋势相关=+0.716
+    12h  MAE=2.47 m/s  RMSE=3.66  趋势相关=+0.732
+  平均 MAE=1.65 m/s  (最佳 epoch 5)
+[pix] 训练集亮温 均值=[220.3000030517578, 230.10000610351562, 228.5] 标准差=[21.43000030517578, 32.54999923706055, 31.59000015258789] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8703 val=1611 test=2765
+[epoch  0] train=1.161 val_mae=1.72 m/s 4.1s
+[epoch  1] train=0.970 val_mae=1.70 m/s 4.0s
+[epoch  2] train=0.885 val_mae=1.65 m/s 4.0s
+[epoch  3] train=0.841 val_mae=1.72 m/s 3.8s
+[epoch  4] train=0.791 val_mae=1.66 m/s 3.8s
+[epoch  5] train=0.755 val_mae=1.68 m/s 4.1s
+[epoch  6] train=0.723 val_mae=1.72 m/s 3.8s
+[epoch  7] train=0.688 val_mae=1.70 m/s 3.8s
+[epoch  8] train=0.665 val_mae=1.76 m/s 3.9s
+[epoch  9] train=0.641 val_mae=1.70 m/s 4.0s
+[epoch 10] train=0.619 val_mae=1.77 m/s 3.9s
+[epoch 11] train=0.593 val_mae=1.74 m/s 4.0s
+[epoch 12] train=0.581 val_mae=1.82 m/s 3.8s
+[epoch 13] train=0.558 val_mae=1.77 m/s 3.8s
+[epoch 14] train=0.539 val_mae=1.92 m/s 3.9s
+[epoch 15] train=0.519 val_mae=1.80 m/s 4.1s
+[epoch 16] train=0.511 val_mae=1.89 m/s 3.8s
+[epoch 17] train=0.500 val_mae=1.85 m/s 3.9s
+[早停] epoch 17，最佳 epoch 2
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.22  趋势相关=+0.645
+     6h  MAE=1.48 m/s  RMSE=2.19  趋势相关=+0.677
+     9h  MAE=2.06 m/s  RMSE=3.01  趋势相关=+0.701
+    12h  MAE=2.58 m/s  RMSE=3.74  趋势相关=+0.718
+  平均 MAE=1.74 m/s  (最佳 epoch 2)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8703 val=1611 test=2765
+[epoch  0] train=1.105 val_mae=1.55 m/s 0.8s
+[epoch  1] train=0.917 val_mae=1.55 m/s 0.8s
+[epoch  2] train=0.887 val_mae=1.57 m/s 0.7s
+[epoch  3] train=0.864 val_mae=1.51 m/s 0.7s
+[epoch  4] train=0.849 val_mae=1.52 m/s 0.7s
+[epoch  5] train=0.841 val_mae=1.56 m/s 0.7s
+[epoch  6] train=0.829 val_mae=1.51 m/s 0.7s
+[epoch  7] train=0.818 val_mae=1.54 m/s 0.7s
+[epoch  8] train=0.808 val_mae=1.54 m/s 0.7s
+[epoch  9] train=0.803 val_mae=1.51 m/s 0.7s
+[epoch 10] train=0.802 val_mae=1.53 m/s 0.7s
+[epoch 11] train=0.793 val_mae=1.52 m/s 0.7s
+[epoch 12] train=0.779 val_mae=1.50 m/s 0.7s
+[epoch 13] train=0.774 val_mae=1.51 m/s 0.7s
+[epoch 14] train=0.766 val_mae=1.54 m/s 0.7s
+[epoch 15] train=0.765 val_mae=1.52 m/s 0.7s
+[epoch 16] train=0.757 val_mae=1.50 m/s 0.7s
+[epoch 17] train=0.747 val_mae=1.52 m/s 0.7s
+[epoch 18] train=0.738 val_mae=1.53 m/s 0.7s
+[epoch 19] train=0.736 val_mae=1.55 m/s 0.7s
+[epoch 20] train=0.724 val_mae=1.54 m/s 0.7s
+[epoch 21] train=0.717 val_mae=1.55 m/s 0.7s
+[epoch 22] train=0.713 val_mae=1.52 m/s 0.7s
+[epoch 23] train=0.702 val_mae=1.56 m/s 0.7s
+[epoch 24] train=0.698 val_mae=1.51 m/s 0.7s
+[epoch 25] train=0.689 val_mae=1.52 m/s 0.7s
+[epoch 26] train=0.684 val_mae=1.55 m/s 0.7s
+[epoch 27] train=0.676 val_mae=1.54 m/s 0.7s
+[早停] epoch 27，最佳 epoch 12
+
+[gru] 测试集强度误差:
+     3h  MAE=0.64 m/s  RMSE=1.01  趋势相关=+0.774
+     6h  MAE=1.27 m/s  RMSE=1.92  趋势相关=+0.764
+     9h  MAE=1.86 m/s  RMSE=2.71  趋势相关=+0.767
+    12h  MAE=2.36 m/s  RMSE=3.40  趋势相关=+0.774
+  平均 MAE=1.53 m/s  (最佳 epoch 12)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8703 val=1611 test=2765
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.92 m/s  RMSE=1.59  趋势相关=+nan
+     6h  MAE=1.82 m/s  RMSE=2.97  趋势相关=+nan
+     9h  MAE=2.70 m/s  RMSE=4.21  趋势相关=+nan
+    12h  MAE=3.53 m/s  RMSE=5.36  趋势相关=+nan
+  平均 MAE=2.24 m/s  (最佳 epoch 0)
+[fold 0] 台风 train=151 val=26 test=45 | 样本 train=9312 val=1461 test=2306
+[fold 1] 台风 train=151 val=26 test=45 | 样本 train=9309 val=1179 test=2591
+[fold 2] 台风 train=152 val=26 test=44 | 样本 train=8870 val=1179 test=3030
+[fold 3] 台风 train=152 val=26 test=44 | 样本 train=9304 val=1179 test=2596
+[fold 4] 台风 train=152 val=26 test=44 | 样本 train=9344 val=1179 test=2556
+
+======================================================================
+划分seed=7 fold 1/5
+======================================================================
+[pix] 训练集亮温 均值=[220.8000030517578, 230.6999969482422, 229.0] 标准差=[21.6200008392334, 32.9900016784668, 32.279998779296875] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9312 val=1461 test=2306
+[epoch  0] train=1.115 val_mae=1.97 m/s 8.0s
+[epoch  1] train=0.969 val_mae=1.86 m/s 8.0s
+[epoch  2] train=0.915 val_mae=1.94 m/s 8.0s
+[epoch  3] train=0.879 val_mae=1.86 m/s 8.0s
+[epoch  4] train=0.845 val_mae=1.78 m/s 8.0s
+[epoch  5] train=0.823 val_mae=1.83 m/s 8.0s
+[epoch  6] train=0.806 val_mae=1.78 m/s 8.0s
+[epoch  7] train=0.790 val_mae=1.85 m/s 8.0s
+[epoch  8] train=0.764 val_mae=1.83 m/s 8.1s
+[epoch  9] train=0.753 val_mae=1.91 m/s 8.0s
+[epoch 10] train=0.737 val_mae=1.86 m/s 8.1s
+[epoch 11] train=0.720 val_mae=1.81 m/s 8.1s
+[epoch 12] train=0.722 val_mae=1.85 m/s 8.0s
+[epoch 13] train=0.703 val_mae=1.89 m/s 8.0s
+[epoch 14] train=0.692 val_mae=1.87 m/s 8.0s
+[epoch 15] train=0.680 val_mae=1.86 m/s 8.0s
+[epoch 16] train=0.668 val_mae=1.85 m/s 8.1s
+[epoch 17] train=0.660 val_mae=1.90 m/s 8.1s
+[epoch 18] train=0.640 val_mae=1.85 m/s 8.1s
+[epoch 19] train=0.633 val_mae=1.93 m/s 8.1s
+[epoch 20] train=0.621 val_mae=1.91 m/s 8.1s
+[epoch 21] train=0.618 val_mae=1.91 m/s 8.1s
+[早停] epoch 21，最佳 epoch 6
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.73 m/s  RMSE=1.12  趋势相关=+0.619
+     6h  MAE=1.31 m/s  RMSE=2.00  趋势相关=+0.643
+     9h  MAE=1.83 m/s  RMSE=2.73  趋势相关=+0.669
+    12h  MAE=2.28 m/s  RMSE=3.34  趋势相关=+0.696
+  平均 MAE=1.54 m/s  (最佳 epoch 6)
+[pix] 训练集亮温 均值=[220.8000030517578, 230.6999969482422, 229.0] 标准差=[21.6200008392334, 32.9900016784668, 32.279998779296875] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9312 val=1461 test=2306
+[epoch  0] train=1.156 val_mae=1.98 m/s 4.1s
+[epoch  1] train=0.983 val_mae=1.83 m/s 4.3s
+[epoch  2] train=0.908 val_mae=1.85 m/s 4.0s
+[epoch  3] train=0.852 val_mae=1.89 m/s 4.2s
+[epoch  4] train=0.806 val_mae=1.91 m/s 4.2s
+[epoch  5] train=0.765 val_mae=1.90 m/s 4.1s
+[epoch  6] train=0.726 val_mae=1.93 m/s 4.1s
+[epoch  7] train=0.692 val_mae=1.93 m/s 4.2s
+[epoch  8] train=0.672 val_mae=1.98 m/s 4.4s
+[epoch  9] train=0.645 val_mae=1.82 m/s 4.3s
+[epoch 10] train=0.631 val_mae=1.93 m/s 4.2s
+[epoch 11] train=0.605 val_mae=1.95 m/s 4.2s
+[epoch 12] train=0.592 val_mae=1.96 m/s 4.2s
+[epoch 13] train=0.575 val_mae=1.96 m/s 4.2s
+[epoch 14] train=0.557 val_mae=1.91 m/s 4.4s
+[epoch 15] train=0.539 val_mae=2.04 m/s 4.2s
+[epoch 16] train=0.525 val_mae=1.87 m/s 4.2s
+[epoch 17] train=0.506 val_mae=2.02 m/s 4.1s
+[epoch 18] train=0.500 val_mae=2.02 m/s 4.4s
+[epoch 19] train=0.483 val_mae=1.97 m/s 4.4s
+[epoch 20] train=0.467 val_mae=2.00 m/s 4.3s
+[epoch 21] train=0.458 val_mae=2.01 m/s 4.4s
+[epoch 22] train=0.443 val_mae=2.04 m/s 4.3s
+[epoch 23] train=0.431 val_mae=2.01 m/s 4.2s
+[epoch 24] train=0.422 val_mae=2.02 m/s 4.4s
+[早停] epoch 24，最佳 epoch 9
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.79 m/s  RMSE=1.14  趋势相关=+0.607
+     6h  MAE=1.40 m/s  RMSE=2.01  趋势相关=+0.642
+     9h  MAE=1.94 m/s  RMSE=2.75  趋势相关=+0.669
+    12h  MAE=2.45 m/s  RMSE=3.40  趋势相关=+0.689
+  平均 MAE=1.64 m/s  (最佳 epoch 9)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9312 val=1461 test=2306
+[epoch  0] train=1.102 val_mae=1.76 m/s 0.8s
+[epoch  1] train=0.921 val_mae=1.73 m/s 0.8s
+[epoch  2] train=0.885 val_mae=1.72 m/s 0.8s
+[epoch  3] train=0.872 val_mae=1.67 m/s 0.8s
+[epoch  4] train=0.861 val_mae=1.67 m/s 0.8s
+[epoch  5] train=0.842 val_mae=1.64 m/s 0.8s
+[epoch  6] train=0.837 val_mae=1.68 m/s 0.8s
+[epoch  7] train=0.824 val_mae=1.63 m/s 0.8s
+[epoch  8] train=0.816 val_mae=1.68 m/s 0.8s
+[epoch  9] train=0.802 val_mae=1.64 m/s 0.8s
+[epoch 10] train=0.799 val_mae=1.66 m/s 0.8s
+[epoch 11] train=0.793 val_mae=1.68 m/s 0.8s
+[epoch 12] train=0.782 val_mae=1.65 m/s 0.8s
+[epoch 13] train=0.778 val_mae=1.66 m/s 0.8s
+[epoch 14] train=0.767 val_mae=1.65 m/s 0.8s
+[epoch 15] train=0.761 val_mae=1.72 m/s 0.8s
+[epoch 16] train=0.752 val_mae=1.67 m/s 0.8s
+[epoch 17] train=0.744 val_mae=1.70 m/s 0.8s
+[epoch 18] train=0.735 val_mae=1.68 m/s 0.8s
+[epoch 19] train=0.729 val_mae=1.66 m/s 0.8s
+[epoch 20] train=0.723 val_mae=1.70 m/s 0.8s
+[epoch 21] train=0.716 val_mae=1.72 m/s 0.8s
+[epoch 22] train=0.707 val_mae=1.70 m/s 0.8s
+[早停] epoch 22，最佳 epoch 7
+
+[gru] 测试集强度误差:
+     3h  MAE=0.63 m/s  RMSE=1.03  趋势相关=+0.694
+     6h  MAE=1.21 m/s  RMSE=1.86  趋势相关=+0.700
+     9h  MAE=1.73 m/s  RMSE=2.57  趋势相关=+0.712
+    12h  MAE=2.20 m/s  RMSE=3.17  趋势相关=+0.729
+  平均 MAE=1.44 m/s  (最佳 epoch 7)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9312 val=1461 test=2306
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.79 m/s  RMSE=1.43  趋势相关=+nan
+     6h  MAE=1.57 m/s  RMSE=2.60  趋势相关=+nan
+     9h  MAE=2.32 m/s  RMSE=3.66  趋势相关=+nan
+    12h  MAE=3.05 m/s  RMSE=4.63  趋势相关=+nan
+  平均 MAE=1.93 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=7 fold 2/5
+======================================================================
+[pix] 训练集亮温 均值=[221.10000610351562, 231.39999389648438, 229.6999969482422] 标准差=[21.3799991607666, 33.150001525878906, 32.369998931884766] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9309 val=1179 test=2591
+[epoch  0] train=1.108 val_mae=1.41 m/s 7.8s
+[epoch  1] train=0.965 val_mae=1.43 m/s 7.9s
+[epoch  2] train=0.918 val_mae=1.45 m/s 7.8s
+[epoch  3] train=0.886 val_mae=1.40 m/s 7.8s
+[epoch  4] train=0.848 val_mae=1.38 m/s 7.9s
+[epoch  5] train=0.818 val_mae=1.44 m/s 7.9s
+[epoch  6] train=0.799 val_mae=1.48 m/s 7.9s
+[epoch  7] train=0.781 val_mae=1.40 m/s 7.9s
+[epoch  8] train=0.764 val_mae=1.38 m/s 7.9s
+[epoch  9] train=0.747 val_mae=1.40 m/s 8.0s
+[epoch 10] train=0.732 val_mae=1.41 m/s 8.1s
+[epoch 11] train=0.716 val_mae=1.47 m/s 8.0s
+[epoch 12] train=0.707 val_mae=1.47 m/s 7.9s
+[epoch 13] train=0.701 val_mae=1.44 m/s 7.9s
+[epoch 14] train=0.681 val_mae=1.55 m/s 7.9s
+[epoch 15] train=0.668 val_mae=1.47 m/s 7.9s
+[epoch 16] train=0.662 val_mae=1.43 m/s 7.9s
+[epoch 17] train=0.652 val_mae=1.46 m/s 8.0s
+[epoch 18] train=0.634 val_mae=1.51 m/s 7.9s
+[epoch 19] train=0.629 val_mae=1.44 m/s 7.9s
+[早停] epoch 19，最佳 epoch 4
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.80 m/s  RMSE=1.17  趋势相关=+0.702
+     6h  MAE=1.47 m/s  RMSE=2.12  趋势相关=+0.721
+     9h  MAE=2.07 m/s  RMSE=2.93  趋势相关=+0.739
+    12h  MAE=2.61 m/s  RMSE=3.66  趋势相关=+0.753
+  平均 MAE=1.74 m/s  (最佳 epoch 4)
+[pix] 训练集亮温 均值=[221.10000610351562, 231.39999389648438, 229.6999969482422] 标准差=[21.3799991607666, 33.150001525878906, 32.369998931884766] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9309 val=1179 test=2591
+[epoch  0] train=1.135 val_mae=1.47 m/s 4.0s
+[epoch  1] train=0.977 val_mae=1.43 m/s 3.8s
+[epoch  2] train=0.901 val_mae=1.49 m/s 3.9s
+[epoch  3] train=0.841 val_mae=1.41 m/s 4.2s
+[epoch  4] train=0.804 val_mae=1.45 m/s 3.9s
+[epoch  5] train=0.771 val_mae=1.52 m/s 3.9s
+[epoch  6] train=0.748 val_mae=1.56 m/s 3.8s
+[epoch  7] train=0.714 val_mae=1.48 m/s 3.8s
+[epoch  8] train=0.676 val_mae=1.52 m/s 3.8s
+[epoch  9] train=0.658 val_mae=1.50 m/s 4.2s
+[epoch 10] train=0.639 val_mae=1.59 m/s 4.0s
+[epoch 11] train=0.619 val_mae=1.56 m/s 4.1s
+[epoch 12] train=0.605 val_mae=1.62 m/s 4.3s
+[epoch 13] train=0.575 val_mae=1.52 m/s 4.3s
+[epoch 14] train=0.568 val_mae=1.56 m/s 3.9s
+[epoch 15] train=0.547 val_mae=1.62 m/s 4.1s
+[epoch 16] train=0.530 val_mae=1.57 m/s 4.1s
+[epoch 17] train=0.522 val_mae=1.58 m/s 4.1s
+[epoch 18] train=0.506 val_mae=1.60 m/s 3.9s
+[早停] epoch 18，最佳 epoch 3
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.82 m/s  RMSE=1.19  趋势相关=+0.688
+     6h  MAE=1.51 m/s  RMSE=2.15  趋势相关=+0.712
+     9h  MAE=2.11 m/s  RMSE=2.97  趋势相关=+0.732
+    12h  MAE=2.65 m/s  RMSE=3.73  趋势相关=+0.745
+  平均 MAE=1.77 m/s  (最佳 epoch 3)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9309 val=1179 test=2591
+[epoch  0] train=1.098 val_mae=1.36 m/s 0.8s
+[epoch  1] train=0.919 val_mae=1.34 m/s 0.8s
+[epoch  2] train=0.892 val_mae=1.33 m/s 0.8s
+[epoch  3] train=0.866 val_mae=1.36 m/s 0.8s
+[epoch  4] train=0.856 val_mae=1.32 m/s 0.8s
+[epoch  5] train=0.846 val_mae=1.31 m/s 0.8s
+[epoch  6] train=0.835 val_mae=1.31 m/s 0.8s
+[epoch  7] train=0.819 val_mae=1.33 m/s 0.8s
+[epoch  8] train=0.815 val_mae=1.34 m/s 0.8s
+[epoch  9] train=0.810 val_mae=1.33 m/s 0.8s
+[epoch 10] train=0.797 val_mae=1.33 m/s 0.8s
+[epoch 11] train=0.789 val_mae=1.34 m/s 0.8s
+[epoch 12] train=0.783 val_mae=1.31 m/s 0.8s
+[epoch 13] train=0.775 val_mae=1.33 m/s 0.8s
+[epoch 14] train=0.769 val_mae=1.30 m/s 0.8s
+[epoch 15] train=0.760 val_mae=1.32 m/s 0.8s
+[epoch 16] train=0.750 val_mae=1.33 m/s 0.8s
+[epoch 17] train=0.746 val_mae=1.35 m/s 0.8s
+[epoch 18] train=0.737 val_mae=1.37 m/s 0.8s
+[epoch 19] train=0.728 val_mae=1.35 m/s 0.8s
+[epoch 20] train=0.720 val_mae=1.35 m/s 0.8s
+[epoch 21] train=0.711 val_mae=1.35 m/s 0.8s
+[epoch 22] train=0.703 val_mae=1.35 m/s 0.8s
+[epoch 23] train=0.697 val_mae=1.35 m/s 0.8s
+[epoch 24] train=0.691 val_mae=1.35 m/s 0.8s
+[epoch 25] train=0.682 val_mae=1.34 m/s 0.8s
+[epoch 26] train=0.679 val_mae=1.37 m/s 0.8s
+[epoch 27] train=0.669 val_mae=1.34 m/s 0.8s
+[epoch 28] train=0.665 val_mae=1.35 m/s 0.8s
+[epoch 29] train=0.655 val_mae=1.38 m/s 0.8s
+[早停] epoch 29，最佳 epoch 14
+
+[gru] 测试集强度误差:
+     3h  MAE=0.65 m/s  RMSE=1.01  趋势相关=+0.785
+     6h  MAE=1.34 m/s  RMSE=1.95  趋势相关=+0.770
+     9h  MAE=1.95 m/s  RMSE=2.71  趋势相关=+0.781
+    12h  MAE=2.44 m/s  RMSE=3.38  趋势相关=+0.795
+  平均 MAE=1.59 m/s  (最佳 epoch 14)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9309 val=1179 test=2591
+
+[persistence] 测试集强度误差:
+     3h  MAE=1.01 m/s  RMSE=1.63  趋势相关=+nan
+     6h  MAE=2.00 m/s  RMSE=3.06  趋势相关=+nan
+     9h  MAE=2.99 m/s  RMSE=4.35  趋势相关=+nan
+    12h  MAE=3.93 m/s  RMSE=5.57  趋势相关=+nan
+  平均 MAE=2.48 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=7 fold 3/5
+======================================================================
+[pix] 训练集亮温 均值=[220.10000610351562, 229.5, 227.89999389648438] 标准差=[21.399999618530273, 32.31999969482422, 31.389999389648438] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=8870 val=1179 test=3030
+[epoch  0] train=1.221 val_mae=1.44 m/s 7.6s
+[epoch  1] train=1.027 val_mae=1.43 m/s 7.5s
+[epoch  2] train=0.980 val_mae=1.39 m/s 7.5s
+[epoch  3] train=0.936 val_mae=1.40 m/s 7.5s
+[epoch  4] train=0.904 val_mae=1.41 m/s 7.5s
+[epoch  5] train=0.884 val_mae=1.39 m/s 7.6s
+[epoch  6] train=0.857 val_mae=1.37 m/s 7.5s
+[epoch  7] train=0.842 val_mae=1.38 m/s 7.5s
+[epoch  8] train=0.826 val_mae=1.41 m/s 7.5s
+[epoch  9] train=0.801 val_mae=1.43 m/s 7.5s
+[epoch 10] train=0.785 val_mae=1.47 m/s 7.6s
+[epoch 11] train=0.773 val_mae=1.51 m/s 7.6s
+[epoch 12] train=0.749 val_mae=1.56 m/s 7.7s
+[epoch 13] train=0.738 val_mae=1.43 m/s 7.6s
+[epoch 14] train=0.726 val_mae=1.39 m/s 7.6s
+[epoch 15] train=0.725 val_mae=1.46 m/s 7.5s
+[epoch 16] train=0.707 val_mae=1.49 m/s 7.6s
+[epoch 17] train=0.694 val_mae=1.51 m/s 7.6s
+[epoch 18] train=0.675 val_mae=1.43 m/s 7.6s
+[epoch 19] train=0.663 val_mae=1.49 m/s 7.6s
+[epoch 20] train=0.663 val_mae=1.50 m/s 7.6s
+[epoch 21] train=0.650 val_mae=1.51 m/s 7.6s
+[早停] epoch 21，最佳 epoch 6
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.70 m/s  RMSE=0.99  趋势相关=+0.700
+     6h  MAE=1.27 m/s  RMSE=1.81  趋势相关=+0.710
+     9h  MAE=1.78 m/s  RMSE=2.49  趋势相关=+0.728
+    12h  MAE=2.22 m/s  RMSE=3.12  趋势相关=+0.740
+  平均 MAE=1.49 m/s  (最佳 epoch 6)
+[pix] 训练集亮温 均值=[220.10000610351562, 229.5, 227.89999389648438] 标准差=[21.399999618530273, 32.31999969482422, 31.389999389648438] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=8870 val=1179 test=3030
+[epoch  0] train=1.230 val_mae=1.57 m/s 3.9s
+[epoch  1] train=1.024 val_mae=1.48 m/s 4.0s
+[epoch  2] train=0.948 val_mae=1.44 m/s 4.0s
+[epoch  3] train=0.891 val_mae=1.49 m/s 3.9s
+[epoch  4] train=0.841 val_mae=1.51 m/s 4.0s
+[epoch  5] train=0.817 val_mae=1.46 m/s 4.0s
+[epoch  6] train=0.766 val_mae=1.42 m/s 3.9s
+[epoch  7] train=0.745 val_mae=1.46 m/s 4.0s
+[epoch  8] train=0.718 val_mae=1.50 m/s 3.8s
+[epoch  9] train=0.693 val_mae=1.48 m/s 3.9s
+[epoch 10] train=0.674 val_mae=1.52 m/s 3.9s
+[epoch 11] train=0.646 val_mae=1.51 m/s 4.1s
+[epoch 12] train=0.626 val_mae=1.55 m/s 4.1s
+[epoch 13] train=0.602 val_mae=1.66 m/s 4.1s
+[epoch 14] train=0.588 val_mae=1.57 m/s 4.0s
+[epoch 15] train=0.572 val_mae=1.53 m/s 3.8s
+[epoch 16] train=0.557 val_mae=1.53 m/s 3.8s
+[epoch 17] train=0.536 val_mae=1.49 m/s 3.7s
+[epoch 18] train=0.525 val_mae=1.57 m/s 3.8s
+[epoch 19] train=0.511 val_mae=1.58 m/s 3.8s
+[epoch 20] train=0.502 val_mae=1.59 m/s 3.9s
+[epoch 21] train=0.482 val_mae=1.50 m/s 4.0s
+[早停] epoch 21，最佳 epoch 6
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.75 m/s  RMSE=1.07  趋势相关=+0.640
+     6h  MAE=1.39 m/s  RMSE=1.99  趋势相关=+0.649
+     9h  MAE=1.95 m/s  RMSE=2.78  趋势相关=+0.668
+    12h  MAE=2.47 m/s  RMSE=3.50  趋势相关=+0.682
+  平均 MAE=1.64 m/s  (最佳 epoch 6)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=8870 val=1179 test=3030
+[epoch  0] train=1.194 val_mae=1.37 m/s 0.8s
+[epoch  1] train=0.984 val_mae=1.36 m/s 0.8s
+[epoch  2] train=0.953 val_mae=1.36 m/s 0.7s
+[epoch  3] train=0.928 val_mae=1.37 m/s 0.7s
+[epoch  4] train=0.916 val_mae=1.35 m/s 0.7s
+[epoch  5] train=0.905 val_mae=1.40 m/s 0.7s
+[epoch  6] train=0.890 val_mae=1.34 m/s 0.7s
+[epoch  7] train=0.883 val_mae=1.32 m/s 0.8s
+[epoch  8] train=0.868 val_mae=1.32 m/s 0.7s
+[epoch  9] train=0.865 val_mae=1.34 m/s 0.7s
+[epoch 10] train=0.853 val_mae=1.31 m/s 0.7s
+[epoch 11] train=0.841 val_mae=1.31 m/s 0.7s
+[epoch 12] train=0.835 val_mae=1.35 m/s 0.7s
+[epoch 13] train=0.823 val_mae=1.31 m/s 0.7s
+[epoch 14] train=0.812 val_mae=1.35 m/s 0.7s
+[epoch 15] train=0.805 val_mae=1.30 m/s 0.7s
+[epoch 16] train=0.798 val_mae=1.32 m/s 0.8s
+[epoch 17] train=0.790 val_mae=1.30 m/s 0.7s
+[epoch 18] train=0.784 val_mae=1.33 m/s 0.7s
+[epoch 19] train=0.772 val_mae=1.32 m/s 0.7s
+[epoch 20] train=0.762 val_mae=1.33 m/s 0.7s
+[epoch 21] train=0.758 val_mae=1.34 m/s 0.7s
+[epoch 22] train=0.745 val_mae=1.33 m/s 0.7s
+[epoch 23] train=0.738 val_mae=1.32 m/s 0.8s
+[epoch 24] train=0.729 val_mae=1.34 m/s 0.7s
+[epoch 25] train=0.721 val_mae=1.33 m/s 0.7s
+[epoch 26] train=0.711 val_mae=1.33 m/s 0.7s
+[epoch 27] train=0.707 val_mae=1.33 m/s 0.7s
+[epoch 28] train=0.699 val_mae=1.31 m/s 0.7s
+[epoch 29] train=0.695 val_mae=1.34 m/s 0.7s
+[epoch 30] train=0.688 val_mae=1.35 m/s 0.7s
+[早停] epoch 30，最佳 epoch 15
+
+[gru] 测试集强度误差:
+     3h  MAE=0.57 m/s  RMSE=0.87  趋势相关=+0.774
+     6h  MAE=1.15 m/s  RMSE=1.70  趋势相关=+0.746
+     9h  MAE=1.67 m/s  RMSE=2.37  趋势相关=+0.754
+    12h  MAE=2.10 m/s  RMSE=2.99  趋势相关=+0.758
+  平均 MAE=1.37 m/s  (最佳 epoch 15)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=8870 val=1179 test=3030
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.79 m/s  RMSE=1.37  趋势相关=+nan
+     6h  MAE=1.56 m/s  RMSE=2.55  趋势相关=+nan
+     9h  MAE=2.32 m/s  RMSE=3.60  趋势相关=+nan
+    12h  MAE=3.05 m/s  RMSE=4.60  趋势相关=+nan
+  平均 MAE=1.93 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=7 fold 4/5
+======================================================================
+[pix] 训练集亮温 均值=[220.60000610351562, 230.39999389648438, 228.6999969482422] 标准差=[21.8799991607666, 32.939998626708984, 32.130001068115234] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9304 val=1179 test=2596
+[epoch  0] train=1.134 val_mae=1.46 m/s 7.8s
+[epoch  1] train=0.968 val_mae=1.38 m/s 7.8s
+[epoch  2] train=0.925 val_mae=1.46 m/s 7.8s
+[epoch  3] train=0.883 val_mae=1.55 m/s 7.8s
+[epoch  4] train=0.850 val_mae=1.41 m/s 7.8s
+[epoch  5] train=0.834 val_mae=1.51 m/s 7.8s
+[epoch  6] train=0.805 val_mae=1.43 m/s 7.8s
+[epoch  7] train=0.780 val_mae=1.42 m/s 7.8s
+[epoch  8] train=0.772 val_mae=1.47 m/s 7.8s
+[epoch  9] train=0.749 val_mae=1.46 m/s 7.8s
+[epoch 10] train=0.729 val_mae=1.54 m/s 7.8s
+[epoch 11] train=0.720 val_mae=1.45 m/s 7.9s
+[epoch 12] train=0.704 val_mae=1.48 m/s 7.9s
+[epoch 13] train=0.686 val_mae=1.52 m/s 7.9s
+[epoch 14] train=0.681 val_mae=1.45 m/s 7.8s
+[epoch 15] train=0.662 val_mae=1.47 m/s 7.9s
+[epoch 16] train=0.658 val_mae=1.49 m/s 7.9s
+[早停] epoch 16，最佳 epoch 1
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.87 m/s  RMSE=1.22  趋势相关=+0.625
+     6h  MAE=1.60 m/s  RMSE=2.21  趋势相关=+0.650
+     9h  MAE=2.23 m/s  RMSE=3.06  趋势相关=+0.678
+    12h  MAE=2.80 m/s  RMSE=3.84  趋势相关=+0.697
+  平均 MAE=1.88 m/s  (最佳 epoch 1)
+[pix] 训练集亮温 均值=[220.60000610351562, 230.39999389648438, 228.6999969482422] 标准差=[21.8799991607666, 32.939998626708984, 32.130001068115234] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9304 val=1179 test=2596
+[epoch  0] train=1.157 val_mae=1.45 m/s 4.0s
+[epoch  1] train=0.980 val_mae=1.47 m/s 4.1s
+[epoch  2] train=0.904 val_mae=1.44 m/s 4.2s
+[epoch  3] train=0.858 val_mae=1.41 m/s 4.0s
+[epoch  4] train=0.801 val_mae=1.44 m/s 4.0s
+[epoch  5] train=0.771 val_mae=1.47 m/s 4.3s
+[epoch  6] train=0.740 val_mae=1.42 m/s 4.1s
+[epoch  7] train=0.716 val_mae=1.48 m/s 4.2s
+[epoch  8] train=0.680 val_mae=1.51 m/s 4.2s
+[epoch  9] train=0.656 val_mae=1.48 m/s 4.3s
+[epoch 10] train=0.633 val_mae=1.60 m/s 4.2s
+[epoch 11] train=0.605 val_mae=1.49 m/s 4.1s
+[epoch 12] train=0.587 val_mae=1.48 m/s 4.2s
+[epoch 13] train=0.570 val_mae=1.51 m/s 4.1s
+[epoch 14] train=0.560 val_mae=1.54 m/s 4.0s
+[epoch 15] train=0.533 val_mae=1.60 m/s 4.2s
+[epoch 16] train=0.521 val_mae=1.55 m/s 4.0s
+[epoch 17] train=0.500 val_mae=1.49 m/s 3.9s
+[epoch 18] train=0.502 val_mae=1.53 m/s 4.0s
+[早停] epoch 18，最佳 epoch 3
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.83 m/s  RMSE=1.17  趋势相关=+0.656
+     6h  MAE=1.50 m/s  RMSE=2.10  趋势相关=+0.685
+     9h  MAE=2.09 m/s  RMSE=2.88  趋势相关=+0.711
+    12h  MAE=2.63 m/s  RMSE=3.59  趋势相关=+0.727
+  平均 MAE=1.76 m/s  (最佳 epoch 3)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9304 val=1179 test=2596
+[epoch  0] train=1.123 val_mae=1.37 m/s 0.8s
+[epoch  1] train=0.927 val_mae=1.33 m/s 0.8s
+[epoch  2] train=0.895 val_mae=1.32 m/s 0.8s
+[epoch  3] train=0.878 val_mae=1.34 m/s 0.8s
+[epoch  4] train=0.859 val_mae=1.34 m/s 0.8s
+[epoch  5] train=0.846 val_mae=1.33 m/s 0.8s
+[epoch  6] train=0.832 val_mae=1.37 m/s 0.8s
+[epoch  7] train=0.822 val_mae=1.33 m/s 0.8s
+[epoch  8] train=0.808 val_mae=1.36 m/s 0.8s
+[epoch  9] train=0.802 val_mae=1.34 m/s 0.8s
+[epoch 10] train=0.790 val_mae=1.35 m/s 0.8s
+[epoch 11] train=0.786 val_mae=1.36 m/s 0.8s
+[epoch 12] train=0.771 val_mae=1.35 m/s 0.8s
+[epoch 13] train=0.767 val_mae=1.36 m/s 0.8s
+[epoch 14] train=0.757 val_mae=1.35 m/s 0.8s
+[epoch 15] train=0.749 val_mae=1.39 m/s 0.8s
+[epoch 16] train=0.741 val_mae=1.37 m/s 0.8s
+[epoch 17] train=0.737 val_mae=1.35 m/s 0.8s
+[早停] epoch 17，最佳 epoch 2
+
+[gru] 测试集强度误差:
+     3h  MAE=0.71 m/s  RMSE=1.06  趋势相关=+0.726
+     6h  MAE=1.36 m/s  RMSE=1.95  趋势相关=+0.726
+     9h  MAE=1.96 m/s  RMSE=2.70  趋势相关=+0.739
+    12h  MAE=2.47 m/s  RMSE=3.39  趋势相关=+0.750
+  平均 MAE=1.62 m/s  (最佳 epoch 2)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9304 val=1179 test=2596
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.91 m/s  RMSE=1.54  趋势相关=+nan
+     6h  MAE=1.81 m/s  RMSE=2.84  趋势相关=+nan
+     9h  MAE=2.69 m/s  RMSE=4.01  趋势相关=+nan
+    12h  MAE=3.53 m/s  RMSE=5.12  趋势相关=+nan
+  平均 MAE=2.24 m/s  (最佳 epoch 0)
+
+======================================================================
+划分seed=7 fold 5/5
+======================================================================
+[pix] 训练集亮温 均值=[221.0, 231.3000030517578, 229.6999969482422] 标准差=[21.739999771118164, 33.04999923706055, 32.15999984741211] (K，逐通道)
+
+############################################################
+# fusion_transformer+云图  参数量=470,724  设备=cuda
+############################################################
+样本数 train=9344 val=1179 test=2556
+[epoch  0] train=1.135 val_mae=1.38 m/s 7.7s
+[epoch  1] train=0.985 val_mae=1.39 m/s 7.8s
+[epoch  2] train=0.937 val_mae=1.39 m/s 7.8s
+[epoch  3] train=0.898 val_mae=1.36 m/s 7.8s
+[epoch  4] train=0.870 val_mae=1.41 m/s 7.8s
+[epoch  5] train=0.844 val_mae=1.36 m/s 7.8s
+[epoch  6] train=0.819 val_mae=1.39 m/s 7.9s
+[epoch  7] train=0.802 val_mae=1.39 m/s 7.9s
+[epoch  8] train=0.783 val_mae=1.37 m/s 7.8s
+[epoch  9] train=0.770 val_mae=1.39 m/s 7.9s
+[epoch 10] train=0.747 val_mae=1.43 m/s 7.9s
+[epoch 11] train=0.733 val_mae=1.40 m/s 7.9s
+[epoch 12] train=0.721 val_mae=1.38 m/s 7.9s
+[epoch 13] train=0.714 val_mae=1.38 m/s 7.9s
+[epoch 14] train=0.695 val_mae=1.40 m/s 7.9s
+[epoch 15] train=0.684 val_mae=1.39 m/s 7.9s
+[epoch 16] train=0.670 val_mae=1.39 m/s 7.9s
+[epoch 17] train=0.669 val_mae=1.39 m/s 7.9s
+[epoch 18] train=0.652 val_mae=1.46 m/s 7.9s
+[早停] epoch 18，最佳 epoch 3
+
+[fusion_transformer+云图] 测试集强度误差:
+     3h  MAE=0.78 m/s  RMSE=1.09  趋势相关=+0.712
+     6h  MAE=1.40 m/s  RMSE=1.97  趋势相关=+0.737
+     9h  MAE=1.94 m/s  RMSE=2.68  趋势相关=+0.762
+    12h  MAE=2.40 m/s  RMSE=3.31  趋势相关=+0.779
+  平均 MAE=1.63 m/s  (最佳 epoch 3)
+[pix] 训练集亮温 均值=[221.0, 231.3000030517578, 229.6999969482422] 标准差=[21.739999771118164, 33.04999923706055, 32.15999984741211] (K，逐通道)
+
+############################################################
+# feature_transformer+云图  参数量=420,996  设备=cuda
+############################################################
+样本数 train=9344 val=1179 test=2556
+[epoch  0] train=1.168 val_mae=1.51 m/s 4.0s
+[epoch  1] train=1.008 val_mae=1.46 m/s 4.3s
+[epoch  2] train=0.931 val_mae=1.47 m/s 4.3s
+[epoch  3] train=0.876 val_mae=1.43 m/s 4.3s
+[epoch  4] train=0.832 val_mae=1.43 m/s 4.3s
+[epoch  5] train=0.798 val_mae=1.42 m/s 4.0s
+[epoch  6] train=0.757 val_mae=1.44 m/s 4.3s
+[epoch  7] train=0.725 val_mae=1.46 m/s 4.2s
+[epoch  8] train=0.699 val_mae=1.45 m/s 4.0s
+[epoch  9] train=0.670 val_mae=1.45 m/s 4.1s
+[epoch 10] train=0.648 val_mae=1.44 m/s 4.3s
+[epoch 11] train=0.628 val_mae=1.56 m/s 4.3s
+[epoch 12] train=0.609 val_mae=1.51 m/s 4.1s
+[epoch 13] train=0.588 val_mae=1.50 m/s 4.0s
+[epoch 14] train=0.568 val_mae=1.54 m/s 3.9s
+[epoch 15] train=0.550 val_mae=1.49 m/s 3.9s
+[epoch 16] train=0.532 val_mae=1.54 m/s 4.0s
+[epoch 17] train=0.517 val_mae=1.51 m/s 4.1s
+[epoch 18] train=0.505 val_mae=1.57 m/s 4.2s
+[epoch 19] train=0.489 val_mae=1.58 m/s 4.0s
+[epoch 20] train=0.465 val_mae=1.56 m/s 4.0s
+[早停] epoch 20，最佳 epoch 5
+
+[feature_transformer+云图] 测试集强度误差:
+     3h  MAE=0.78 m/s  RMSE=1.10  趋势相关=+0.712
+     6h  MAE=1.40 m/s  RMSE=1.98  趋势相关=+0.735
+     9h  MAE=1.95 m/s  RMSE=2.72  趋势相关=+0.756
+    12h  MAE=2.43 m/s  RMSE=3.40  趋势相关=+0.767
+  平均 MAE=1.64 m/s  (最佳 epoch 5)
+
+############################################################
+# gru  参数量=172,036  设备=cuda
+############################################################
+样本数 train=9344 val=1179 test=2556
+[epoch  0] train=1.110 val_mae=1.35 m/s 0.7s
+[epoch  1] train=0.940 val_mae=1.38 m/s 0.7s
+[epoch  2] train=0.907 val_mae=1.36 m/s 0.7s
+[epoch  3] train=0.887 val_mae=1.34 m/s 0.7s
+[epoch  4] train=0.871 val_mae=1.33 m/s 0.7s
+[epoch  5] train=0.862 val_mae=1.35 m/s 0.7s
+[epoch  6] train=0.849 val_mae=1.33 m/s 0.7s
+[epoch  7] train=0.837 val_mae=1.32 m/s 0.7s
+[epoch  8] train=0.828 val_mae=1.34 m/s 0.7s
+[epoch  9] train=0.818 val_mae=1.32 m/s 0.7s
+[epoch 10] train=0.810 val_mae=1.33 m/s 0.7s
+[epoch 11] train=0.798 val_mae=1.31 m/s 0.7s
+[epoch 12] train=0.792 val_mae=1.29 m/s 0.8s
+[epoch 13] train=0.778 val_mae=1.30 m/s 0.8s
+[epoch 14] train=0.772 val_mae=1.32 m/s 0.8s
+[epoch 15] train=0.769 val_mae=1.34 m/s 0.8s
+[epoch 16] train=0.759 val_mae=1.34 m/s 0.8s
+[epoch 17] train=0.748 val_mae=1.38 m/s 0.8s
+[epoch 18] train=0.742 val_mae=1.35 m/s 0.8s
+[epoch 19] train=0.734 val_mae=1.35 m/s 0.8s
+[epoch 20] train=0.724 val_mae=1.33 m/s 0.8s
+[epoch 21] train=0.719 val_mae=1.32 m/s 0.8s
+[epoch 22] train=0.706 val_mae=1.30 m/s 0.8s
+[epoch 23] train=0.700 val_mae=1.34 m/s 0.8s
+[epoch 24] train=0.691 val_mae=1.35 m/s 0.8s
+[epoch 25] train=0.685 val_mae=1.34 m/s 0.8s
+[epoch 26] train=0.682 val_mae=1.31 m/s 0.8s
+[epoch 27] train=0.676 val_mae=1.35 m/s 0.8s
+[早停] epoch 27，最佳 epoch 12
+
+[gru] 测试集强度误差:
+     3h  MAE=0.63 m/s  RMSE=0.95  趋势相关=+0.794
+     6h  MAE=1.29 m/s  RMSE=1.83  趋势相关=+0.779
+     9h  MAE=1.85 m/s  RMSE=2.56  趋势相关=+0.789
+    12h  MAE=2.32 m/s  RMSE=3.21  趋势相关=+0.797
+  平均 MAE=1.52 m/s  (最佳 epoch 12)
+
+############################################################
+# persistence  参数量=0  设备=cuda
+############################################################
+样本数 train=9344 val=1179 test=2556
+
+[persistence] 测试集强度误差:
+     3h  MAE=0.91 m/s  RMSE=1.56  趋势相关=+nan
+     6h  MAE=1.82 m/s  RMSE=2.91  趋势相关=+nan
+     9h  MAE=2.72 m/s  RMSE=4.13  趋势相关=+nan
+    12h  MAE=3.59 m/s  RMSE=5.28  趋势相关=+nan
+  平均 MAE=2.26 m/s  (最佳 epoch 0)
+
+[folds] 共 15 个 job (5 折 × 3 种划分 [42, 0, 7])
+
+======================================================================
+5 折交叉验证汇总（测试集，MAE 单位 m/s）  [n=15 job = 5 折 × 3 种划分 [42, 0, 7]]
+======================================================================
+| 模型 | 3h | 6h | 9h | 12h | 平均 | 趋势相关 |
+|---|---|---|---|---|---|---|
+| fusion_transformer+云图 | 0.76±0.05 | 1.39±0.09 | 1.95±0.13 | 2.44±0.17 | 1.63±0.11 | +0.711±0.032 |
+| feature_transformer+云图 | 0.79±0.03 | 1.44±0.05 | 2.01±0.08 | 2.52±0.11 | 1.69±0.07 | +0.692±0.030 |
+| gru | 0.65±0.04 | 1.29±0.06 | 1.85±0.09 | 2.34±0.12 | 1.53±0.07 | +0.754±0.024 |
+| persistence | 0.88±0.06 | 1.75±0.12 | 2.61±0.18 | 3.43±0.24 | 2.17±0.15 | n/a |
+
+列顺序: ± 前 = 各 job 均值；± 后 = 各 job 标准差（非均值标准误）
+       两种划分之间台风重叠，job 之间不独立，勿据此下结论；胜率/配对检验见 --vs
+
+配对比较（对照 = gru，15 job，负值=更好）
+| 模型 | ΔMAE | 胜率 | t | p |
+|---|---|---|---|---|
+| fusion_transformer+云图 | +0.102 | 0/15 (0%) | +6.87 | <1e-4 |
+| feature_transformer+云图 | +0.161 | 0/15 (0%) | +14.22 | <1e-4 |
+| persistence | +0.639 | 0/15 (0%) | +22.15 | <1e-4 |
+
+CV 结果已保存: /home/haru/Project/ds/typhoon-transformer/outputs/intensity_rerun_224_terrain/cv5_summary.json

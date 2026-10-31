@@ -13,48 +13,27 @@
 .scratch/
 
 # ---- 训练产物 ----
-# 忽略 outputs 下全部内容，但保留被 README / 技术报告引用的图表与指标。
-# 注意: 必须先忽略 outputs/* 再白名单子目录，直接写 !outputs/xxx/*.png 无效
-#       （父目录被排除时 git 不会进入其中查找）
+# 策略：**按文件类型白名单**，而不是逐个目录列举。
+# 理由：每次出新实验都要改白名单（本文件曾漏掉 .corr/.pred 目录和 6 个微波日志，
+#       导致报告引用的证据不在仓库里）。按类型判断则新增实验目录自动覆盖。
+#
+# 保留：json/csv/yaml（指标与配置）、png（图）、log（训练记录）、md（索引）
+# 排除：pt/ckpt（权重）、npz（逐样本预测，约 4 MB/个，可重跑生成）
 outputs/*
-# 索引：说明每个目录是什么、对应报告哪一节
 !outputs/INDEX.md
-# 路径：业务基线与四模型汇总（报告 §3 的图表来源）
-!outputs/baselines/
-!outputs/comparison/
-# 路径：环境场消融（报告 §3.3 的核心正面结论，−10.1 km）
-!outputs/parallel/
-!outputs/v1_2020_ablation/
-!outputs/v2_ablation/
-!outputs/v3_ablation/
-!outputs/ablation_runs/
-!outputs/env_ablation/
-# 路径：分段策略与纬度自适应（报告 §3.4/§3.6）
-!outputs/latitude_adaptive/
-!outputs/segment_compare/
-!outputs/segment_approaches/
-!outputs/stratified_ablation/
-# 强度：卫星云图结论（报告 §4.1）+ 地形/暖心消融（§4.3/§4.4）
-# sat_intensity_history/ = 历史归档（混装 32px 与 64px 各轮）
-# sat_intensity_64px/    = 当前默认配置的输出目录（见 satellite.run_name）
-!outputs/sat_intensity_history/
-!outputs/sat_intensity_64px/
-!outputs/intensity_rerun_base/
-!outputs/intensity_rerun_terrain/
-!outputs/intensity_rerun_warmcore/
-!outputs/intensity_rerun_summary.json
-# RI 事件（报告 §4.2）
-!outputs/ri_events_history/
-# ri_events_64px/ = 当前配置的 RI 输出（见 satellite.ri.run_name）
-!outputs/ri_events_64px/
-# 数据构建日志：卫星数据规模演进（报告 §2.4）
-!outputs/build_logs/
-# 报告 §4 配图（强度/云图消融/RI/特征消融），图 4-1 ~ 4-5
-!outputs/figures/
-# 模型权重与逐样本预测数组体积大且可重跑生成，即使目录被白名单也要排除
+!outputs/**/
+!outputs/**/*.json
+!outputs/**/*.csv
+!outputs/**/*.yaml
+!outputs/**/*.png
+!outputs/**/*.log
+!outputs/**/*.md
+
+# 权重与逐样本预测体积大且可重跑生成，即使类型白名单也要排除。
+# 顺序很重要：这两条必须放在上面的白名单**之后**，否则会被 !*.json 之类的规则推翻。
 *.pt
 *.ckpt
-outputs/**/*.npz
+*.npz
 
 # ---- Python ----
 .venv/

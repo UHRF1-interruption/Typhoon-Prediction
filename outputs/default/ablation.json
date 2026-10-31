@@ -1,0 +1,435 @@
+{
+  "env_source": ".scratch/env_era5.parquet",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "results": {
+    "baseline(仅轨迹)": [
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 0,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          65.89543914794922,
+          163.7606658935547,
+          289.96649169921875,
+          419.3332214355469
+        ],
+        "mae_overall": 234.73895263671875,
+        "best_epoch": 29
+      },
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 1,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          63.030033111572266,
+          150.7744598388672,
+          267.0848388671875,
+          403.173095703125
+        ],
+        "mae_overall": 221.01556396484375,
+        "best_epoch": 24
+      },
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 2,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          58.25566482543945,
+          129.9039764404297,
+          236.22671508789062,
+          359.609619140625
+        ],
+        "mae_overall": 195.9989776611328,
+        "best_epoch": 21
+      },
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 3,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          53.242862701416016,
+          108.48846435546875,
+          201.8091278076172,
+          328.0369873046875
+        ],
+        "mae_overall": 172.89434814453125,
+        "best_epoch": 29
+      },
+      {
+        "tag": "baseline(仅轨迹)",
+        "seed": 4,
+        "n_features": 8,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm"
+        ],
+        "mae_by_step": [
+          59.83943176269531,
+          138.12490844726562,
+          246.78932189941406,
+          376.5362548828125
+        ],
+        "mae_overall": 205.32244873046875,
+        "best_epoch": 29
+      }
+    ],
+    "+环境场": [
+      {
+        "tag": "+环境场",
+        "seed": 0,
+        "n_features": 17,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          68.29829406738281,
+          163.9789581298828,
+          286.0731201171875,
+          414.84991455078125
+        ],
+        "mae_overall": 233.30015563964844,
+        "best_epoch": 29
+      },
+      {
+        "tag": "+环境场",
+        "seed": 1,
+        "n_features": 17,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          63.121131896972656,
+          141.38082885742188,
+          252.77723693847656,
+          386.5156555175781
+        ],
+        "mae_overall": 210.94869995117188,
+        "best_epoch": 25
+      },
+      {
+        "tag": "+环境场",
+        "seed": 2,
+        "n_features": 17,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          65.14044952392578,
+          141.50997924804688,
+          249.74237060546875,
+          371.3892517089844
+        ],
+        "mae_overall": 206.9455108642578,
+        "best_epoch": 29
+      },
+      {
+        "tag": "+环境场",
+        "seed": 3,
+        "n_features": 17,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          57.137264251708984,
+          117.41291046142578,
+          211.5818634033203,
+          340.8009338378906
+        ],
+        "mae_overall": 181.73324584960938,
+        "best_epoch": 25
+      },
+      {
+        "tag": "+环境场",
+        "seed": 4,
+        "n_features": 17,
+        "feature_names": [
+          "dlat",
+          "dlon",
+          "dist_prev",
+          "sin_heading",
+          "cos_heading",
+          "wind_ms",
+          "dpres_hpa",
+          "lat_norm",
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          63.508304595947266,
+          143.50816345214844,
+          252.1293487548828,
+          381.8228759765625
+        ],
+        "mae_overall": 210.2421875,
+        "best_epoch": 29
+      }
+    ],
+    "仅环境场": [
+      {
+        "tag": "仅环境场",
+        "seed": 0,
+        "n_features": 9,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          86.12596893310547,
+          184.60096740722656,
+          296.2098083496094,
+          418.61346435546875
+        ],
+        "mae_overall": 246.38748168945312,
+        "best_epoch": 17
+      },
+      {
+        "tag": "仅环境场",
+        "seed": 1,
+        "n_features": 9,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          84.19837951660156,
+          176.3660430908203,
+          293.5906066894531,
+          426.36248779296875
+        ],
+        "mae_overall": 245.12942504882812,
+        "best_epoch": 27
+      },
+      {
+        "tag": "仅环境场",
+        "seed": 2,
+        "n_features": 9,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          79.81844329833984,
+          163.00430297851562,
+          271.7088928222656,
+          393.2275085449219
+        ],
+        "mae_overall": 226.93984985351562,
+        "best_epoch": 27
+      },
+      {
+        "tag": "仅环境场",
+        "seed": 3,
+        "n_features": 9,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          70.34220886230469,
+          143.29702758789062,
+          242.8296661376953,
+          369.1546630859375
+        ],
+        "mae_overall": 206.4058837890625,
+        "best_epoch": 29
+      },
+      {
+        "tag": "仅环境场",
+        "seed": 4,
+        "n_features": 9,
+        "feature_names": [
+          "h500_mean",
+          "h500_grad_lat",
+          "u500",
+          "v500",
+          "speed500",
+          "shear",
+          "sst",
+          "msl",
+          "bst_dist"
+        ],
+        "mae_by_step": [
+          79.15074920654297,
+          163.1300048828125,
+          272.8472595214844,
+          402.19647216796875
+        ],
+        "mae_overall": 229.33116149902344,
+        "best_epoch": 22
+      }
+    ]
+  },
+  "paired_tests": [
+    {
+      "a": "+环境场",
+      "b": "baseline(仅轨迹)",
+      "mean_a": 208.6339599609375,
+      "mean_b": 205.99405822753906,
+      "mean_diff": 2.6399017333984376,
+      "n": 5,
+      "a_better_folds": 2,
+      "p_value": 0.5267772159256149,
+      "cohen_d": 0.30965496726943526
+    },
+    {
+      "a": "+环境场",
+      "b": "仅环境场",
+      "mean_a": 208.6339599609375,
+      "mean_b": 230.83876037597656,
+      "mean_diff": -22.204800415039063,
+      "n": 5,
+      "a_better_folds": 5,
+      "p_value": 0.0032152240215508727,
+      "cohen_d": -2.8243671385045186
+    }
+  ]
+}
