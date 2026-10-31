@@ -39,8 +39,8 @@
 
 | 其他目录 | 内容 | 关键数字 | 对应报告 |
 |---|---|---|---|
-| `latitude_adaptive/` | 纬度自适应分区，62 个 `pred_*.npz` + `policy_compare.csv` | track 329.7 / env 319.6 / **adapt 320.2 km** | §3.4（p=0.53，无收益） |
-| `stratified_ablation/` | 分海域/强度层评估，23 个 `pred_*.npz` | — | §3.5 |
+| `latitude_adaptive/` | 纬度自适应分区，`policy_compare.csv`（`pred_*.npz` 不入库，见下方说明） | track 329.7 / env 319.6 / **adapt 320.2 km** | §3.4（p=0.53，无收益） |
+| `stratified_ablation/` | 分海域/强度层评估（`pred_*.npz` 不入库） | — | §3.5 |
 | `segment_compare/` | 分段策略 A/B 对比 | 见 `summary.json` | §3.6 |
 | `segment_approaches/` | 分段建模 3 种方式 | 见 `summary.json` | §3.6 |
 | `default/`、`vtest/` | **早期调试运行**（24h 178 / 236 km） | 已被 208.4 km 取代 | — |
@@ -86,19 +86,33 @@
 2026-10-30 整理时补存为正式文件并补了元数据。`sat_intensity_history/summary.json`
 是更早的单次划分结果，仅供追溯。
 
-### 地形 / 暖心特征消融（结论：均无影响）
+### 地形 / 暖心特征消融（224 台风为当前结论）
 
-存在两批重复实验，**新批次以 `intensity_rerun_*` 为准**：
+**当前结论以 `intensity_rerun_224_*` 为准**（2026-10-30，224 台风，15 job）：
 
-| 旧批次（2026-10-28） | 新批次（2026-10-29） | 平均 MAE |
+| 变体 | gru | CNN+云图 | 特征+云图 | 结论 |
+|---|---|---|---|---|
+| `intensity_rerun_224_base/` | 1.533±0.069 | 1.642±0.087 | 1.711±0.076 | — |
+| `intensity_rerun_224_warmcore/` | +0.031（p=0.0007） | +0.067（p=0.0004） | +0.025（p=0.026） | **暖心显著有害** |
+| `intensity_rerun_224_terrain/` | −0.002（p=0.83） | −0.008（p=0.60） | −0.019（p=0.0496） | 地形无影响 |
+
+汇总见 `intensity_rerun_224_summary.json`，逐变体日志见 `intensity_rerun_224_*.log`。
+
+> **base 可复现性已核对**：`intensity_rerun_224_base` 与主结果图所用的
+> `sat_intensity_history/cv5_summary.json` 四位小数完全一致（Δ=+0.0000）。
+
+**90 台风时代的旧结果**（结论不同，仅作历史对照）：
+
+| 目录 | 说明 | 当时结论 |
 |---|---|---|
-| `cv_base/` | `intensity_rerun_base/` | 1.786 / 1.803 |
-| `cv_no_terrain/` | —（与 `cv_base` 逐字节相同） | 1.786 |
-| `cv_with_terrain/` | `intensity_rerun_terrain/` | 1.869 / 1.835 |
-| `cv_warmcore/` | `intensity_rerun_warmcore/` | 1.816 / 1.830 |
+| `intensity_rerun_base/` | 90 台风基线（也是报告 §4.1.2 第 1 行的证据） | — |
+| `intensity_rerun_warmcore/` | 90 台风 +暖心 | +0.010，p=0.42「无影响」 |
+| `intensity_rerun_terrain/` | 90 台风 +地形 | +0.009，p=0.55「无影响」 |
+| `cv_base/`、`cv_no_terrain/`、`cv_with_terrain/`、`cv_warmcore/` | 更早批次（10-28），已被取代 | — |
 | `no_terrain/`、`with_terrain/` | 单次切分版本 | — |
 
-汇总见 `intensity_rerun_summary.json`。两批结论一致：**地形、暖心均无增益**。
+> ⚠️ **暖心结论在数据扩到 224 台风后反转**（90 台风 p=0.42「无影响」→
+> 224 台风 p=0.0007「显著更差」）。引用时务必看清用的是哪个目录。
 
 ---
 
@@ -179,12 +193,22 @@ MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python scripts/evaluation/plot_intensity_f
 依据：
 1. `.gitignore` 中已声明 `*.pt` 为训练产物、不入库；
 2. 全仓库检索确认**没有任何脚本读取这些权重**——所有 `load_state_dict()`
-   都使用训练过程中的内存副本 `best_state`，评估与出图只用 `logs/summary.json`
-   和 `pred_*.npz`；
+   都使用训练过程中的内存副本 `best_state`；
 3. 全部可由原命令重跑生成。
 
+**仓库里实际保留了哪些**：
+
+| 类型 | 是否入库 | 说明 |
+|---|---|---|
+| `*.pt` / `*.ckpt` 权重 | ❌ | 可重跑 |
+| `*.npz` 逐样本预测 | ❌ | 约 4 MB/个，可重跑 |
+| `summary.json` / `*.csv` | ✅ | 指标与汇总，体积小 |
+| `*.png` 图表 | ✅ | 报告引用的图 |
+| `*.log` | ✅ | 完整训练记录 |
+
 因此如需复现某项结果，重跑对应训练命令即可；仅"重新评估已有模型"这一操作
-需要重新训练（约原训练时间）。
+需要重新训练（约原训练时间）。**依赖逐样本预测的细分分析**（如 §4.9 的
+分层验证）同样需要重跑训练来生成 `.npz`，具体命令见第九节。
 
 ---
 
@@ -200,3 +224,45 @@ MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python scripts/evaluation/plot_intensity_f
 
 `v1_2020_ablation` / `v2_ablation` / `v3_ablation` 是上述脚本用不同
 `--out` 参数跑出的结果，命名为区分特征版本，不遵循默认值。
+
+---
+
+## 九、分时效相关与分层验证（2026-10-31 新增）
+
+| 文件 | 内容 | 用途 |
+|---|---|---|
+| `figures/fig_acc_by_lead.png` | 路径：环境场 vs 纯轨迹的距平相关随时效 | 技术报告 §4.8 |
+| `figures/fig_sat_acc_by_lead.png` | 强度：GRU vs 云图的距平相关随时效 | §4.7.8 |
+| `figures/fig_stratify_change.png` | 按强度变化幅度分层 + 云图 ΔMAE | §4.9 |
+| `intensity_rerun_224_corr_summary.json` | **首次带 `corr_by_step`** 的强度消融结果 | §4.7.8 |
+| `intensity_rerun_224_pred_base/cv5_summary.npz` | **逐样本预测**（含 `last` 与 `job_offsets`） | 分层验证输入 |
+
+**重新生成**：
+
+```bash
+python scripts/evaluation/acc_report.py            # 距平相关表
+python scripts/evaluation/plot_acc_figures.py      # 三张图
+python scripts/evaluation/stratify_by_change.py \
+    --npz outputs/intensity_rerun_224_pred_base/cv5_summary.npz
+```
+
+**注意**：`intensity_rerun_224_corr_*` 与 `intensity_rerun_224_pred_*` 的 MAE
+与旧目录 `intensity_rerun_224_*` **完全一致**（同一配置重跑，仅多了新字段），
+可以互相替代；旧目录保留用于对照。
+
+**`.npz` 不入库**：`.gitignore` 里的 `outputs/**/*.npz` 会排除所有逐样本预测数组
+（本次 `intensity_rerun_224_pred_base/cv5_summary.npz` 也**不会**被提交）。
+这样做的理由：单个文件约 4 MB，且完全可由训练重跑生成。
+
+**复现分层验证需要重跑**：
+
+```bash
+python scripts/intensity/rerun_ablations.py --folds 5 --fold-seeds 42 0 7 \
+    --variants base --out intensity_rerun_224_pred
+# -> 自动生成 cv5_summary.npz（含 pred/true/last/job_offsets）
+python scripts/evaluation/stratify_by_change.py \
+    --npz outputs/intensity_rerun_224_pred_base/cv5_summary.npz
+```
+
+`summary.json` 与日志**会**入库，所以 §4.9 的分层数字可以从仓库里的
+`figures/fig_stratify_change.png` 复核；只有逐样本的细分计算需要重跑。

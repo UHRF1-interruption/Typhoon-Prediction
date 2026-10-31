@@ -311,7 +311,14 @@ def _evaluate(model, dl, device, tag, n_param, best_epoch, history,
     print(f"  平均 MAE={m['mae_overall']:.2f} m/s  (最佳 epoch {best_epoch})")
     return {"tag": tag, "metrics": m, "n_params": n_param,
             "best_epoch": best_epoch, "history": history, "state": best_state,
-            "pred": pred, "true": true}
+            "pred": pred, "true": true,
+            # 窗口末端的当前强度。分层验证要用它把样本按"实际强度变化幅度"
+            # 分组（变化量 = true - last）。注意不能用 true[:,0] 代替——
+            # 那是 3h 之后的值，不是窗口末端。
+            "last": last_wind,
+            # 逐时效距平相关（对持续法）也存下来，便于事后按时效分析。
+            # 旧版只汇总成一个标量，时效结构就丢了。
+            "corr_by_step": m["trend_corr_by_step"]}
 
 
 def kfold_by_storm(bundle: dict, n_folds: int, seed: int) -> list[dict]:
@@ -368,6 +375,23 @@ def split_by_storm(bundle: dict, test_ratio: float, seed: int) -> dict:
     return {"train": tr, "val": mask(val_names), "test": mask(test_names)}
 
 
+def _flatten(results_by_fold: dict) -> dict:
+    """把 {job: {tag: result}} 里每个 tag 的 pred/true 按 job 纵向拼接。
+
+    各 job 的测试台风不同，直接拼接不会重复计数；但**不同划分之间有台风重叠**，
+    做统计时要记住这一点（与 --vs 的口径说明一致）。
+    """
+    tags = list(next(iter(results_by_fold.values())).keys())
+    out = {}
+    for tag in tags:
+        out[tag] = {
+            "pred": np.concatenate([f[tag]["pred"] for f in results_by_fold.values()]),
+            "true": np.concatenate([f[tag]["true"] for f in results_by_fold.values()]),
+            "last": np.concatenate([f[tag]["last"] for f in results_by_fold.values()]),
+        }
+    return out
+
+
 def _nan_agg(x: np.ndarray, fn) -> float:
     """忽略 nan 求均值/标准差；**全部为 nan 时返回 nan**（不填 0 冒充数值）。
 
@@ -400,6 +424,11 @@ def summarize_cv(results_by_fold: dict) -> dict:
             "mae_std": maes.std(axis=0),
             "overall_mean": float(overall.mean()),
             "overall_std": float(overall.std()),
+            # 逐时效距平相关（nan 安全），供"环境场/云图的作用随时效如何变化"用
+            "corr_by_step_mean": np.array([_nan_agg(corr[:, i], np.mean)
+                                           for i in range(corr.shape[1])]),
+            "corr_by_step_std": np.array([_nan_agg(corr[:, i], np.std)
+                                          for i in range(corr.shape[1])]),
             "corr_mean": _nan_agg(corr, np.mean),
             "corr_std": _nan_agg(corr_per_job, np.std),
             "n_corr_jobs": int(np.isfinite(corr_per_job).sum()),
@@ -658,6 +687,23 @@ def main() -> int:
         payload["output"] = str(path.relative_to(ROOT))
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"\nCV 结果已保存: {path}")
+
+        # 同时落一份逐样本预测（npz）。JSON 存这些会让文件膨胀到几十 MB，
+        # 而逐样本预测是做"分层验证"（如按强度变化幅度分组）的前提。
+        pred_path = path.with_suffix(".npz")
+        flat = _flatten(results_by_fold)
+        arrays = {}
+        for tag, r in flat.items():
+            arrays[f"{tag}__pred"] = r["pred"].astype(np.float32)
+            arrays[f"{tag}__true"] = r["true"].astype(np.float32)
+            arrays[f"{tag}__last"] = r["last"].astype(np.float32)
+        # 记录每个 job 的行区间：**不同划分之间有台风重叠**，分层统计必须
+        # 能按 job 分别算，否则同一样本被算了 3 次（种子 42/0/7 各一次）。
+        offsets = np.cumsum([0] + [len(f[list(f.keys())[0]]["pred"])
+                                   for f in results_by_fold.values()])
+        arrays["job_offsets"] = offsets.astype(np.int64)
+        np.savez_compressed(pred_path, **arrays)
+        print(f"逐样本预测已保存: {pred_path}")
         return 0
 
     # 单次切分模式
