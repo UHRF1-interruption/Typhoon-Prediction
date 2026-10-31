@@ -274,9 +274,180 @@ def build_intensity_model(cfg, scalar_dim: int, in_len: int, out_len: int,
             use_patch=use_patch,
             img_feat=int(getattr(cfg, "img_feat", 64)),
         )
+    if name in ("dual_head", "dual"):
+        return IntensityDualHeadTransformer(
+            scalar_dim=scalar_dim, out_len=out_len, in_len=in_len,
+            mw_chans=patch_chans, mw_size=patch_size,
+            hidden=int(getattr(cfg, "hidden", 96)),
+            num_layers=int(getattr(cfg, "num_layers", 2)),
+            dropout=float(getattr(cfg, "dropout", 0.2)),
+            img_feat=int(getattr(cfg, "img_feat", 64)),
+        )
+    if name in ("mw_transformer", "microwave"):
+        return IntensityMicrowaveTransformer(
+            scalar_dim=scalar_dim, out_len=out_len, in_len=in_len,
+            mw_chans=patch_chans, mw_size=patch_size,
+            hidden=int(getattr(cfg, "hidden", 96)),
+            num_layers=int(getattr(cfg, "num_layers", 2)),
+            dropout=float(getattr(cfg, "dropout", 0.2)),
+            img_feat=int(getattr(cfg, "img_feat", 64)),
+        )
     if name == "gru":
         return IntensityRnnBaseline(scalar_dim, out_len,
                                     hidden=int(getattr(cfg, "d_model", 128)))
     if name == "persistence":
         return PersistenceIntensity(scalar_dim, out_len)
     raise ValueError(f"未知强度模型: {name}，可选 fusion_transformer/gru/persistence")
+
+
+class IntensityMicrowaveTransformer(nn.Module):
+    """GRU 时序 + 单帧微波 patch 的融合模型。
+
+    与 IntensityFusionTransformer 的区别：
+      * 微波是**单帧锚观测**（不是 8 帧序列），因为微波是离散快照
+        （每台风中位 44 次、间隔中位 2.4 h），强行拼成序列会丢掉绝大部分样本；
+      * 额外输入「锚观测与窗口末端的时间差 dt」和「通道可信度 mask」，
+        让模型知道这条观测有多新、哪些通道是替代值。
+
+    输入:
+        s        (B, T, F_s)     标量序列
+        mw       (B, C, S, S)    锚观测 patch（K）
+        mw_dt    (B,)            时间差（小时，0-3）
+        mw_mask  (B, C)          0=原始, 1=缺失/已替代
+    输出:
+        (B, out_len)             强度残差
+
+    **使用约束**：本模型假定**每个样本都有微波**。若样本里存在"没有微波"
+    的（全零 patch），零图会污染 CNN 的 BatchNorm running stats，
+    让推理时真实 patch 的输出被系统性拉偏。混合样本请用
+    IntensityDualHeadTransformer（它把无微波样本路由到标量头，
+    CNN 只接触真实 patch）。
+    """
+
+    def __init__(self, scalar_dim: int, out_len: int, in_len: int,
+                 mw_chans: int = 4, mw_size: int = 64,
+                 hidden: int = 96, num_layers: int = 2, dropout: float = 0.2,
+                 img_feat: int = 64, **_: object):
+        super().__init__()
+        self.out_len = out_len
+        self.use_patch = True          # 表示"用了图像分支"，供外部判断
+        self.gru = nn.GRU(scalar_dim, hidden, num_layers=num_layers,
+                          batch_first=True, dropout=dropout if num_layers > 1 else 0.0)
+        self.frame_encoder = FrameEncoder(mw_chans, img_feat, dropout=dropout)
+        self.img_proj = nn.Linear(img_feat, hidden)
+        # dt 与 mask 一起进一个小 MLP，再与图像特征相加
+        self.aux_proj = nn.Sequential(
+            nn.Linear(1 + mw_chans, hidden), nn.GELU(), nn.Dropout(dropout),
+        )
+        self.head = nn.Sequential(
+            nn.LayerNorm(hidden * 2), nn.Linear(hidden * 2, hidden), nn.GELU(),
+            nn.Dropout(dropout), nn.Linear(hidden, out_len),
+        )
+
+    def forward(self, s, p=None, mw=None, mw_dt=None, mw_mask=None,
+                key_padding_mask=None):
+        if key_padding_mask is not None:
+            s = s.masked_fill(key_padding_mask.unsqueeze(-1), 0.0)
+        _, h = self.gru(s)
+        seq = h[-1]
+        if mw is None:
+            # 没有微波的样本：图像分支给零，靠 aux 的 mask 全 1 表达"不可用"
+            b = s.size(0)
+            img = torch.zeros(b, self.img_proj.out_features, device=s.device)
+            aux = torch.zeros(b, self.aux_proj[0].out_features, device=s.device)
+        else:
+            # 标准化由 Dataset 完成（逐通道 z-score）
+            img = self.img_proj(self.frame_encoder(mw))
+            dt = torch.nan_to_num(mw_dt, nan=0.0).unsqueeze(-1).to(s.dtype)
+            aux = self.aux_proj(torch.cat([dt, mw_mask.to(s.dtype)], dim=-1))
+        return self.head(torch.cat([seq, img + aux], dim=-1))
+
+class IntensityDualHeadTransformer(nn.Module):
+    """共享 GRU 编码器 + 双头：有微波走融合头，无微波走纯标量头。
+
+    为什么这样设计
+    --------------
+    微波是**离散观测**：全量 15,126 个样本里只有 34.4% 恰好带有微波
+    （每台风中位 44 次，间隔中位 2.4 h）。之前的做法是把缺观测的样本
+    的 patch 填零，结果 65.6% 的样本一直在喂一个"全零标记"，
+    污染了共享表征——但那次对照只跑了 3 epoch，结论不可用（见报告 §7.4）。
+
+    本模型用**路由**替代填充：
+        has_mw=True  -> fusion_head（GRU 输出 + 微波特征 + 时间差）
+        has_mw=False -> scalar_head（只用 GRU 输出）
+
+    **标量头与 IntensityRnnBaseline 完全同构**。因此在"全部样本都没有微波"
+    的极限下，本模型**逐位退化为 GRU 基线**——对照是干净的，任何差异
+    都只能来自微波样本的那条分支。
+
+    梯度分配
+    --------
+    `torch.where` 使融合头只从带微波样本获得梯度，份额约 1/3。
+    训练时应配合损失加权（见 smoke_microwave.py 的 --mw-loss-weight），
+    否则融合头欠拟合会被误读成"架构更差"——这正是 §7.4 记录的陷阱。
+    """
+
+    def __init__(self, scalar_dim: int, out_len: int, in_len: int,
+                 mw_chans: int = 4, mw_size: int = 64,
+                 hidden: int = 96, num_layers: int = 2, dropout: float = 0.2,
+                 img_feat: int = 64, **_: object):
+        super().__init__()
+        self.out_len = out_len
+        self.use_patch = True
+        self.gru = nn.GRU(scalar_dim, hidden, num_layers=num_layers,
+                          batch_first=True,
+                          dropout=dropout if num_layers > 1 else 0.0)
+
+        # 标量头：与 IntensityRnnBaseline 逐层同构（保证可退化性）
+        self.scalar_head = nn.Sequential(
+            nn.LayerNorm(hidden), nn.Linear(hidden, hidden), nn.GELU(),
+            nn.Linear(hidden, out_len),
+        )
+        nn.init.zeros_(self.scalar_head[-1].weight)
+        nn.init.zeros_(self.scalar_head[-1].bias)
+
+        # 融合头
+        self.frame_encoder = FrameEncoder(mw_chans, img_feat, dropout=dropout)
+        self.img_proj = nn.Linear(img_feat, hidden)
+        self.aux_proj = nn.Sequential(
+            nn.Linear(1 + mw_chans, hidden), nn.GELU(), nn.Dropout(dropout),
+        )
+        self.fusion_head = nn.Sequential(
+            nn.LayerNorm(hidden * 2), nn.Linear(hidden * 2, hidden), nn.GELU(),
+            nn.Dropout(dropout), nn.Linear(hidden, out_len),
+        )
+        nn.init.zeros_(self.fusion_head[-1].weight)
+        nn.init.zeros_(self.fusion_head[-1].bias)
+
+    def forward(self, s, p=None, mw=None, mw_dt=None, mw_mask=None,
+                has_mw=None, key_padding_mask=None):
+        if key_padding_mask is not None:
+            s = s.masked_fill(key_padding_mask.unsqueeze(-1), 0.0)
+        _, h = self.gru(s)
+        seq = h[-1]
+
+        out_scalar = self.scalar_head(seq)
+        if mw is None:
+            return out_scalar
+        if has_mw is None:
+            has_mw = torch.ones(mw.size(0), dtype=torch.bool, device=mw.device)
+
+        # 只对**真有微波**的样本跑 CNN 与融合头。
+        # 绝不能图省事把零填充 patch 一起喂进去：BatchNorm 会把 65.6% 的
+        # 全零假图算进 running stats（实测 running_mean 的漂移方向与量级
+        # 都与纯真实 batch 不同），推理时真实 patch 的输出被系统性拉偏。
+        # 这会让"双头更差"看起来像架构问题，实际是归一化统计被污染。
+        idx = has_mw.nonzero(as_tuple=False).squeeze(-1)
+        if idx.numel() == 0:
+            return out_scalar
+        mw_sub = mw.index_select(0, idx)
+        dt_sub = torch.nan_to_num(mw_dt.index_select(0, idx), nan=0.0)
+        mask_sub = mw_mask.index_select(0, idx)
+
+        img = self.img_proj(self.frame_encoder(mw_sub))
+        aux = self.aux_proj(torch.cat([dt_sub.unsqueeze(-1).to(s.dtype),
+                                       mask_sub.to(s.dtype)], dim=-1))
+        fused = self.fusion_head(
+            torch.cat([seq.index_select(0, idx), img + aux], dim=-1))
+        # index_put 是 out-of-place 的，梯度分别回到标量头与融合头
+        return out_scalar.index_put((idx,), fused)
