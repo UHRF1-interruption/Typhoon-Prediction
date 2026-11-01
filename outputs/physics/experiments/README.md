@@ -85,7 +85,7 @@ python scripts/path/train.py --set device=cuda model.name=transformer_physics \
 
 ```bash
 python scripts/evaluation/perturb_ensemble.py \
-    --ckpt outputs/physics_experiments/phys_base/checkpoints/best.pt \
+    --ckpt outputs/physics/experiments/phys_base/checkpoints/best.pt \
     --eps-km 200 --members 2 --limit 120
 ```
 

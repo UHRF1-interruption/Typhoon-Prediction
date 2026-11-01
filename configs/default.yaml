@@ -131,7 +131,7 @@ eval:
 output:
   dir: outputs
   ckpt_name: best.pt
-  run_name: default
+  run_name: path/runs/default
 
 # ------------------------------------------------------------
 # 卫星云图强度预测（FYSATTY 数据集）
@@ -182,12 +182,12 @@ satellite:
   # 输出目录 outputs/<run_name>/。**名字里带上关键配置**，避免换配置后结果互相覆盖：
   # 旧目录 sat_intensity/ 曾混装 32px 与 64px 各轮结果，且默认配置运行会覆盖
   # cv5_summary.json。改了 patch_size / 特征维数后请同步修改这里的名字。
-  run_name: sat_intensity_64px
+  run_name: intensity/sat_intensity_64px
 
   # RI（快速增强）事件预测 —— 综合「长窗口 + 事件分类」
   ri:
     # 输出目录 outputs/<run_name>/。名字带配置，避免不同数据规模/阈值互相覆盖。
-    run_name: ri_events_64px
+    run_name: ri/events_64px
     in_len: 8              # 过去 24h
     horizon: 8             # 未来 24h
     threshold_ms: 15.0     # RI 判定：24h 内增幅 >= 15 m/s（样本少时可用 10）
