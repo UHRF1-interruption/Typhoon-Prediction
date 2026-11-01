@@ -60,32 +60,8 @@ BASE_TRACK_FEATURES = ["dlat", "dlon", "dist_prev", "sin_heading", "cos_heading"
                        "wind_ms", "dpres_hpa", "lat_norm"]
 
 
-def split_by_storm_random(bundle: dict, test_ratio: float = 0.2,
-                          val_ratio: float = 0.2, seed: int = 0) -> dict:
-    """按台风随机划分（同台风的所有窗口只进一个集合）。
-
-    为什么不用 split_by_year: 环境场往往只覆盖几个月，裁剪后所有样本都在
-    同一年，按年份切分会得到空的验证/测试集。按台风切分在小样本下更合理，
-    也避免了同一台风的相邻窗口跨集合造成的信息泄漏。
-    """
-    names = bundle["sid"]
-    uniq = np.array(sorted(set(names.tolist())))
-    rng = np.random.default_rng(seed)
-    rng.shuffle(uniq)
-    n = len(uniq)
-    n_test = max(1, int(round(n * test_ratio))) if n >= 3 else 0
-    n_val = max(1, int(round(n * val_ratio))) if n >= 3 else 0
-    test_names = set(uniq[:n_test].tolist())
-    val_names = set(uniq[n_test:n_test + n_val].tolist())
-    mask = lambda st: np.where(np.isin(names, list(st)))[0]  # noqa: E731
-    out = {
-        "train": np.where(~np.isin(names, list(test_names | val_names)))[0],
-        "val": mask(val_names),
-        "test": mask(test_names),
-    }
-    print(f"[split] 台风 train={n - n_test - n_val} val={n_val} test={n_test} | "
-          f"样本 train={len(out['train'])} val={len(out['val'])} test={len(out['test'])}")
-    return out
+# 按台风随机划分已移入库（src/data/dataset.py），此处复用，避免两份实现漂移
+from src.data.dataset import split_by_storm_random  # noqa: E402
 
 
 # 样本构造结果缓存：同一种特征组合只算一次（与 seed 无关，seed 只影响切分）

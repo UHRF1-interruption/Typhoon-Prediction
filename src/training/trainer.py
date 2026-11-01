@@ -51,6 +51,14 @@ def batch_to_device(batch: dict, device: torch.device) -> dict:
             for k, v in batch.items()}
 
 
+def data_loss(pred_delta: torch.Tensor, batch: dict, loss_kind: str = "haversine",
+              huber_delta_km: float = 100.0) -> torch.Tensor:
+    """纯数据损失。评估/早停用它，保证与历史口径可比（不含物理项）。"""
+    return compute_loss(pred_delta, batch["y_delta"], batch["last_abs"][:, 0],
+                        batch["last_abs"][:, 1], kind=loss_kind,
+                        huber_delta_km=huber_delta_km)
+
+
 @torch.no_grad()
 def evaluate(model: torch.nn.Module, loader: DataLoader, device: torch.device,
              interval_hours: float, loss_kind: str = "haversine") -> dict:
@@ -60,7 +68,9 @@ def evaluate(model: torch.nn.Module, loader: DataLoader, device: torch.device,
     total_loss, total_n = 0.0, 0
     for batch in loader:
         batch = batch_to_device(batch, device)
-        pred = model(batch["x"], key_padding_mask=~batch["valid_mask"])
+        pred = model(batch["x"], key_padding_mask=~batch["valid_mask"],
+                     last_lat=batch["last_abs"][:, 0],
+                     last_lon=batch["last_abs"][:, 1])
         # 统一成 delta 契约：pred_mode 若为 absolute 也在此转换
         if getattr(model, "pred_mode", "delta") == "absolute":
             pred_delta = pred - batch["last_abs"].unsqueeze(1)
@@ -68,8 +78,7 @@ def evaluate(model: torch.nn.Module, loader: DataLoader, device: torch.device,
         else:
             pred_delta = pred
 
-        loss = compute_loss(pred_delta, batch["y_delta"], batch["last_abs"][:, 0],
-                            batch["last_abs"][:, 1], kind=loss_kind)
+        loss = data_loss(pred_delta, batch, loss_kind)
         total_loss += loss.detach().item() * batch["x"].size(0)
         total_n += batch["x"].size(0)
 
@@ -103,7 +112,9 @@ def predict(model: torch.nn.Module, loader: DataLoader, device: torch.device) ->
     preds, trues, lasts, years = [], [], [], []
     for batch in loader:
         batch = batch_to_device(batch, device)
-        pred = model(batch["x"], key_padding_mask=~batch["valid_mask"])
+        pred = model(batch["x"], key_padding_mask=~batch["valid_mask"],
+                     last_lat=batch["last_abs"][:, 0],
+                     last_lon=batch["last_abs"][:, 1])
         if getattr(model, "pred_mode", "delta") == "absolute":
             delta = pred - batch["last_abs"].unsqueeze(1)
             delta[..., 1] = (delta[..., 1] + 180) % 360 - 180
@@ -157,7 +168,35 @@ def train(cfg, bundle: dict, spec, splits: dict[str, np.ndarray] | None = None) 
     print(f"[train] 模型={cfg.model.name}, 参数量={n_params:,}, 设备={device}")
     print(f"[train] 样本数 训练={len(train_ds)} 验证={len(val_ds)} 测试={len(test_ds)}")
 
+    # 无标签物理约束（软惩罚）。与 §4.11 的硬约束不同：
+    # 这里输出完全自由，惩罚只要求"解像物理系统"，不引用标签。
+    law_w = float(getattr(cfg.train, "law_weight", 0.0) or 0.0)
+    law_ctx = None
+    k_param = None
+    if law_w > 0.0:
+        from .physics_laws import build_ctx
+        law_ctx = build_ctx(spec.names, spec.mean, spec.std,
+                            float(cfg.data.interval_hours))
+        if law_ctx.has_steering:
+            # 引导系数 k **由训练集闭式定标**并固定，不在训练中自由学习：
+            # 自由学习的退化解是 k→0（等于"不要动"），实测 3 epoch 就压到 0.005。
+            from .physics_laws import fit_steer_k
+            _tr_idx = splits["train"] if splits is not None else np.arange(len(bundle["x"]))
+            _x = torch.tensor(bundle["x"][_tr_idx], dtype=torch.float32)
+            _x = (_x - torch.tensor(spec.mean, dtype=torch.float32)) \
+                / torch.tensor(spec.std, dtype=torch.float32)
+            _y = torch.tensor(bundle["y"][_tr_idx][:, 0], dtype=torch.float32)
+            _lat = torch.tensor(bundle["last_abs"][_tr_idx, 0], dtype=torch.float32)
+            k_val, k_r2 = fit_steer_k(_y, _x, _lat, law_ctx)
+            k_param = torch.nn.Parameter(torch.tensor(float(k_val)), requires_grad=False)
+            print(f"[laws] 启用无标签物理惩罚：steering + smooth + curvature"
+                  f"（k 由训练集定标 = {k_val:.3f}，R² = {k_r2:.3f}）")
+        else:
+            print("[laws] 启用无标签物理惩罚：smooth + curvature"
+                  "（输入无 u500/v500，跳过 steering）")
+
     trainable = [p for p in model.parameters() if p.requires_grad]
+    # k 是定标常数、不参与优化，故不加入 trainable
     skip_training = len(trainable) == 0      # 例如持续法基线：无参数，直接评估
     if skip_training:
         print(f"[train] 模型={cfg.model.name} 无训练参数，跳过训练直接评估")
@@ -178,6 +217,17 @@ def train(cfg, bundle: dict, spec, splits: dict[str, np.ndarray] | None = None) 
     use_amp = bool(cfg.train.amp) and device.type == "cuda"
     scaler = torch.amp.GradScaler("cuda", enabled=use_amp) if use_amp else None
 
+    # 物理项自适应权重（可选）。WHC-PINN 指出硬约束会带来梯度失衡；
+    # 固定权重靠试凑，这里用 GradNorm 让四项对共享参数的梯度范数趋同。
+    # 代价：每 balance_every 步多做 4 次反传，默认 50 步一次，开销很小。
+    balancer = None
+    balance_every = int(getattr(cfg.train, "balance_every", 50) or 50)
+    if bool(getattr(cfg.train, "physics_adaptive", False)) and \
+            float(getattr(cfg.train, "physics_weight", 0.0) or 0.0) > 0.0:
+        from .physics import GradNormBalancer
+        balancer = GradNormBalancer(["velocity", "accel", "turn", "endpoint"])
+        print("[physics] 启用 GradNorm 自适应权重")
+
     best_val = float("inf")
     best_epoch = -1
     bad_epochs = 0
@@ -192,15 +242,82 @@ def train(cfg, bundle: dict, spec, splits: dict[str, np.ndarray] | None = None) 
             batch = batch_to_device(batch, device)
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast(device_type="cuda", enabled=use_amp):
-                pred = model(batch["x"], key_padding_mask=~batch["valid_mask"])
+                pred = model(batch["x"], key_padding_mask=~batch["valid_mask"],
+                     last_lat=batch["last_abs"][:, 0],
+                     last_lon=batch["last_abs"][:, 1])
                 if getattr(model, "pred_mode", "delta") == "absolute":
                     delta = pred - batch["last_abs"].unsqueeze(1)
                     delta[..., 1] = (delta[..., 1] + 180) % 360 - 180
                 else:
                     delta = pred
-                loss = compute_loss(delta, batch["y_delta"], batch["last_abs"][:, 0],
-                                    batch["last_abs"][:, 1], kind=str(cfg.train.loss),
-                                    huber_delta_km=float(cfg.model.huber_delta_km))
+                phys_w_token = 0.0
+                data_l = compute_loss(delta, batch["y_delta"], batch["last_abs"][:, 0],
+                                      batch["last_abs"][:, 1], kind=str(cfg.train.loss),
+                                      huber_delta_km=float(cfg.model.huber_delta_km))
+                loss = data_l
+                phys_w = float(getattr(cfg.train, "physics_weight", 0.0) or 0.0)
+                phys_w_token = phys_w
+                if phys_w > 0.0:
+                    from .physics import (physics_loss, saturation_rate)
+                    if balancer is not None and (step + 1) % balance_every == 0:
+                        # 单独算四项并按其梯度范数更新权重（不参与本次反传）
+                        from .physics import physics_terms as _pt
+                        _raw = _pt(delta, batch["y_delta"],
+                                   batch["last_abs"][:, 0], batch["last_abs"][:, 1])
+                        from .physics import (SCALE_VEL_KM, SCALE_ACC_KM,
+                                              SCALE_TURN_DEG, SCALE_ENDPOINT_KM)
+                        _norm = {
+                            "velocity": _raw["velocity"] / SCALE_VEL_KM,
+                            "accel": _raw["accel"] / SCALE_ACC_KM,
+                            "turn": _raw["turn"] / SCALE_TURN_DEG,
+                            "endpoint": _raw["endpoint"] / SCALE_ENDPOINT_KM,
+                        }
+                        _params = [q for q in model.parameters() if q.requires_grad]
+                        if _params:
+                            balancer.update(_norm, _params)
+                    w_terms = balancer.w if balancer is not None else None
+                    pl, pterms = physics_loss(
+                        delta, batch["y_delta"],
+                        batch["last_abs"][:, 0], batch["last_abs"][:, 1],
+                        weights=w_terms)
+                    if not torch.isfinite(pl):
+                        pl = torch.zeros((), device=delta.device)
+                    # 权重必须相对于**数据损失的当前量级**，否则形同虚设：
+                    # 数据损失是 km 量级(~100)，物理项已归一化成 O(1)(~3.6)，
+                    # 若直接写 loss + w*pl，w=0.1 时物理项只占 0.36%，
+                    # 实测 w=0.01/0.03/0.1/0.3 的结果完全相同（都等于没加）。
+                    # 这正是 Rohrhofer et al. 2023 指出的"量纲缩放造成失衡"。
+                    # 改为乘以 data_l.detach() 后，w 表示"物理项占数据项的比例"。
+                    loss = loss + phys_w * data_l.detach() * pl
+                    if getattr(cfg.train, "log_physics", False) and step == 0:
+                        pr = {k: round(float(v), 4) for k, v in pterms.items()}
+                        # 饱和率是"硬约束把梯度堵住"的直接证据，必须一起看
+                        raw = getattr(model, "last_raw", None)
+                        sat = f" 饱和率={saturation_rate(raw)*100:.1f}%" \
+                            if raw is not None else ""
+                        wtxt = ""
+                        if balancer is not None:
+                            wtxt = " 权重=" + str({k: round(v, 2) for k, v
+                                                   in balancer.w.items()})
+                        print(f"  [physics] epoch {epoch} w={phys_w:.3g} "
+                              f"{pr}{sat}{wtxt}")
+
+                # 无标签物理惩罚：与上面的区别是它**不引用标签**
+                if law_w > 0.0 and law_ctx is not None:
+                    from .physics_laws import law_loss
+                    ll, lterms, _k = law_loss(delta, batch["x"],
+                                              batch["last_abs"][:, 0], law_ctx,
+                                              k=k_param)
+                    if torch.isfinite(ll):
+                        # 同样按相对量级加权（数据损失是 km，惩罚项已归一化成 O(1)）
+                        loss = loss + law_w * data_l.detach() * ll
+                        if getattr(cfg.train, "log_physics", False) and step == 0:
+                            lterm_s = {k: round(float(v), 4)
+                                       for k, v in lterms.items()}
+                            kv = f"  k={float(k_param):.3f}" \
+                                if k_param is not None else ""
+                            print(f"  [laws] epoch {epoch} w={law_w:.3g} "
+                                  f"{lterm_s}{kv}")
             if not torch.isfinite(loss):
                 print(f"[warn] epoch {epoch} step {step} 出现非有限损失，跳过该 batch")
                 optimizer.zero_grad(set_to_none=True)
@@ -216,7 +333,10 @@ def train(cfg, bundle: dict, spec, splits: dict[str, np.ndarray] | None = None) 
                 torch.nn.utils.clip_grad_norm_(model.parameters(), float(cfg.train.grad_clip))
                 optimizer.step()
 
-            running += loss.detach().item() * batch["x"].size(0)
+            # 日志里报的是**数据损失**（km），不是含物理项的总损失——
+            # 否则加了物理项后 "train=647 km" 这种数字不可解读。
+            running += (data_l if phys_w_token > 0.0 else loss).detach().item() \
+                * batch["x"].size(0)
             seen += batch["x"].size(0)
             if step % int(cfg.train.log_interval) == 0:
                 print(f"  epoch {epoch} step {step}/{len(train_loader)} loss={running / seen:.2f} km")
@@ -231,8 +351,9 @@ def train(cfg, bundle: dict, spec, splits: dict[str, np.ndarray] | None = None) 
             "seconds": round(time.time() - t0, 1),
         }
         history.append(record)
+        kmsg = f" k={float(k_param):.3f}" if k_param is not None else ""
         print(f"[epoch {epoch}] train={train_loss:.2f}km val_mae={val_mae:.2f}km "
-              f"lr={record['lr']:.2e} {record['seconds']}s")
+              f"lr={record['lr']:.2e} {record['seconds']}s{kmsg}")
 
         score = val_mae if np.isfinite(val_mae) else train_loss
         if score < best_val - 1e-6:

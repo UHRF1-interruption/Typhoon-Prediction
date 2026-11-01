@@ -84,6 +84,9 @@ model:
   pred_mode: delta
   # 是否使用 Haversine 距离作为损失
   huber_delta_km: 100.0
+  # transformer_physics 的残差界（km，逐时效）。null = 用 physics.RESIDUAL_CAP_KM
+  # （数据实测的残差 p99：199/434/703/996）。调小会让 tanh 饱和、梯度趋零。
+  cap_km: null
 
 train:
   batch_size: 64
@@ -94,6 +97,29 @@ train:
   warmup_epochs: 3
   early_stop_patience: 12
   loss: haversine     # haversine | huber
+  # 物理约束项权重（0 = 关闭，与历史口径完全一致）。
+  # 总损失 = 数据损失 + physics_weight × 数据损失.detach() × 归一化物理损失
+  #   （velocity / accel / turn / endpoint，各按特征尺度归一化成 O(1)）
+  # 权重是**相对量级**：physics_weight=0.1 表示物理项约占数据项的 10%。
+  # ⚠️ 早期版本写成 loss + w*pl，因数据损失是 km(~100)、物理项是 O(1)，
+  #    w=0.01~0.3 全部只占 0.04%~1%，结果完全一样（等于没生效）。
+  # 依据 Rohrhofer et al. 2023：物理量纲会缩放各损失项，不归一则权重无意义；
+  # 且物理项过强会牺牲数据拟合——存在一个最优窗口，**建议扫 0.01/0.03/0.1/0.3**。
+  physics_weight: 0.0
+  # 是否每轮打印一次各物理分项 + 残差饱和率，便于确认量级与梯度失衡
+  log_physics: false
+  # 是否用 GradNorm 自适应物理项权重（替代手工常数）。
+  # WHC-PINN 指出硬约束会带来梯度失衡。实测：四项未加权梯度范数相差 10^4，
+  # 打开后有效贡献 w·g 可从相差约 3000x 收敛到 1.6x（60 步内）。
+  # 默认关闭——等权 + 特征尺度归一化已可用，观察到某项主导再打开。
+  # 无标签物理惩罚的权重（0 = 关闭）。与 physics_weight 的区别：
+  # physics_weight 作用于**引用真值**的辅助项（本质是换个度量的数据损失）；
+  # law_weight 作用于**不引用真值**的物理律（引导流一致 / 轨迹平滑 / 曲率上界）。
+  # 同样是相对量级：0.1 表示惩罚项约占数据项的 10%。
+  # ⚠️ steering 项需要输入含 u500/v500（即并入环境场），否则自动跳过。
+  law_weight: 0.0
+  physics_adaptive: false
+  balance_every: 50   # 每多少步更新一次自适应权重（每次多 4 次反传）
   num_workers: 0
   amp: true           # 仅在 cuda 上生效
   log_interval: 20

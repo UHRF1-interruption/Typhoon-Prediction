@@ -171,3 +171,31 @@ def load_bundle(out_dir: str | Path, prefix: str = "samples") -> tuple[dict, Fea
     bundle = {k: data[k] for k in data.files}
     spec = FeatureSpec.from_dict(json.loads((out_dir / f"{prefix}_spec.json").read_text(encoding="utf-8")))
     return bundle, spec
+
+def split_by_storm_random(bundle: dict, test_ratio: float = 0.2,
+                          val_ratio: float = 0.2, seed: int = 0,
+                          verbose: bool = True) -> dict[str, np.ndarray]:
+    """按台风**随机**划分（同一台风的所有窗口只进一个集合）。
+
+    与 `split_by_year` 的区别：不依赖年份，因此适用于环境场只覆盖部分年份、
+    或按环境场裁剪后所有样本落在同一年的情形（否则验证/测试集会为空）。
+    同一台风不跨集合，避免了相邻窗口的信息泄漏。
+    """
+    names = bundle["sid"]
+    uniq = np.array(sorted(set(names.tolist())))
+    rng = np.random.default_rng(seed)
+    rng.shuffle(uniq)
+    n = len(uniq)
+    n_test = max(1, int(round(n * test_ratio))) if n >= 3 else 0
+    n_val = max(1, int(round(n * val_ratio))) if n >= 3 else 0
+    test_names = set(uniq[:n_test].tolist())
+    val_names = set(uniq[n_test:n_test + n_val].tolist())
+    out = {
+        "train": np.where(~np.isin(names, list(test_names | val_names)))[0],
+        "val": np.where(np.isin(names, list(val_names)))[0],
+        "test": np.where(np.isin(names, list(test_names)))[0],
+    }
+    if verbose:
+        print(f"[split] 台风 train={n - n_test - n_val} val={n_val} test={n_test} | "
+              f"样本 train={len(out['train'])} val={len(out['val'])} test={len(out['test'])}")
+    return out

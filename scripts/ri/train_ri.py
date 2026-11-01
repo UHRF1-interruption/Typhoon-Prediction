@@ -316,14 +316,46 @@ def run_training(cfg, bundle: dict, splits: dict, mname: str) -> dict:
                    best_epoch=best_epoch)
 
 
+def _save_probs(path: Path, results: dict, models: list[str] | None = None) -> None:
+    """把逐样本概率落成 npz（CV 与单次切分共用）。
+
+    JSON 不适合存逐样本数组（体积与可读性都差）；概率验证脚本只读这个 npz。
+    键格式 f{fold}_{model}_{y_val|s_val|y_test|s_test}。
+    """
+    arrays = {}
+    # CV 模式：results 是 {fold: {model: 结果}}；单次切分：{model: 结果}
+    if models is not None and all(isinstance(v, dict) for v in results.values()) \
+            and "prob" not in next(iter(results.values())):
+        items = ((f"f{fi}", m, r[m]) for fi, r in results.items() for m in models)
+    else:
+        items = (("f0", m, r) for m, r in results.items())
+    for prefix, m, r in items:
+        pr = r.get("prob")
+        if not pr:
+            continue
+        safe = m.replace("+", "_").replace("/", "_")
+        for k, v in pr.items():
+            arrays[f"{prefix}_{safe}_{k}"] = v
+    if arrays:
+        out = path.with_suffix(".npz")
+        np.savez_compressed(out, **arrays)
+        print(f"逐样本概率已保存: {out}")
+
+
 def _finish(tag, n_param, yv, sv, yt, st, pos_rate, history, mname, best_epoch=0) -> dict:
     """在验证集上选 CSI 最优阈值，再应用到测试集。"""
     best_thr = best_csi_threshold(yv, sv)
     thr = best_thr["thr"]
     tm = threshold_metrics(yt, st, thr) if np.isfinite(thr) else best_csi_threshold(yt, st)
+    # 逐样本概率一并返回，供概率验证（Brier / 可靠性图）使用。
+    # 注意 st 是**经类别权重训练后**的 sigmoid 输出，不是校准概率：
+    # 加权 BCE 的最优解相对真实后验有一个固定的先验偏移，见 prob_verify.py。
+    prob = {"y_val": np.asarray(yv).astype(int), "s_val": np.asarray(sv, float),
+            "y_test": np.asarray(yt).astype(int), "s_test": np.asarray(st, float)}
     res = {
         "tag": tag, "model": mname, "n_params": n_param,
         "pos_rate": float(pos_rate),
+        "prob": prob,
         "test_auc": roc_auc(yt, st),
         "test_pr_auc": pr_auc(yt, st),
         "test_threshold": float(thr),
@@ -390,8 +422,13 @@ def main() -> int:
     )
     bundle = build_ri_samples(scalars, ri_cfg, patches)
 
+    # rc_cfg.model 是配置子节点（含 name/d_model/...），必须取 .name；
+    # 旧写法 str(rc_cfg.model) 会把整个节点转成字符串，导致 run_training 里的
+    # 模型名查表 KeyError。也就是说**不加 --compare 时脚本原本是坏的**，
+    # 已发布的结果都是用 --compare 跑的。
+    _model_name = getattr(rc_cfg.model, "name", None) or str(rc_cfg.model)
     models = (["cnn_transformer", "feature_transformer", "gru", "persistence"]
-              if args.compare else [str(rc_cfg.model)])
+              if args.compare else [_model_name])
 
     ri_run = str(getattr(rc_cfg, "run_name", "ri_events"))
     out_dir = ROOT / cfg.output.dir / ri_run
@@ -424,6 +461,10 @@ def main() -> int:
         path = out_dir / f"cv{args.cv}_thr{ri_cfg.ri_threshold_ms:g}_summary.json"
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"\nCV 结果已保存: {path}")
+
+        # 逐样本概率另存 npz：概率验证（Brier / 可靠性图 / ROC）需要它，
+        # 而 JSON 存这些会让文件膨胀且不便读取。
+        _save_probs(path, per_fold, models)
         return 0
 
     splits = kfold_by_storm(bundle, 5, int(cfg.seed))[0]
@@ -431,10 +472,13 @@ def main() -> int:
     print("\n" + "=" * 70 + "\n结果\n" + "=" * 70)
     print(_table(results, models))
     path = out_dir / "summary.json"
-    path.write_text(json.dumps({k: {kk: vv for kk, vv in v.items()}
-                                for k, v in results.items()},
-                               ensure_ascii=False, indent=2), encoding="utf-8")
+    # prob 里是 numpy 数组，不能进 JSON；其余字段照旧写入
+    path.write_text(json.dumps(
+        {k: {kk: vv for kk, vv in v.items() if kk != "prob"}
+         for k, v in results.items()},
+        ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n结果已保存: {path}")
+    _save_probs(path, results)
     return 0
 
 
