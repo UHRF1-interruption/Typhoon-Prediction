@@ -1,0 +1,456 @@
+[data] 载入 20094 个样本，特征维度 8
+[train] 模型=transformer_physics, 参数量=1,324,674, 设备=cuda
+[train] 样本数 训练=18695 验证=519 测试=880
+/home/haru/Project/ds/typhoon-transformer/src/training/trainer.py:265: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  pr = {k: round(float(v), 4) for k, v in pterms.items()}
+  [physics] epoch 0 w=2 {'velocity': 2.6724, 'accel': 1.1897, 'turn': 0.0, 'endpoint': 2.8299} 饱和率=0.0%
+  epoch 0 step 0/293 loss=194.92 km
+  epoch 0 step 20/293 loss=195.50 km
+  epoch 0 step 40/293 loss=190.73 km
+  epoch 0 step 60/293 loss=182.59 km
+  epoch 0 step 80/293 loss=173.22 km
+  epoch 0 step 100/293 loss=165.37 km
+  epoch 0 step 120/293 loss=160.21 km
+  epoch 0 step 140/293 loss=156.03 km
+  epoch 0 step 160/293 loss=152.19 km
+  epoch 0 step 180/293 loss=149.49 km
+  epoch 0 step 200/293 loss=147.27 km
+  epoch 0 step 220/293 loss=144.90 km
+  epoch 0 step 240/293 loss=142.60 km
+  epoch 0 step 260/293 loss=140.88 km
+  epoch 0 step 280/293 loss=139.29 km
+[epoch 0] train=138.58km val_mae=145.92km lr=6.67e-05 5.0s
+  [physics] epoch 1 w=2 {'velocity': 1.3603, 'accel': 0.6782, 'turn': 0.0489, 'endpoint': 1.2991} 饱和率=0.0%
+  epoch 1 step 0/293 loss=98.47 km
+  epoch 1 step 20/293 loss=117.86 km
+  epoch 1 step 40/293 loss=120.02 km
+  epoch 1 step 60/293 loss=119.57 km
+  epoch 1 step 80/293 loss=119.19 km
+  epoch 1 step 100/293 loss=118.85 km
+  epoch 1 step 120/293 loss=118.80 km
+  epoch 1 step 140/293 loss=118.64 km
+  epoch 1 step 160/293 loss=118.37 km
+  epoch 1 step 180/293 loss=118.31 km
+  epoch 1 step 200/293 loss=118.27 km
+  epoch 1 step 220/293 loss=118.03 km
+  epoch 1 step 240/293 loss=117.40 km
+  epoch 1 step 260/293 loss=117.10 km
+  epoch 1 step 280/293 loss=116.81 km
+[epoch 1] train=116.68km val_mae=139.15km lr=1.00e-04 4.6s
+  [physics] epoch 2 w=2 {'velocity': 1.5119, 'accel': 0.7596, 'turn': 0.0943, 'endpoint': 1.4606} 饱和率=0.0%
+  epoch 2 step 0/293 loss=108.02 km
+  epoch 2 step 20/293 loss=114.72 km
+  epoch 2 step 40/293 loss=114.36 km
+  epoch 2 step 60/293 loss=114.26 km
+  epoch 2 step 80/293 loss=114.55 km
+  epoch 2 step 100/293 loss=115.27 km
+  epoch 2 step 120/293 loss=114.83 km
+  epoch 2 step 140/293 loss=114.98 km
+  epoch 2 step 160/293 loss=114.96 km
+  epoch 2 step 180/293 loss=114.83 km
+  epoch 2 step 200/293 loss=114.58 km
+  epoch 2 step 220/293 loss=114.50 km
+  epoch 2 step 240/293 loss=114.31 km
+  epoch 2 step 260/293 loss=114.16 km
+  epoch 2 step 280/293 loss=114.03 km
+[epoch 2] train=114.05km val_mae=132.37km lr=1.00e-04 4.6s
+  [physics] epoch 3 w=2 {'velocity': 1.3676, 'accel': 0.7224, 'turn': 0.0589, 'endpoint': 1.3752} 饱和率=0.0%
+  epoch 3 step 0/293 loss=102.01 km
+  epoch 3 step 20/293 loss=112.76 km
+  epoch 3 step 40/293 loss=112.50 km
+  epoch 3 step 60/293 loss=112.22 km
+  epoch 3 step 80/293 loss=112.37 km
+  epoch 3 step 100/293 loss=112.02 km
+  epoch 3 step 120/293 loss=112.28 km
+  epoch 3 step 140/293 loss=111.87 km
+  epoch 3 step 160/293 loss=112.26 km
+  epoch 3 step 180/293 loss=112.18 km
+  epoch 3 step 200/293 loss=112.11 km
+  epoch 3 step 220/293 loss=112.07 km
+  epoch 3 step 240/293 loss=112.10 km
+  epoch 3 step 260/293 loss=111.91 km
+  epoch 3 step 280/293 loss=111.96 km
+[epoch 3] train=111.93km val_mae=129.56km lr=9.99e-05 4.5s
+  [physics] epoch 4 w=2 {'velocity': 1.5447, 'accel': 0.7335, 'turn': 0.0415, 'endpoint': 1.422} 饱和率=0.0%
+  epoch 4 step 0/293 loss=105.69 km
+  epoch 4 step 20/293 loss=111.27 km
+  epoch 4 step 40/293 loss=111.15 km
+  epoch 4 step 60/293 loss=110.58 km
+  epoch 4 step 80/293 loss=111.50 km
+  epoch 4 step 100/293 loss=111.67 km
+  epoch 4 step 120/293 loss=111.08 km
+  epoch 4 step 140/293 loss=110.69 km
+  epoch 4 step 160/293 loss=110.47 km
+  epoch 4 step 180/293 loss=110.55 km
+  epoch 4 step 200/293 loss=110.58 km
+  epoch 4 step 220/293 loss=110.45 km
+  epoch 4 step 240/293 loss=110.62 km
+  epoch 4 step 260/293 loss=110.44 km
+  epoch 4 step 280/293 loss=110.32 km
+[epoch 4] train=110.44km val_mae=133.92km lr=9.97e-05 4.6s
+  [physics] epoch 5 w=2 {'velocity': 2.041, 'accel': 1.0055, 'turn': 0.0436, 'endpoint': 1.9069} 饱和率=0.0%
+  epoch 5 step 0/293 loss=130.84 km
+  epoch 5 step 20/293 loss=110.05 km
+  epoch 5 step 40/293 loss=109.87 km
+  epoch 5 step 60/293 loss=110.41 km
+  epoch 5 step 80/293 loss=109.80 km
+  epoch 5 step 100/293 loss=109.77 km
+  epoch 5 step 120/293 loss=109.59 km
+  epoch 5 step 140/293 loss=110.18 km
+  epoch 5 step 160/293 loss=110.08 km
+  epoch 5 step 180/293 loss=109.97 km
+  epoch 5 step 200/293 loss=109.96 km
+  epoch 5 step 220/293 loss=109.71 km
+  epoch 5 step 240/293 loss=109.59 km
+  epoch 5 step 260/293 loss=109.80 km
+  epoch 5 step 280/293 loss=109.40 km
+[epoch 5] train=109.28km val_mae=130.65km lr=9.93e-05 4.6s
+  [physics] epoch 6 w=2 {'velocity': 1.784, 'accel': 0.8606, 'turn': 0.0376, 'endpoint': 1.5571} 饱和率=0.0%
+  epoch 6 step 0/293 loss=110.35 km
+  epoch 6 step 20/293 loss=107.91 km
+  epoch 6 step 40/293 loss=106.53 km
+  epoch 6 step 60/293 loss=107.70 km
+  epoch 6 step 80/293 loss=107.21 km
+  epoch 6 step 100/293 loss=108.04 km
+  epoch 6 step 120/293 loss=108.10 km
+  epoch 6 step 140/293 loss=108.77 km
+  epoch 6 step 160/293 loss=108.94 km
+  epoch 6 step 180/293 loss=108.60 km
+  epoch 6 step 200/293 loss=108.75 km
+  epoch 6 step 220/293 loss=108.62 km
+  epoch 6 step 240/293 loss=108.62 km
+  epoch 6 step 260/293 loss=108.40 km
+  epoch 6 step 280/293 loss=108.13 km
+[epoch 6] train=108.13km val_mae=126.34km lr=9.88e-05 4.5s
+  [physics] epoch 7 w=2 {'velocity': 1.3206, 'accel': 0.6622, 'turn': 0.034, 'endpoint': 1.342} 饱和率=0.0%
+  epoch 7 step 0/293 loss=100.41 km
+  epoch 7 step 20/293 loss=106.70 km
+  epoch 7 step 40/293 loss=108.68 km
+  epoch 7 step 60/293 loss=108.07 km
+  epoch 7 step 80/293 loss=107.66 km
+  epoch 7 step 100/293 loss=107.57 km
+  epoch 7 step 120/293 loss=107.56 km
+  epoch 7 step 140/293 loss=107.73 km
+  epoch 7 step 160/293 loss=107.66 km
+  epoch 7 step 180/293 loss=107.65 km
+  epoch 7 step 200/293 loss=107.09 km
+  epoch 7 step 220/293 loss=107.32 km
+  epoch 7 step 240/293 loss=107.63 km
+  epoch 7 step 260/293 loss=107.65 km
+  epoch 7 step 280/293 loss=107.48 km
+[epoch 7] train=107.29km val_mae=127.67km lr=9.81e-05 4.5s
+  [physics] epoch 8 w=2 {'velocity': 1.4486, 'accel': 0.7833, 'turn': 0.045, 'endpoint': 1.3115} 饱和率=0.0%
+  epoch 8 step 0/293 loss=98.98 km
+  epoch 8 step 20/293 loss=108.36 km
+  epoch 8 step 40/293 loss=106.56 km
+  epoch 8 step 60/293 loss=106.80 km
+  epoch 8 step 80/293 loss=105.87 km
+  epoch 8 step 100/293 loss=106.08 km
+  epoch 8 step 120/293 loss=106.34 km
+  epoch 8 step 140/293 loss=106.26 km
+  epoch 8 step 160/293 loss=106.64 km
+  epoch 8 step 180/293 loss=106.57 km
+  epoch 8 step 200/293 loss=106.75 km
+  epoch 8 step 220/293 loss=106.50 km
+  epoch 8 step 240/293 loss=106.53 km
+  epoch 8 step 260/293 loss=106.58 km
+  epoch 8 step 280/293 loss=106.67 km
+[epoch 8] train=106.53km val_mae=125.94km lr=9.73e-05 4.5s
+  [physics] epoch 9 w=2 {'velocity': 1.4099, 'accel': 0.7466, 'turn': 0.0319, 'endpoint': 1.4165} 饱和率=0.0%
+  epoch 9 step 0/293 loss=102.31 km
+  epoch 9 step 20/293 loss=106.32 km
+  epoch 9 step 40/293 loss=106.13 km
+  epoch 9 step 60/293 loss=107.11 km
+  epoch 9 step 80/293 loss=107.42 km
+  epoch 9 step 100/293 loss=107.24 km
+  epoch 9 step 120/293 loss=107.54 km
+  epoch 9 step 140/293 loss=107.36 km
+  epoch 9 step 160/293 loss=107.24 km
+  epoch 9 step 180/293 loss=106.96 km
+  epoch 9 step 200/293 loss=106.57 km
+  epoch 9 step 220/293 loss=106.57 km
+  epoch 9 step 240/293 loss=106.24 km
+  epoch 9 step 260/293 loss=106.38 km
+  epoch 9 step 280/293 loss=106.34 km
+[epoch 9] train=106.20km val_mae=131.57km lr=9.63e-05 4.5s
+  [physics] epoch 10 w=2 {'velocity': 1.4232, 'accel': 0.6991, 'turn': 0.0436, 'endpoint': 1.296} 饱和率=0.0%
+  epoch 10 step 0/293 loss=99.97 km
+  epoch 10 step 20/293 loss=104.40 km
+  epoch 10 step 40/293 loss=103.97 km
+  epoch 10 step 60/293 loss=105.23 km
+  epoch 10 step 80/293 loss=105.93 km
+  epoch 10 step 100/293 loss=105.17 km
+  epoch 10 step 120/293 loss=105.27 km
+  epoch 10 step 140/293 loss=105.31 km
+  epoch 10 step 160/293 loss=105.64 km
+  epoch 10 step 180/293 loss=105.70 km
+  epoch 10 step 200/293 loss=105.61 km
+  epoch 10 step 220/293 loss=105.56 km
+  epoch 10 step 240/293 loss=105.41 km
+  epoch 10 step 260/293 loss=105.59 km
+  epoch 10 step 280/293 loss=105.69 km
+[epoch 10] train=105.56km val_mae=130.11km lr=9.52e-05 4.5s
+  [physics] epoch 11 w=2 {'velocity': 1.581, 'accel': 0.7854, 'turn': 0.0306, 'endpoint': 1.4982} 饱和率=0.0%
+  epoch 11 step 0/293 loss=110.69 km
+  epoch 11 step 20/293 loss=106.74 km
+  epoch 11 step 40/293 loss=105.49 km
+  epoch 11 step 60/293 loss=105.34 km
+  epoch 11 step 80/293 loss=105.21 km
+  epoch 11 step 100/293 loss=105.23 km
+  epoch 11 step 120/293 loss=105.36 km
+  epoch 11 step 140/293 loss=105.09 km
+  epoch 11 step 160/293 loss=105.24 km
+  epoch 11 step 180/293 loss=105.17 km
+  epoch 11 step 200/293 loss=105.46 km
+  epoch 11 step 220/293 loss=105.17 km
+  epoch 11 step 240/293 loss=105.32 km
+  epoch 11 step 260/293 loss=105.12 km
+  epoch 11 step 280/293 loss=105.22 km
+[epoch 11] train=105.26km val_mae=128.97km lr=9.40e-05 4.5s
+  [physics] epoch 12 w=2 {'velocity': 1.4999, 'accel': 0.7743, 'turn': 0.0308, 'endpoint': 1.5717} 饱和率=0.0%
+  epoch 12 step 0/293 loss=111.94 km
+  epoch 12 step 20/293 loss=105.66 km
+  epoch 12 step 40/293 loss=106.30 km
+  epoch 12 step 60/293 loss=106.68 km
+  epoch 12 step 80/293 loss=106.54 km
+  epoch 12 step 100/293 loss=106.90 km
+  epoch 12 step 120/293 loss=106.19 km
+  epoch 12 step 140/293 loss=106.01 km
+  epoch 12 step 160/293 loss=105.56 km
+  epoch 12 step 180/293 loss=105.57 km
+  epoch 12 step 200/293 loss=105.36 km
+  epoch 12 step 220/293 loss=105.35 km
+  epoch 12 step 240/293 loss=105.05 km
+  epoch 12 step 260/293 loss=105.01 km
+  epoch 12 step 280/293 loss=105.02 km
+[epoch 12] train=104.94km val_mae=127.73km lr=9.26e-05 4.5s
+  [physics] epoch 13 w=2 {'velocity': 1.4406, 'accel': 0.6993, 'turn': 0.0355, 'endpoint': 1.3921} 饱和率=0.0%
+  epoch 13 step 0/293 loss=104.41 km
+  epoch 13 step 20/293 loss=102.78 km
+  epoch 13 step 40/293 loss=104.04 km
+  epoch 13 step 60/293 loss=105.01 km
+  epoch 13 step 80/293 loss=105.16 km
+  epoch 13 step 100/293 loss=105.04 km
+  epoch 13 step 120/293 loss=105.00 km
+  epoch 13 step 140/293 loss=105.37 km
+  epoch 13 step 160/293 loss=105.41 km
+  epoch 13 step 180/293 loss=105.29 km
+  epoch 13 step 200/293 loss=105.10 km
+  epoch 13 step 220/293 loss=104.87 km
+  epoch 13 step 240/293 loss=104.87 km
+  epoch 13 step 260/293 loss=104.75 km
+  epoch 13 step 280/293 loss=104.49 km
+[epoch 13] train=104.48km val_mae=125.62km lr=9.11e-05 4.5s
+  [physics] epoch 14 w=2 {'velocity': 1.7004, 'accel': 0.8143, 'turn': 0.0635, 'endpoint': 1.4626} 饱和率=0.0%
+  epoch 14 step 0/293 loss=103.57 km
+  epoch 14 step 20/293 loss=104.16 km
+  epoch 14 step 40/293 loss=104.43 km
+  epoch 14 step 60/293 loss=104.08 km
+  epoch 14 step 80/293 loss=103.86 km
+  epoch 14 step 100/293 loss=104.42 km
+  epoch 14 step 120/293 loss=104.77 km
+  epoch 14 step 140/293 loss=104.24 km
+  epoch 14 step 160/293 loss=104.33 km
+  epoch 14 step 180/293 loss=104.66 km
+  epoch 14 step 200/293 loss=104.57 km
+  epoch 14 step 220/293 loss=104.26 km
+  epoch 14 step 240/293 loss=104.28 km
+  epoch 14 step 260/293 loss=104.15 km
+  epoch 14 step 280/293 loss=104.15 km
+[epoch 14] train=104.24km val_mae=127.59km lr=8.95e-05 4.5s
+  [physics] epoch 15 w=2 {'velocity': 1.7418, 'accel': 0.8228, 'turn': 0.0416, 'endpoint': 1.5438} 饱和率=0.0%
+  epoch 15 step 0/293 loss=110.30 km
+  epoch 15 step 20/293 loss=104.41 km
+  epoch 15 step 40/293 loss=103.63 km
+  epoch 15 step 60/293 loss=104.13 km
+  epoch 15 step 80/293 loss=104.04 km
+  epoch 15 step 100/293 loss=104.39 km
+  epoch 15 step 120/293 loss=103.69 km
+  epoch 15 step 140/293 loss=103.88 km
+  epoch 15 step 160/293 loss=103.59 km
+  epoch 15 step 180/293 loss=103.93 km
+  epoch 15 step 200/293 loss=103.70 km
+  epoch 15 step 220/293 loss=103.59 km
+  epoch 15 step 240/293 loss=103.68 km
+  epoch 15 step 260/293 loss=103.73 km
+  epoch 15 step 280/293 loss=103.85 km
+[epoch 15] train=103.74km val_mae=127.73km lr=8.77e-05 4.5s
+  [physics] epoch 16 w=2 {'velocity': 1.7131, 'accel': 0.8576, 'turn': 0.0163, 'endpoint': 1.6499} 饱和率=0.0%
+  epoch 16 step 0/293 loss=117.92 km
+  epoch 16 step 20/293 loss=105.00 km
+  epoch 16 step 40/293 loss=105.41 km
+  epoch 16 step 60/293 loss=105.44 km
+  epoch 16 step 80/293 loss=104.34 km
+  epoch 16 step 100/293 loss=103.91 km
+  epoch 16 step 120/293 loss=104.09 km
+  epoch 16 step 140/293 loss=103.79 km
+  epoch 16 step 160/293 loss=103.66 km
+  epoch 16 step 180/293 loss=103.82 km
+  epoch 16 step 200/293 loss=103.51 km
+  epoch 16 step 220/293 loss=103.51 km
+  epoch 16 step 240/293 loss=103.72 km
+  epoch 16 step 260/293 loss=103.72 km
+  epoch 16 step 280/293 loss=103.64 km
+[epoch 16] train=103.61km val_mae=128.41km lr=8.58e-05 4.5s
+  [physics] epoch 17 w=2 {'velocity': 1.2209, 'accel': 0.6252, 'turn': 0.0384, 'endpoint': 1.2156} 饱和率=0.0%
+  epoch 17 step 0/293 loss=92.34 km
+  epoch 17 step 20/293 loss=101.18 km
+  epoch 17 step 40/293 loss=102.16 km
+  epoch 17 step 60/293 loss=101.62 km
+  epoch 17 step 80/293 loss=102.09 km
+  epoch 17 step 100/293 loss=102.53 km
+  epoch 17 step 120/293 loss=103.13 km
+  epoch 17 step 140/293 loss=103.11 km
+  epoch 17 step 160/293 loss=103.24 km
+  epoch 17 step 180/293 loss=103.36 km
+  epoch 17 step 200/293 loss=103.29 km
+  epoch 17 step 220/293 loss=103.40 km
+  epoch 17 step 240/293 loss=103.42 km
+  epoch 17 step 260/293 loss=103.53 km
+  epoch 17 step 280/293 loss=103.49 km
+[epoch 17] train=103.49km val_mae=129.34km lr=8.39e-05 4.5s
+  [physics] epoch 18 w=2 {'velocity': 1.6309, 'accel': 0.7535, 'turn': 0.0264, 'endpoint': 1.4759} 饱和率=0.0%
+  epoch 18 step 0/293 loss=107.74 km
+  epoch 18 step 20/293 loss=103.95 km
+  epoch 18 step 40/293 loss=102.08 km
+  epoch 18 step 60/293 loss=101.49 km
+  epoch 18 step 80/293 loss=102.30 km
+  epoch 18 step 100/293 loss=101.87 km
+  epoch 18 step 120/293 loss=101.82 km
+  epoch 18 step 140/293 loss=101.97 km
+  epoch 18 step 160/293 loss=102.35 km
+  epoch 18 step 180/293 loss=102.93 km
+  epoch 18 step 200/293 loss=102.84 km
+  epoch 18 step 220/293 loss=103.01 km
+  epoch 18 step 240/293 loss=102.88 km
+  epoch 18 step 260/293 loss=102.94 km
+  epoch 18 step 280/293 loss=102.88 km
+[epoch 18] train=102.88km val_mae=134.37km lr=8.18e-05 4.5s
+  [physics] epoch 19 w=2 {'velocity': 1.458, 'accel': 0.7264, 'turn': 0.0313, 'endpoint': 1.3475} 饱和率=0.0%
+  epoch 19 step 0/293 loss=103.41 km
+  epoch 19 step 20/293 loss=105.30 km
+  epoch 19 step 40/293 loss=103.75 km
+  epoch 19 step 60/293 loss=103.58 km
+  epoch 19 step 80/293 loss=102.75 km
+  epoch 19 step 100/293 loss=103.01 km
+  epoch 19 step 120/293 loss=103.00 km
+  epoch 19 step 140/293 loss=103.03 km
+  epoch 19 step 160/293 loss=102.87 km
+  epoch 19 step 180/293 loss=102.72 km
+  epoch 19 step 200/293 loss=102.76 km
+  epoch 19 step 220/293 loss=102.84 km
+  epoch 19 step 240/293 loss=102.88 km
+  epoch 19 step 260/293 loss=102.73 km
+  epoch 19 step 280/293 loss=102.63 km
+[epoch 19] train=102.64km val_mae=135.93km lr=7.96e-05 4.5s
+  [physics] epoch 20 w=2 {'velocity': 1.2981, 'accel': 0.6788, 'turn': 0.0687, 'endpoint': 1.3149} 饱和率=0.0%
+  epoch 20 step 0/293 loss=98.32 km
+  epoch 20 step 20/293 loss=104.08 km
+  epoch 20 step 40/293 loss=103.67 km
+  epoch 20 step 60/293 loss=103.58 km
+  epoch 20 step 80/293 loss=103.53 km
+  epoch 20 step 100/293 loss=103.27 km
+  epoch 20 step 120/293 loss=102.99 km
+  epoch 20 step 140/293 loss=102.91 km
+  epoch 20 step 160/293 loss=102.74 km
+  epoch 20 step 180/293 loss=102.93 km
+  epoch 20 step 200/293 loss=102.93 km
+  epoch 20 step 220/293 loss=102.73 km
+  epoch 20 step 240/293 loss=102.90 km
+  epoch 20 step 260/293 loss=102.79 km
+  epoch 20 step 280/293 loss=102.64 km
+[epoch 20] train=102.62km val_mae=128.29km lr=7.73e-05 4.5s
+  [physics] epoch 21 w=2 {'velocity': 1.7823, 'accel': 0.8105, 'turn': 0.0236, 'endpoint': 1.3989} 饱和率=0.4%
+  epoch 21 step 0/293 loss=101.03 km
+  epoch 21 step 20/293 loss=102.88 km
+  epoch 21 step 40/293 loss=103.44 km
+  epoch 21 step 60/293 loss=102.80 km
+  epoch 21 step 80/293 loss=102.41 km
+  epoch 21 step 100/293 loss=102.27 km
+  epoch 21 step 120/293 loss=102.29 km
+  epoch 21 step 140/293 loss=101.94 km
+  epoch 21 step 160/293 loss=102.04 km
+  epoch 21 step 180/293 loss=102.02 km
+  epoch 21 step 200/293 loss=102.45 km
+  epoch 21 step 220/293 loss=102.57 km
+  epoch 21 step 240/293 loss=102.29 km
+  epoch 21 step 260/293 loss=102.30 km
+  epoch 21 step 280/293 loss=102.21 km
+[epoch 21] train=102.33km val_mae=134.58km lr=7.50e-05 4.5s
+  [physics] epoch 22 w=2 {'velocity': 1.5289, 'accel': 0.7229, 'turn': 0.0375, 'endpoint': 1.4432} 饱和率=0.0%
+  epoch 22 step 0/293 loss=110.31 km
+  epoch 22 step 20/293 loss=101.43 km
+  epoch 22 step 40/293 loss=101.22 km
+  epoch 22 step 60/293 loss=101.67 km
+  epoch 22 step 80/293 loss=102.13 km
+  epoch 22 step 100/293 loss=101.72 km
+  epoch 22 step 120/293 loss=101.81 km
+  epoch 22 step 140/293 loss=101.94 km
+  epoch 22 step 160/293 loss=101.88 km
+  epoch 22 step 180/293 loss=102.00 km
+  epoch 22 step 200/293 loss=101.97 km
+  epoch 22 step 220/293 loss=102.16 km
+  epoch 22 step 240/293 loss=102.16 km
+  epoch 22 step 260/293 loss=102.28 km
+  epoch 22 step 280/293 loss=102.35 km
+[epoch 22] train=102.22km val_mae=130.94km lr=7.26e-05 4.5s
+  [physics] epoch 23 w=2 {'velocity': 1.2313, 'accel': 0.6017, 'turn': 0.0304, 'endpoint': 1.1695} 饱和率=0.0%
+  epoch 23 step 0/293 loss=91.67 km
+  epoch 23 step 20/293 loss=105.33 km
+  epoch 23 step 40/293 loss=103.52 km
+  epoch 23 step 60/293 loss=102.86 km
+  epoch 23 step 80/293 loss=102.87 km
+  epoch 23 step 100/293 loss=102.46 km
+  epoch 23 step 120/293 loss=102.16 km
+  epoch 23 step 140/293 loss=102.38 km
+  epoch 23 step 160/293 loss=102.30 km
+  epoch 23 step 180/293 loss=102.16 km
+  epoch 23 step 200/293 loss=102.05 km
+  epoch 23 step 220/293 loss=102.12 km
+  epoch 23 step 240/293 loss=102.10 km
+  epoch 23 step 260/293 loss=102.19 km
+  epoch 23 step 280/293 loss=102.31 km
+[epoch 23] train=102.12km val_mae=128.41km lr=7.01e-05 4.5s
+  [physics] epoch 24 w=2 {'velocity': 1.3864, 'accel': 0.7235, 'turn': 0.042, 'endpoint': 1.3213} 饱和率=0.4%
+  epoch 24 step 0/293 loss=101.65 km
+  epoch 24 step 20/293 loss=100.43 km
+  epoch 24 step 40/293 loss=101.22 km
+  epoch 24 step 60/293 loss=101.20 km
+  epoch 24 step 80/293 loss=101.00 km
+  epoch 24 step 100/293 loss=101.16 km
+  epoch 24 step 120/293 loss=101.03 km
+  epoch 24 step 140/293 loss=100.89 km
+  epoch 24 step 160/293 loss=101.04 km
+  epoch 24 step 180/293 loss=101.39 km
+  epoch 24 step 200/293 loss=101.30 km
+  epoch 24 step 220/293 loss=101.43 km
+  epoch 24 step 240/293 loss=101.41 km
+  epoch 24 step 260/293 loss=101.51 km
+  epoch 24 step 280/293 loss=101.51 km
+[epoch 24] train=101.63km val_mae=130.39km lr=6.75e-05 4.5s
+  [physics] epoch 25 w=2 {'velocity': 1.1936, 'accel': 0.6106, 'turn': 0.0389, 'endpoint': 1.1878} 饱和率=0.0%
+  epoch 25 step 0/293 loss=93.57 km
+  epoch 25 step 20/293 loss=99.24 km
+  epoch 25 step 40/293 loss=99.18 km
+  epoch 25 step 60/293 loss=99.51 km
+  epoch 25 step 80/293 loss=100.00 km
+  epoch 25 step 100/293 loss=100.74 km
+  epoch 25 step 120/293 loss=100.59 km
+  epoch 25 step 140/293 loss=100.97 km
+  epoch 25 step 160/293 loss=101.17 km
+  epoch 25 step 180/293 loss=101.37 km
+  epoch 25 step 200/293 loss=101.52 km
+  epoch 25 step 220/293 loss=101.44 km
+  epoch 25 step 240/293 loss=101.51 km
+  epoch 25 step 260/293 loss=101.49 km
+  epoch 25 step 280/293 loss=101.56 km
+[epoch 25] train=101.44km val_mae=130.55km lr=6.49e-05 4.5s
+[train] 早停于 epoch 25（最佳 epoch 13）
+
+======================================================================
+训练完成: 最佳 epoch=13, 验证误差=125.6 km
+| 模型 | 6h 误差(km) | 12h 误差(km) | 18h 误差(km) | 24h 误差(km) | 平均(km) |
+|---|---|---|---|---|---|
+| transformer_physics | 44.0 | 90.7 | 148.4 | 214.4 | 124.4 |
+输出目录: outputs/phys_r2.0

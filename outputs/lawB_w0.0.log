@@ -1,0 +1,112 @@
+[data] 并入环境场 9 维: ['h500_mean', 'h500_grad_lat', 'u500', 'v500', 'speed500', 'shear', 'sst', 'msl', 'bst_dist']
+[data] 环境场覆盖 8.1% 的行、128 个台风
+[data] 已限制到有环境场的台风: 128 个，5904 行
+[samples] 构造 1644 个样本, x=(1644, 12, 17), y=(1644, 4, 2)
+[data] 载入 1644 个样本，特征维度 17
+[split] 台风 train=55 val=19 test=19 | 样本 train=912 val=360 test=372
+[train] 模型=transformer, 参数量=1,325,826, 设备=cuda
+[train] 样本数 训练=912 验证=360 测试=372
+  epoch 0 step 0/15 loss=236.48 km
+[epoch 0] train=248.94km val_mae=369.22km lr=6.67e-05 0.7s
+  epoch 1 step 0/15 loss=223.07 km
+[epoch 1] train=245.37km val_mae=360.29km lr=1.00e-04 0.3s
+  epoch 2 step 0/15 loss=243.76 km
+[epoch 2] train=237.43km val_mae=345.49km lr=1.00e-04 0.3s
+  epoch 3 step 0/15 loss=225.16 km
+[epoch 3] train=227.16km val_mae=331.58km lr=9.99e-05 0.3s
+  epoch 4 step 0/15 loss=216.53 km
+[epoch 4] train=217.47km val_mae=317.78km lr=9.97e-05 0.3s
+  epoch 5 step 0/15 loss=214.82 km
+[epoch 5] train=208.19km val_mae=305.33km lr=9.93e-05 0.3s
+  epoch 6 step 0/15 loss=194.50 km
+[epoch 6] train=200.09km val_mae=295.88km lr=9.88e-05 0.2s
+  epoch 7 step 0/15 loss=189.57 km
+[epoch 7] train=192.81km val_mae=285.99km lr=9.81e-05 0.3s
+  epoch 8 step 0/15 loss=202.94 km
+[epoch 8] train=187.11km val_mae=277.34km lr=9.73e-05 0.3s
+  epoch 9 step 0/15 loss=185.18 km
+[epoch 9] train=183.94km val_mae=269.78km lr=9.63e-05 0.3s
+  epoch 10 step 0/15 loss=167.28 km
+[epoch 10] train=178.96km val_mae=261.98km lr=9.52e-05 0.2s
+  epoch 11 step 0/15 loss=178.27 km
+[epoch 11] train=172.36km val_mae=257.43km lr=9.40e-05 0.3s
+  epoch 12 step 0/15 loss=165.99 km
+[epoch 12] train=166.13km val_mae=246.28km lr=9.26e-05 0.3s
+  epoch 13 step 0/15 loss=160.98 km
+[epoch 13] train=159.85km val_mae=236.84km lr=9.11e-05 0.2s
+  epoch 14 step 0/15 loss=179.62 km
+[epoch 14] train=154.43km val_mae=230.72km lr=8.95e-05 0.2s
+  epoch 15 step 0/15 loss=160.01 km
+[epoch 15] train=149.30km val_mae=225.87km lr=8.77e-05 0.2s
+  epoch 16 step 0/15 loss=146.62 km
+[epoch 16] train=145.15km val_mae=220.74km lr=8.58e-05 0.3s
+  epoch 17 step 0/15 loss=141.99 km
+[epoch 17] train=142.24km val_mae=219.55km lr=8.39e-05 0.3s
+  epoch 18 step 0/15 loss=132.44 km
+[epoch 18] train=139.11km val_mae=215.22km lr=8.18e-05 0.3s
+  epoch 19 step 0/15 loss=119.43 km
+[epoch 19] train=136.39km val_mae=210.58km lr=7.96e-05 0.3s
+  epoch 20 step 0/15 loss=111.68 km
+[epoch 20] train=134.10km val_mae=210.85km lr=7.73e-05 0.3s
+  epoch 21 step 0/15 loss=125.86 km
+[epoch 21] train=131.57km val_mae=206.44km lr=7.50e-05 0.2s
+  epoch 22 step 0/15 loss=134.92 km
+[epoch 22] train=128.59km val_mae=203.58km lr=7.26e-05 0.2s
+  epoch 23 step 0/15 loss=130.79 km
+[epoch 23] train=126.59km val_mae=201.82km lr=7.01e-05 0.3s
+  epoch 24 step 0/15 loss=126.62 km
+[epoch 24] train=124.83km val_mae=198.93km lr=6.75e-05 0.3s
+  epoch 25 step 0/15 loss=113.71 km
+[epoch 25] train=122.79km val_mae=197.60km lr=6.49e-05 0.3s
+  epoch 26 step 0/15 loss=118.84 km
+[epoch 26] train=121.95km val_mae=196.20km lr=6.23e-05 0.3s
+  epoch 27 step 0/15 loss=144.73 km
+[epoch 27] train=120.16km val_mae=196.66km lr=5.96e-05 0.2s
+  epoch 28 step 0/15 loss=123.60 km
+[epoch 28] train=119.13km val_mae=194.24km lr=5.69e-05 0.3s
+  epoch 29 step 0/15 loss=119.94 km
+[epoch 29] train=117.87km val_mae=193.37km lr=5.41e-05 0.3s
+  epoch 30 step 0/15 loss=107.56 km
+[epoch 30] train=117.18km val_mae=193.14km lr=5.14e-05 0.3s
+  epoch 31 step 0/15 loss=123.06 km
+[epoch 31] train=115.38km val_mae=194.86km lr=4.86e-05 0.3s
+  epoch 32 step 0/15 loss=133.85 km
+[epoch 32] train=114.14km val_mae=195.12km lr=4.59e-05 0.3s
+  epoch 33 step 0/15 loss=116.70 km
+[epoch 33] train=114.02km val_mae=190.86km lr=4.31e-05 0.2s
+  epoch 34 step 0/15 loss=98.17 km
+[epoch 34] train=113.25km val_mae=193.64km lr=4.04e-05 0.3s
+  epoch 35 step 0/15 loss=111.07 km
+[epoch 35] train=111.43km val_mae=189.27km lr=3.77e-05 0.3s
+  epoch 36 step 0/15 loss=117.79 km
+[epoch 36] train=110.37km val_mae=192.07km lr=3.51e-05 0.3s
+  epoch 37 step 0/15 loss=107.77 km
+[epoch 37] train=111.03km val_mae=190.35km lr=3.25e-05 0.2s
+  epoch 38 step 0/15 loss=120.45 km
+[epoch 38] train=110.36km val_mae=190.11km lr=2.99e-05 0.2s
+  epoch 39 step 0/15 loss=125.93 km
+[epoch 39] train=110.23km val_mae=191.57km lr=2.74e-05 0.2s
+  epoch 40 step 0/15 loss=112.21 km
+[epoch 40] train=108.80km val_mae=190.30km lr=2.50e-05 0.3s
+  epoch 41 step 0/15 loss=115.53 km
+[epoch 41] train=108.05km val_mae=191.02km lr=2.27e-05 0.3s
+  epoch 42 step 0/15 loss=100.79 km
+[epoch 42] train=108.25km val_mae=190.82km lr=2.04e-05 0.3s
+  epoch 43 step 0/15 loss=114.14 km
+[epoch 43] train=108.14km val_mae=189.61km lr=1.82e-05 0.3s
+  epoch 44 step 0/15 loss=107.94 km
+[epoch 44] train=107.79km val_mae=190.46km lr=1.61e-05 0.3s
+  epoch 45 step 0/15 loss=100.64 km
+[epoch 45] train=106.18km val_mae=189.58km lr=1.42e-05 0.2s
+  epoch 46 step 0/15 loss=85.90 km
+[epoch 46] train=107.00km val_mae=189.79km lr=1.23e-05 0.3s
+  epoch 47 step 0/15 loss=114.87 km
+[epoch 47] train=106.90km val_mae=189.71km lr=1.05e-05 0.3s
+[train] 早停于 epoch 47（最佳 epoch 35）
+
+======================================================================
+训练完成: 最佳 epoch=35, 验证误差=189.3 km
+| 模型 | 6h 误差(km) | 12h 误差(km) | 18h 误差(km) | 24h 误差(km) | 平均(km) |
+|---|---|---|---|---|---|
+| transformer | 65.3 | 145.5 | 256.8 | 375.6 | 210.8 |
+输出目录: outputs/lawB_w0.0

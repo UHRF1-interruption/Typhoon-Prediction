@@ -1,0 +1,133 @@
+seed: 42
+device: cuda
+data_root: null
+data:
+  basin: WP
+  source: cma
+  cma_dir: data/raw/cma_attachments/extracted
+  raw_dir: data/raw
+  processed_dir: data/processed
+  ibtracs_version: v04r01
+  ibtracs_base_url: https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/
+  ibtracs_suffix: WP
+  download_time_budget_s: 300
+  download_workers: 24
+  interval_hours: 6
+  in_len: 12
+  out_len: 4
+  min_wind_knots: 34
+  drop_missing_wind: true
+  lon_range:
+  - 90.0
+  - 200.0
+  lat_range:
+  - 0.0
+  - 50.0
+  min_wind_ms: 17.2
+  val_years:
+  - 2010
+  - 2011
+  test_years:
+  - 2012
+  - 2013
+  synthetic:
+    n_storms: 400
+    start_year: 2010
+    n_years: 14
+    points_per_storm: 48
+features:
+  list:
+  - dlat
+  - dlon
+  - dist_prev
+  - sin_heading
+  - cos_heading
+  - wind_ms
+  - dpres_hpa
+  - lat_norm
+model:
+  name: transformer
+  d_model: 128
+  nhead: 8
+  num_encoder_layers: 4
+  num_decoder_layers: 2
+  dim_feedforward: 512
+  dropout: 0.15
+  pred_mode: delta
+  huber_delta_km: 100.0
+  cap_km: null
+train:
+  batch_size: 64
+  epochs: 60
+  lr: 0.0001
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  warmup_epochs: 3
+  early_stop_patience: 12
+  loss: haversine
+  physics_weight: 0.0
+  log_physics: true
+  law_weight: 0.5
+  physics_adaptive: false
+  balance_every: 50
+  num_workers: 0
+  amp: true
+  log_interval: 20
+eval:
+  horizons_hours:
+  - 6
+  - 12
+  - 18
+  - 24
+output:
+  dir: outputs
+  ckpt_name: best.pt
+  run_name: lawA_w0.5
+satellite:
+  zip_dir: data/raw/bsts
+  patch_size: 64
+  patch_cache: sat_patches.npz
+  in_len: 8
+  out_len: 4
+  interval_h: 3.0
+  model:
+    name: fusion_transformer
+    d_model: 128
+    nhead: 8
+    num_layers: 3
+    dim_feedforward: 256
+    dropout: 0.15
+    img_feat: 64
+  train:
+    batch_size: 32
+    epochs: 60
+    lr: 0.0003
+    weight_decay: 0.0001
+    grad_clip: 1.0
+    early_stop_patience: 15
+    num_workers: 0
+    amp: true
+  val_names: []
+  test_ratio: 0.15
+  run_name: sat_intensity_64px
+  ri:
+    run_name: ri_events_64px
+    in_len: 8
+    horizon: 8
+    threshold_ms: 15.0
+    model:
+      name: feature_transformer
+      d_model: 96
+      nhead: 4
+      num_layers: 2
+      dim_feedforward: 192
+      dropout: 0.3
+    train:
+      batch_size: 64
+      epochs: 80
+      lr: 0.0005
+      weight_decay: 0.001
+      grad_clip: 1.0
+      early_stop_patience: 20
+      num_workers: 0
+      amp: true

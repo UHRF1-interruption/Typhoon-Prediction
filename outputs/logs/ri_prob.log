@@ -1,0 +1,1156 @@
+[RI] 载入云图 17193 帧
+[RI] 样本 12275, 正样本 610 (5.0%), 阈值 15.0 m/s, 窗口 8->8 步, 云图唯一帧 (14508, 3, 64, 64), 跳过(缺帧) 1955
+
+======================================================================
+CV fold 1/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.1%
+############################################################
+[epoch  0] loss=0.4668 val_AUC=0.8654 val_PR-AUC=0.3223 7.2s
+[epoch  1] loss=0.4062 val_AUC=0.8679 val_PR-AUC=0.2378 6.8s
+[epoch  2] loss=0.3919 val_AUC=0.8555 val_PR-AUC=0.3105 6.8s
+[epoch  3] loss=0.3605 val_AUC=0.8776 val_PR-AUC=0.3957 7.1s
+[epoch  4] loss=0.3477 val_AUC=0.8768 val_PR-AUC=0.3481 7.3s
+[epoch  5] loss=0.3285 val_AUC=0.8687 val_PR-AUC=0.3204 7.8s
+[epoch  6] loss=0.3191 val_AUC=0.8698 val_PR-AUC=0.2575 7.8s
+[epoch  7] loss=0.3003 val_AUC=0.8808 val_PR-AUC=0.3430 8.3s
+[epoch  8] loss=0.2807 val_AUC=0.8808 val_PR-AUC=0.2994 7.6s
+[epoch  9] loss=0.2770 val_AUC=0.8727 val_PR-AUC=0.2859 8.0s
+[epoch 10] loss=0.2452 val_AUC=0.8861 val_PR-AUC=0.2466 8.2s
+[epoch 11] loss=0.2565 val_AUC=0.8585 val_PR-AUC=0.3070 8.2s
+[epoch 12] loss=0.2469 val_AUC=0.8451 val_PR-AUC=0.2220 8.2s
+[epoch 13] loss=0.2569 val_AUC=0.8239 val_PR-AUC=0.2713 8.2s
+[epoch 14] loss=0.2688 val_AUC=0.8696 val_PR-AUC=0.2338 8.3s
+[epoch 15] loss=0.2111 val_AUC=0.8582 val_PR-AUC=0.2164 8.2s
+[epoch 16] loss=0.2184 val_AUC=0.8447 val_PR-AUC=0.2247 8.4s
+[epoch 17] loss=0.2250 val_AUC=0.8683 val_PR-AUC=0.2071 8.2s
+[epoch 18] loss=0.1732 val_AUC=0.8446 val_PR-AUC=0.2252 8.2s
+[epoch 19] loss=0.2135 val_AUC=0.8792 val_PR-AUC=0.2381 8.2s
+[epoch 20] loss=0.1882 val_AUC=0.8271 val_PR-AUC=0.2169 8.2s
+[epoch 21] loss=0.2246 val_AUC=0.8586 val_PR-AUC=0.2217 7.5s
+[epoch 22] loss=0.1748 val_AUC=0.8627 val_PR-AUC=0.2053 7.2s
+[epoch 23] loss=0.1958 val_AUC=0.8619 val_PR-AUC=0.2160 7.1s
+[epoch 24] loss=0.1768 val_AUC=0.8517 val_PR-AUC=0.1872 7.1s
+[epoch 25] loss=0.1769 val_AUC=0.8478 val_PR-AUC=0.1651 7.1s
+[epoch 26] loss=0.1839 val_AUC=0.8392 val_PR-AUC=0.2101 7.1s
+[epoch 27] loss=0.1867 val_AUC=0.8582 val_PR-AUC=0.1590 7.1s
+[epoch 28] loss=0.1710 val_AUC=0.8445 val_PR-AUC=0.1951 7.2s
+[epoch 29] loss=0.1493 val_AUC=0.8310 val_PR-AUC=0.1748 7.3s
+[epoch 30] loss=0.1676 val_AUC=0.8367 val_PR-AUC=0.1609 7.1s
+[早停] epoch 30，最佳 epoch 10
+[CNN+云图] 测试集: AUC=0.9013 PR-AUC=0.6492 POD=0.474 FAR=0.357 CSI=0.375
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.1%
+############################################################
+[epoch  0] loss=0.4472 val_AUC=0.8439 val_PR-AUC=0.2806 0.6s
+[epoch  1] loss=0.3730 val_AUC=0.8612 val_PR-AUC=0.2797 0.6s
+[epoch  2] loss=0.3515 val_AUC=0.8539 val_PR-AUC=0.2969 0.6s
+[epoch  3] loss=0.3216 val_AUC=0.8688 val_PR-AUC=0.2856 0.6s
+[epoch  4] loss=0.2872 val_AUC=0.8443 val_PR-AUC=0.2843 0.6s
+[epoch  5] loss=0.2755 val_AUC=0.8468 val_PR-AUC=0.2475 0.6s
+[epoch  6] loss=0.2440 val_AUC=0.8467 val_PR-AUC=0.2209 0.6s
+[epoch  7] loss=0.2339 val_AUC=0.8296 val_PR-AUC=0.2136 0.6s
+[epoch  8] loss=0.2121 val_AUC=0.8269 val_PR-AUC=0.2266 0.6s
+[epoch  9] loss=0.1908 val_AUC=0.8311 val_PR-AUC=0.1772 0.6s
+[epoch 10] loss=0.1801 val_AUC=0.8180 val_PR-AUC=0.1552 0.6s
+[epoch 11] loss=0.1642 val_AUC=0.8115 val_PR-AUC=0.1517 0.6s
+[epoch 12] loss=0.1484 val_AUC=0.8135 val_PR-AUC=0.1711 0.6s
+[epoch 13] loss=0.1567 val_AUC=0.8161 val_PR-AUC=0.1821 0.6s
+[epoch 14] loss=0.1619 val_AUC=0.8086 val_PR-AUC=0.1993 0.6s
+[epoch 15] loss=0.1397 val_AUC=0.8087 val_PR-AUC=0.1910 0.6s
+[epoch 16] loss=0.1024 val_AUC=0.7988 val_PR-AUC=0.1892 0.6s
+[epoch 17] loss=0.1027 val_AUC=0.8009 val_PR-AUC=0.1700 0.6s
+[epoch 18] loss=0.1063 val_AUC=0.8085 val_PR-AUC=0.1612 0.6s
+[epoch 19] loss=0.1343 val_AUC=0.8201 val_PR-AUC=0.1709 0.6s
+[epoch 20] loss=0.1155 val_AUC=0.8163 val_PR-AUC=0.1792 0.6s
+[epoch 21] loss=0.1095 val_AUC=0.8216 val_PR-AUC=0.1670 0.6s
+[epoch 22] loss=0.0896 val_AUC=0.8354 val_PR-AUC=0.1885 0.6s
+[epoch 23] loss=0.1087 val_AUC=0.8141 val_PR-AUC=0.1737 0.6s
+[早停] epoch 23，最佳 epoch 3
+[特征+云图] 测试集: AUC=0.9350 PR-AUC=0.5556 POD=0.500 FAR=0.472 CSI=0.345
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.1%
+############################################################
+[epoch  0] loss=0.4672 val_AUC=0.8807 val_PR-AUC=0.3178 0.4s
+[epoch  1] loss=0.4302 val_AUC=0.8930 val_PR-AUC=0.2859 0.4s
+[epoch  2] loss=0.3837 val_AUC=0.8955 val_PR-AUC=0.2585 0.4s
+[epoch  3] loss=0.3786 val_AUC=0.8915 val_PR-AUC=0.2402 0.4s
+[epoch  4] loss=0.3814 val_AUC=0.9129 val_PR-AUC=0.3079 0.4s
+[epoch  5] loss=0.3595 val_AUC=0.9054 val_PR-AUC=0.2922 0.4s
+[epoch  6] loss=0.3551 val_AUC=0.9150 val_PR-AUC=0.3202 0.4s
+[epoch  7] loss=0.3543 val_AUC=0.9082 val_PR-AUC=0.3172 0.4s
+[epoch  8] loss=0.3494 val_AUC=0.9124 val_PR-AUC=0.3337 0.4s
+[epoch  9] loss=0.3418 val_AUC=0.9207 val_PR-AUC=0.3501 0.4s
+[epoch 10] loss=0.3345 val_AUC=0.9078 val_PR-AUC=0.2897 0.4s
+[epoch 11] loss=0.3363 val_AUC=0.9106 val_PR-AUC=0.2871 0.4s
+[epoch 12] loss=0.3200 val_AUC=0.9155 val_PR-AUC=0.3398 0.4s
+[epoch 13] loss=0.3195 val_AUC=0.9118 val_PR-AUC=0.3226 0.4s
+[epoch 14] loss=0.3223 val_AUC=0.9163 val_PR-AUC=0.3543 0.4s
+[epoch 15] loss=0.3179 val_AUC=0.9110 val_PR-AUC=0.3416 0.4s
+[epoch 16] loss=0.2898 val_AUC=0.9175 val_PR-AUC=0.3262 0.4s
+[epoch 17] loss=0.2976 val_AUC=0.9178 val_PR-AUC=0.3360 0.4s
+[epoch 18] loss=0.2760 val_AUC=0.9068 val_PR-AUC=0.2972 0.4s
+[epoch 19] loss=0.2833 val_AUC=0.9042 val_PR-AUC=0.3096 0.4s
+[epoch 20] loss=0.2753 val_AUC=0.9033 val_PR-AUC=0.3106 0.4s
+[epoch 21] loss=0.2591 val_AUC=0.9046 val_PR-AUC=0.3337 0.4s
+[epoch 22] loss=0.2618 val_AUC=0.9061 val_PR-AUC=0.3046 0.4s
+[epoch 23] loss=0.2624 val_AUC=0.9036 val_PR-AUC=0.3081 0.4s
+[epoch 24] loss=0.2572 val_AUC=0.9008 val_PR-AUC=0.3088 0.4s
+[epoch 25] loss=0.2427 val_AUC=0.8977 val_PR-AUC=0.2953 0.4s
+[epoch 26] loss=0.2599 val_AUC=0.8806 val_PR-AUC=0.2946 0.4s
+[epoch 27] loss=0.2403 val_AUC=0.8964 val_PR-AUC=0.2867 0.4s
+[epoch 28] loss=0.2370 val_AUC=0.8902 val_PR-AUC=0.2946 0.4s
+[epoch 29] loss=0.2208 val_AUC=0.8983 val_PR-AUC=0.2874 0.4s
+[早停] epoch 29，最佳 epoch 9
+[纯时序GRU] 测试集: AUC=0.9187 PR-AUC=0.5250 POD=0.697 FAR=0.514 CSI=0.402
+[持续法] 测试集: AUC=0.8725 PR-AUC=0.2821 POD=0.500 FAR=0.694 CSI=0.235
+
+======================================================================
+CV fold 2/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.2%
+############################################################
+[epoch  0] loss=0.4781 val_AUC=0.8859 val_PR-AUC=0.4121 7.0s
+[epoch  1] loss=0.4062 val_AUC=0.8978 val_PR-AUC=0.3868 7.1s
+[epoch  2] loss=0.3826 val_AUC=0.9155 val_PR-AUC=0.4306 7.1s
+[epoch  3] loss=0.3471 val_AUC=0.9203 val_PR-AUC=0.4797 7.1s
+[epoch  4] loss=0.3551 val_AUC=0.9253 val_PR-AUC=0.4822 7.1s
+[epoch  5] loss=0.3347 val_AUC=0.9014 val_PR-AUC=0.3430 7.1s
+[epoch  6] loss=0.3052 val_AUC=0.9123 val_PR-AUC=0.4631 7.2s
+[epoch  7] loss=0.3043 val_AUC=0.9176 val_PR-AUC=0.5275 7.2s
+[epoch  8] loss=0.2965 val_AUC=0.9140 val_PR-AUC=0.5157 7.3s
+[epoch  9] loss=0.2930 val_AUC=0.9191 val_PR-AUC=0.4828 7.2s
+[epoch 10] loss=0.2725 val_AUC=0.8898 val_PR-AUC=0.4232 7.2s
+[epoch 11] loss=0.2755 val_AUC=0.9127 val_PR-AUC=0.4399 7.3s
+[epoch 12] loss=0.2381 val_AUC=0.9128 val_PR-AUC=0.4440 7.2s
+[epoch 13] loss=0.2720 val_AUC=0.9239 val_PR-AUC=0.5047 7.1s
+[epoch 14] loss=0.2329 val_AUC=0.9007 val_PR-AUC=0.3763 7.4s
+[epoch 15] loss=0.2683 val_AUC=0.9084 val_PR-AUC=0.3611 7.3s
+[epoch 16] loss=0.2333 val_AUC=0.9075 val_PR-AUC=0.3540 7.2s
+[epoch 17] loss=0.2405 val_AUC=0.9208 val_PR-AUC=0.3792 7.3s
+[epoch 18] loss=0.2288 val_AUC=0.9238 val_PR-AUC=0.3986 7.2s
+[epoch 19] loss=0.2302 val_AUC=0.9111 val_PR-AUC=0.3418 7.4s
+[epoch 20] loss=0.1949 val_AUC=0.9143 val_PR-AUC=0.3722 7.2s
+[epoch 21] loss=0.2112 val_AUC=0.9195 val_PR-AUC=0.3948 7.2s
+[epoch 22] loss=0.1907 val_AUC=0.9259 val_PR-AUC=0.4350 7.3s
+[epoch 23] loss=0.1764 val_AUC=0.9115 val_PR-AUC=0.3562 7.3s
+[epoch 24] loss=0.1670 val_AUC=0.9045 val_PR-AUC=0.4005 7.2s
+[epoch 25] loss=0.1851 val_AUC=0.9058 val_PR-AUC=0.3666 7.4s
+[epoch 26] loss=0.1834 val_AUC=0.9177 val_PR-AUC=0.3755 7.3s
+[epoch 27] loss=0.1585 val_AUC=0.9006 val_PR-AUC=0.3425 7.3s
+[epoch 28] loss=0.1524 val_AUC=0.9057 val_PR-AUC=0.3481 7.4s
+[epoch 29] loss=0.1516 val_AUC=0.9035 val_PR-AUC=0.3208 7.3s
+[epoch 30] loss=0.1634 val_AUC=0.9005 val_PR-AUC=0.3032 7.3s
+[epoch 31] loss=0.1350 val_AUC=0.8926 val_PR-AUC=0.3533 7.5s
+[epoch 32] loss=0.1453 val_AUC=0.8806 val_PR-AUC=0.3210 7.3s
+[epoch 33] loss=0.1545 val_AUC=0.8963 val_PR-AUC=0.3205 7.4s
+[epoch 34] loss=0.1509 val_AUC=0.9025 val_PR-AUC=0.3881 7.4s
+[epoch 35] loss=0.1643 val_AUC=0.8968 val_PR-AUC=0.2546 7.4s
+[epoch 36] loss=0.1630 val_AUC=0.9143 val_PR-AUC=0.3978 7.4s
+[epoch 37] loss=0.1306 val_AUC=0.8957 val_PR-AUC=0.3392 7.4s
+[epoch 38] loss=0.1205 val_AUC=0.9047 val_PR-AUC=0.3237 7.4s
+[epoch 39] loss=0.1370 val_AUC=0.8929 val_PR-AUC=0.2986 7.2s
+[epoch 40] loss=0.1080 val_AUC=0.8900 val_PR-AUC=0.2745 7.3s
+[epoch 41] loss=0.1241 val_AUC=0.8923 val_PR-AUC=0.3314 7.2s
+[epoch 42] loss=0.1293 val_AUC=0.9019 val_PR-AUC=0.3339 7.2s
+[早停] epoch 42，最佳 epoch 22
+[CNN+云图] 测试集: AUC=0.8583 PR-AUC=0.3293 POD=0.379 FAR=0.707 CSI=0.198
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.2%
+############################################################
+[epoch  0] loss=0.4618 val_AUC=0.9093 val_PR-AUC=0.4251 0.7s
+[epoch  1] loss=0.3757 val_AUC=0.8951 val_PR-AUC=0.4472 0.7s
+[epoch  2] loss=0.3667 val_AUC=0.8814 val_PR-AUC=0.4257 0.7s
+[epoch  3] loss=0.3150 val_AUC=0.9121 val_PR-AUC=0.4406 0.7s
+[epoch  4] loss=0.2767 val_AUC=0.8911 val_PR-AUC=0.3606 0.7s
+[epoch  5] loss=0.2533 val_AUC=0.9060 val_PR-AUC=0.3908 0.7s
+[epoch  6] loss=0.2218 val_AUC=0.8892 val_PR-AUC=0.4167 0.7s
+[epoch  7] loss=0.2090 val_AUC=0.8886 val_PR-AUC=0.3517 0.7s
+[epoch  8] loss=0.2152 val_AUC=0.8864 val_PR-AUC=0.3393 0.7s
+[epoch  9] loss=0.1883 val_AUC=0.8851 val_PR-AUC=0.3546 0.7s
+[epoch 10] loss=0.1556 val_AUC=0.8960 val_PR-AUC=0.3339 0.7s
+[epoch 11] loss=0.1737 val_AUC=0.8893 val_PR-AUC=0.3001 0.7s
+[epoch 12] loss=0.1468 val_AUC=0.8901 val_PR-AUC=0.3197 0.7s
+[epoch 13] loss=0.1640 val_AUC=0.8875 val_PR-AUC=0.3607 0.7s
+[epoch 14] loss=0.1335 val_AUC=0.8876 val_PR-AUC=0.3128 0.7s
+[epoch 15] loss=0.1199 val_AUC=0.8916 val_PR-AUC=0.3400 0.6s
+[epoch 16] loss=0.1485 val_AUC=0.8843 val_PR-AUC=0.3461 0.7s
+[epoch 17] loss=0.1219 val_AUC=0.8999 val_PR-AUC=0.3233 0.6s
+[epoch 18] loss=0.1277 val_AUC=0.8858 val_PR-AUC=0.3261 0.6s
+[epoch 19] loss=0.1144 val_AUC=0.8983 val_PR-AUC=0.3274 0.7s
+[epoch 20] loss=0.0907 val_AUC=0.8794 val_PR-AUC=0.2955 0.7s
+[epoch 21] loss=0.0958 val_AUC=0.8733 val_PR-AUC=0.2931 0.7s
+[epoch 22] loss=0.1330 val_AUC=0.8880 val_PR-AUC=0.3146 0.7s
+[epoch 23] loss=0.0851 val_AUC=0.8940 val_PR-AUC=0.3410 0.7s
+[早停] epoch 23，最佳 epoch 3
+[特征+云图] 测试集: AUC=0.8525 PR-AUC=0.2730 POD=0.259 FAR=0.769 CSI=0.139
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.2%
+############################################################
+[epoch  0] loss=0.4633 val_AUC=0.9208 val_PR-AUC=0.4214 0.4s
+[epoch  1] loss=0.4040 val_AUC=0.9197 val_PR-AUC=0.4076 0.4s
+[epoch  2] loss=0.4012 val_AUC=0.9204 val_PR-AUC=0.3911 0.4s
+[epoch  3] loss=0.3798 val_AUC=0.9208 val_PR-AUC=0.4169 0.4s
+[epoch  4] loss=0.3800 val_AUC=0.9242 val_PR-AUC=0.3510 0.4s
+[epoch  5] loss=0.3708 val_AUC=0.9277 val_PR-AUC=0.4236 0.4s
+[epoch  6] loss=0.3691 val_AUC=0.9235 val_PR-AUC=0.3821 0.4s
+[epoch  7] loss=0.3661 val_AUC=0.9255 val_PR-AUC=0.4019 0.4s
+[epoch  8] loss=0.3519 val_AUC=0.9254 val_PR-AUC=0.3962 0.4s
+[epoch  9] loss=0.3379 val_AUC=0.9222 val_PR-AUC=0.3886 0.4s
+[epoch 10] loss=0.3354 val_AUC=0.9149 val_PR-AUC=0.4482 0.4s
+[epoch 11] loss=0.3242 val_AUC=0.9168 val_PR-AUC=0.3948 0.4s
+[epoch 12] loss=0.3512 val_AUC=0.9248 val_PR-AUC=0.4500 0.4s
+[epoch 13] loss=0.3146 val_AUC=0.9210 val_PR-AUC=0.3738 0.4s
+[epoch 14] loss=0.3082 val_AUC=0.9117 val_PR-AUC=0.3672 0.4s
+[epoch 15] loss=0.3068 val_AUC=0.9268 val_PR-AUC=0.3881 0.4s
+[epoch 16] loss=0.2925 val_AUC=0.9092 val_PR-AUC=0.3948 0.4s
+[epoch 17] loss=0.3145 val_AUC=0.9183 val_PR-AUC=0.3739 0.4s
+[epoch 18] loss=0.3023 val_AUC=0.9147 val_PR-AUC=0.3767 0.4s
+[epoch 19] loss=0.2971 val_AUC=0.9112 val_PR-AUC=0.3888 0.4s
+[epoch 20] loss=0.2857 val_AUC=0.9093 val_PR-AUC=0.3795 0.4s
+[epoch 21] loss=0.2756 val_AUC=0.9135 val_PR-AUC=0.3795 0.4s
+[epoch 22] loss=0.2773 val_AUC=0.9111 val_PR-AUC=0.3928 0.4s
+[epoch 23] loss=0.2639 val_AUC=0.9029 val_PR-AUC=0.3849 0.4s
+[epoch 24] loss=0.2723 val_AUC=0.9045 val_PR-AUC=0.3381 0.4s
+[epoch 25] loss=0.2571 val_AUC=0.8999 val_PR-AUC=0.3622 0.4s
+[早停] epoch 25，最佳 epoch 5
+[纯时序GRU] 测试集: AUC=0.8925 PR-AUC=0.3190 POD=0.397 FAR=0.635 CSI=0.235
+[持续法] 测试集: AUC=0.8207 PR-AUC=0.1721 POD=0.362 FAR=0.825 CSI=0.134
+
+======================================================================
+CV fold 3/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.2%
+############################################################
+[epoch  0] loss=0.4781 val_AUC=0.8734 val_PR-AUC=0.3438 6.7s
+[epoch  1] loss=0.4062 val_AUC=0.8867 val_PR-AUC=0.3441 6.8s
+[epoch  2] loss=0.3826 val_AUC=0.8934 val_PR-AUC=0.3671 6.9s
+[epoch  3] loss=0.3471 val_AUC=0.8949 val_PR-AUC=0.3662 6.8s
+[epoch  4] loss=0.3551 val_AUC=0.8942 val_PR-AUC=0.3485 6.8s
+[epoch  5] loss=0.3347 val_AUC=0.8933 val_PR-AUC=0.4286 6.9s
+[epoch  6] loss=0.3052 val_AUC=0.9025 val_PR-AUC=0.4504 6.9s
+[epoch  7] loss=0.3043 val_AUC=0.9046 val_PR-AUC=0.4515 7.1s
+[epoch  8] loss=0.2965 val_AUC=0.8863 val_PR-AUC=0.3834 7.0s
+[epoch  9] loss=0.2930 val_AUC=0.8958 val_PR-AUC=0.4233 7.0s
+[epoch 10] loss=0.2725 val_AUC=0.8569 val_PR-AUC=0.3784 7.1s
+[epoch 11] loss=0.2755 val_AUC=0.8913 val_PR-AUC=0.4094 6.9s
+[epoch 12] loss=0.2381 val_AUC=0.8600 val_PR-AUC=0.3468 7.0s
+[epoch 13] loss=0.2720 val_AUC=0.9074 val_PR-AUC=0.4862 6.9s
+[epoch 14] loss=0.2329 val_AUC=0.8822 val_PR-AUC=0.3961 7.1s
+[epoch 15] loss=0.2683 val_AUC=0.8831 val_PR-AUC=0.4459 7.2s
+[epoch 16] loss=0.2333 val_AUC=0.8962 val_PR-AUC=0.4479 7.0s
+[epoch 17] loss=0.2405 val_AUC=0.8832 val_PR-AUC=0.3860 6.9s
+[epoch 18] loss=0.2288 val_AUC=0.9064 val_PR-AUC=0.4183 6.9s
+[epoch 19] loss=0.2302 val_AUC=0.8872 val_PR-AUC=0.4010 7.3s
+[epoch 20] loss=0.1949 val_AUC=0.8948 val_PR-AUC=0.4272 7.1s
+[epoch 21] loss=0.2112 val_AUC=0.9055 val_PR-AUC=0.4493 7.0s
+[epoch 22] loss=0.1907 val_AUC=0.8926 val_PR-AUC=0.4039 7.0s
+[epoch 23] loss=0.1764 val_AUC=0.8889 val_PR-AUC=0.4119 7.0s
+[epoch 24] loss=0.1670 val_AUC=0.8848 val_PR-AUC=0.4189 7.2s
+[epoch 25] loss=0.1851 val_AUC=0.8796 val_PR-AUC=0.3947 7.1s
+[epoch 26] loss=0.1834 val_AUC=0.8911 val_PR-AUC=0.3907 7.1s
+[epoch 27] loss=0.1585 val_AUC=0.8764 val_PR-AUC=0.3654 7.1s
+[epoch 28] loss=0.1524 val_AUC=0.8811 val_PR-AUC=0.3606 7.0s
+[epoch 29] loss=0.1516 val_AUC=0.8854 val_PR-AUC=0.3344 7.2s
+[epoch 30] loss=0.1634 val_AUC=0.8794 val_PR-AUC=0.3258 7.0s
+[epoch 31] loss=0.1350 val_AUC=0.8554 val_PR-AUC=0.3433 7.0s
+[epoch 32] loss=0.1453 val_AUC=0.8305 val_PR-AUC=0.3154 7.0s
+[epoch 33] loss=0.1545 val_AUC=0.8545 val_PR-AUC=0.3528 7.2s
+[早停] epoch 33，最佳 epoch 13
+[CNN+云图] 测试集: AUC=0.9636 PR-AUC=0.4477 POD=0.628 FAR=0.658 CSI=0.284
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.2%
+############################################################
+[epoch  0] loss=0.4618 val_AUC=0.8868 val_PR-AUC=0.3640 0.6s
+[epoch  1] loss=0.3757 val_AUC=0.8809 val_PR-AUC=0.3456 0.6s
+[epoch  2] loss=0.3667 val_AUC=0.8675 val_PR-AUC=0.3639 0.6s
+[epoch  3] loss=0.3150 val_AUC=0.8798 val_PR-AUC=0.3763 0.6s
+[epoch  4] loss=0.2767 val_AUC=0.8708 val_PR-AUC=0.3270 0.6s
+[epoch  5] loss=0.2533 val_AUC=0.8889 val_PR-AUC=0.3464 0.6s
+[epoch  6] loss=0.2218 val_AUC=0.8321 val_PR-AUC=0.2796 0.6s
+[epoch  7] loss=0.2090 val_AUC=0.8422 val_PR-AUC=0.2893 0.6s
+[epoch  8] loss=0.2152 val_AUC=0.8601 val_PR-AUC=0.3098 0.6s
+[epoch  9] loss=0.1883 val_AUC=0.8525 val_PR-AUC=0.3047 0.6s
+[epoch 10] loss=0.1556 val_AUC=0.8543 val_PR-AUC=0.2753 0.6s
+[epoch 11] loss=0.1737 val_AUC=0.8613 val_PR-AUC=0.2841 0.6s
+[epoch 12] loss=0.1468 val_AUC=0.8651 val_PR-AUC=0.2960 0.6s
+[epoch 13] loss=0.1640 val_AUC=0.8517 val_PR-AUC=0.2967 0.6s
+[epoch 14] loss=0.1335 val_AUC=0.8554 val_PR-AUC=0.2529 0.6s
+[epoch 15] loss=0.1199 val_AUC=0.8506 val_PR-AUC=0.2873 0.6s
+[epoch 16] loss=0.1485 val_AUC=0.8458 val_PR-AUC=0.2946 0.6s
+[epoch 17] loss=0.1219 val_AUC=0.8573 val_PR-AUC=0.2780 0.6s
+[epoch 18] loss=0.1277 val_AUC=0.8592 val_PR-AUC=0.2684 0.6s
+[epoch 19] loss=0.1144 val_AUC=0.8652 val_PR-AUC=0.2888 0.6s
+[epoch 20] loss=0.0907 val_AUC=0.8509 val_PR-AUC=0.2601 0.6s
+[epoch 21] loss=0.0958 val_AUC=0.8519 val_PR-AUC=0.2804 0.6s
+[epoch 22] loss=0.1330 val_AUC=0.8627 val_PR-AUC=0.2800 0.6s
+[epoch 23] loss=0.0851 val_AUC=0.8582 val_PR-AUC=0.3068 0.6s
+[epoch 24] loss=0.0952 val_AUC=0.8638 val_PR-AUC=0.3185 0.6s
+[epoch 25] loss=0.0946 val_AUC=0.8582 val_PR-AUC=0.3118 0.6s
+[早停] epoch 25，最佳 epoch 5
+[特征+云图] 测试集: AUC=0.9389 PR-AUC=0.3332 POD=0.651 FAR=0.789 CSI=0.189
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.2%
+############################################################
+[epoch  0] loss=0.4633 val_AUC=0.8924 val_PR-AUC=0.4066 0.4s
+[epoch  1] loss=0.4040 val_AUC=0.9025 val_PR-AUC=0.3990 0.4s
+[epoch  2] loss=0.4012 val_AUC=0.9023 val_PR-AUC=0.3866 0.4s
+[epoch  3] loss=0.3798 val_AUC=0.9034 val_PR-AUC=0.4037 0.4s
+[epoch  4] loss=0.3800 val_AUC=0.9052 val_PR-AUC=0.3844 0.4s
+[epoch  5] loss=0.3708 val_AUC=0.9097 val_PR-AUC=0.4085 0.4s
+[epoch  6] loss=0.3691 val_AUC=0.9085 val_PR-AUC=0.3982 0.4s
+[epoch  7] loss=0.3661 val_AUC=0.9078 val_PR-AUC=0.3947 0.4s
+[epoch  8] loss=0.3519 val_AUC=0.9117 val_PR-AUC=0.4056 0.4s
+[epoch  9] loss=0.3379 val_AUC=0.9046 val_PR-AUC=0.3776 0.4s
+[epoch 10] loss=0.3354 val_AUC=0.9018 val_PR-AUC=0.4083 0.4s
+[epoch 11] loss=0.3242 val_AUC=0.9057 val_PR-AUC=0.3979 0.4s
+[epoch 12] loss=0.3512 val_AUC=0.9108 val_PR-AUC=0.4119 0.4s
+[epoch 13] loss=0.3146 val_AUC=0.9058 val_PR-AUC=0.3645 0.4s
+[epoch 14] loss=0.3082 val_AUC=0.8966 val_PR-AUC=0.3763 0.4s
+[epoch 15] loss=0.3068 val_AUC=0.9128 val_PR-AUC=0.3793 0.4s
+[epoch 16] loss=0.2925 val_AUC=0.8972 val_PR-AUC=0.3996 0.4s
+[epoch 17] loss=0.3145 val_AUC=0.9095 val_PR-AUC=0.3974 0.4s
+[epoch 18] loss=0.3023 val_AUC=0.9031 val_PR-AUC=0.3891 0.4s
+[epoch 19] loss=0.2971 val_AUC=0.8979 val_PR-AUC=0.3990 0.4s
+[epoch 20] loss=0.2857 val_AUC=0.9012 val_PR-AUC=0.4017 0.4s
+[epoch 21] loss=0.2756 val_AUC=0.9027 val_PR-AUC=0.3541 0.4s
+[epoch 22] loss=0.2773 val_AUC=0.9003 val_PR-AUC=0.3670 0.4s
+[epoch 23] loss=0.2639 val_AUC=0.8948 val_PR-AUC=0.3985 0.4s
+[epoch 24] loss=0.2723 val_AUC=0.8950 val_PR-AUC=0.3724 0.4s
+[epoch 25] loss=0.2571 val_AUC=0.8894 val_PR-AUC=0.3825 0.4s
+[epoch 26] loss=0.2371 val_AUC=0.8835 val_PR-AUC=0.3702 0.4s
+[epoch 27] loss=0.2318 val_AUC=0.8955 val_PR-AUC=0.3669 0.4s
+[epoch 28] loss=0.2497 val_AUC=0.8931 val_PR-AUC=0.3571 0.4s
+[epoch 29] loss=0.2235 val_AUC=0.8902 val_PR-AUC=0.3617 0.4s
+[epoch 30] loss=0.2276 val_AUC=0.8852 val_PR-AUC=0.3567 0.4s
+[epoch 31] loss=0.2424 val_AUC=0.8812 val_PR-AUC=0.3447 0.4s
+[epoch 32] loss=0.2451 val_AUC=0.8824 val_PR-AUC=0.3607 0.4s
+[epoch 33] loss=0.2326 val_AUC=0.8863 val_PR-AUC=0.3529 0.4s
+[epoch 34] loss=0.2228 val_AUC=0.8754 val_PR-AUC=0.3657 0.4s
+[epoch 35] loss=0.2259 val_AUC=0.8843 val_PR-AUC=0.3712 0.4s
+[早停] epoch 35，最佳 epoch 15
+[纯时序GRU] 测试集: AUC=0.9480 PR-AUC=0.3863 POD=0.837 FAR=0.664 CSI=0.316
+[持续法] 测试集: AUC=0.8837 PR-AUC=0.2218 POD=0.698 FAR=0.846 CSI=0.144
+
+======================================================================
+CV fold 4/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4917 val_AUC=0.9158 val_PR-AUC=0.3704 7.0s
+[epoch  1] loss=0.4288 val_AUC=0.9109 val_PR-AUC=0.3655 6.9s
+[epoch  2] loss=0.3798 val_AUC=0.8734 val_PR-AUC=0.3232 7.2s
+[epoch  3] loss=0.3841 val_AUC=0.9125 val_PR-AUC=0.3695 7.1s
+[epoch  4] loss=0.3540 val_AUC=0.9176 val_PR-AUC=0.4136 7.2s
+[epoch  5] loss=0.3641 val_AUC=0.9238 val_PR-AUC=0.4624 7.0s
+[epoch  6] loss=0.3156 val_AUC=0.9011 val_PR-AUC=0.4306 7.2s
+[epoch  7] loss=0.2987 val_AUC=0.9038 val_PR-AUC=0.3833 7.4s
+[epoch  8] loss=0.2872 val_AUC=0.9166 val_PR-AUC=0.4542 7.0s
+[epoch  9] loss=0.3107 val_AUC=0.9126 val_PR-AUC=0.4187 7.3s
+[epoch 10] loss=0.2896 val_AUC=0.9246 val_PR-AUC=0.4382 7.3s
+[epoch 11] loss=0.2965 val_AUC=0.8886 val_PR-AUC=0.4036 7.5s
+[epoch 12] loss=0.2620 val_AUC=0.8905 val_PR-AUC=0.3402 7.2s
+[epoch 13] loss=0.2453 val_AUC=0.8897 val_PR-AUC=0.3770 7.1s
+[epoch 14] loss=0.2588 val_AUC=0.8940 val_PR-AUC=0.3746 7.3s
+[epoch 15] loss=0.2366 val_AUC=0.8965 val_PR-AUC=0.4069 7.3s
+[epoch 16] loss=0.2246 val_AUC=0.8911 val_PR-AUC=0.3683 7.4s
+[epoch 17] loss=0.2360 val_AUC=0.8949 val_PR-AUC=0.3932 7.2s
+[epoch 18] loss=0.2194 val_AUC=0.8922 val_PR-AUC=0.3859 7.2s
+[epoch 19] loss=0.1714 val_AUC=0.8934 val_PR-AUC=0.3780 7.3s
+[epoch 20] loss=0.2240 val_AUC=0.8937 val_PR-AUC=0.3540 7.5s
+[epoch 21] loss=0.1997 val_AUC=0.8882 val_PR-AUC=0.3473 7.3s
+[epoch 22] loss=0.2132 val_AUC=0.8929 val_PR-AUC=0.3156 7.1s
+[epoch 23] loss=0.1972 val_AUC=0.9078 val_PR-AUC=0.3977 7.3s
+[epoch 24] loss=0.1902 val_AUC=0.8959 val_PR-AUC=0.3514 7.4s
+[epoch 25] loss=0.1714 val_AUC=0.8995 val_PR-AUC=0.3795 7.1s
+[epoch 26] loss=0.2001 val_AUC=0.8908 val_PR-AUC=0.3950 7.3s
+[epoch 27] loss=0.1661 val_AUC=0.9002 val_PR-AUC=0.4157 7.3s
+[epoch 28] loss=0.1794 val_AUC=0.9128 val_PR-AUC=0.3984 7.3s
+[epoch 29] loss=0.1777 val_AUC=0.8895 val_PR-AUC=0.3366 7.2s
+[epoch 30] loss=0.1656 val_AUC=0.8934 val_PR-AUC=0.3320 7.4s
+[早停] epoch 30，最佳 epoch 10
+[CNN+云图] 测试集: AUC=0.8904 PR-AUC=0.3183 POD=0.439 FAR=0.569 CSI=0.278
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4622 val_AUC=0.9121 val_PR-AUC=0.3509 1.1s
+[epoch  1] loss=0.3890 val_AUC=0.9041 val_PR-AUC=0.4289 0.7s
+[epoch  2] loss=0.3689 val_AUC=0.8880 val_PR-AUC=0.2954 0.7s
+[epoch  3] loss=0.3349 val_AUC=0.9147 val_PR-AUC=0.3204 0.7s
+[epoch  4] loss=0.2822 val_AUC=0.9083 val_PR-AUC=0.3345 0.7s
+[epoch  5] loss=0.2648 val_AUC=0.8969 val_PR-AUC=0.3492 0.7s
+[epoch  6] loss=0.2541 val_AUC=0.8790 val_PR-AUC=0.3366 0.7s
+[epoch  7] loss=0.2318 val_AUC=0.8829 val_PR-AUC=0.3481 0.7s
+[epoch  8] loss=0.2112 val_AUC=0.8580 val_PR-AUC=0.2684 0.7s
+[epoch  9] loss=0.1906 val_AUC=0.8747 val_PR-AUC=0.2479 0.7s
+[epoch 10] loss=0.1874 val_AUC=0.8404 val_PR-AUC=0.2582 0.7s
+[epoch 11] loss=0.1830 val_AUC=0.8578 val_PR-AUC=0.2702 0.7s
+[epoch 12] loss=0.1643 val_AUC=0.8519 val_PR-AUC=0.3382 0.7s
+[epoch 13] loss=0.1718 val_AUC=0.8696 val_PR-AUC=0.3508 0.7s
+[epoch 14] loss=0.1602 val_AUC=0.8473 val_PR-AUC=0.2833 0.7s
+[epoch 15] loss=0.1556 val_AUC=0.8563 val_PR-AUC=0.3112 0.7s
+[epoch 16] loss=0.1301 val_AUC=0.8400 val_PR-AUC=0.2708 0.7s
+[epoch 17] loss=0.1489 val_AUC=0.8536 val_PR-AUC=0.3340 0.7s
+[epoch 18] loss=0.1361 val_AUC=0.8426 val_PR-AUC=0.2728 0.7s
+[epoch 19] loss=0.1318 val_AUC=0.8386 val_PR-AUC=0.2729 0.7s
+[epoch 20] loss=0.1430 val_AUC=0.8566 val_PR-AUC=0.2662 0.7s
+[epoch 21] loss=0.0922 val_AUC=0.8438 val_PR-AUC=0.2685 0.7s
+[epoch 22] loss=0.0970 val_AUC=0.8384 val_PR-AUC=0.2472 0.7s
+[epoch 23] loss=0.1072 val_AUC=0.8510 val_PR-AUC=0.2718 0.7s
+[早停] epoch 23，最佳 epoch 3
+[特征+云图] 测试集: AUC=0.8265 PR-AUC=0.2333 POD=0.368 FAR=0.661 CSI=0.214
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4553 val_AUC=0.9058 val_PR-AUC=0.3833 0.4s
+[epoch  1] loss=0.4154 val_AUC=0.9131 val_PR-AUC=0.3748 0.4s
+[epoch  2] loss=0.3970 val_AUC=0.9296 val_PR-AUC=0.4077 0.4s
+[epoch  3] loss=0.3956 val_AUC=0.9339 val_PR-AUC=0.4205 0.4s
+[epoch  4] loss=0.3801 val_AUC=0.9348 val_PR-AUC=0.4230 0.4s
+[epoch  5] loss=0.3756 val_AUC=0.9330 val_PR-AUC=0.4122 0.4s
+[epoch  6] loss=0.3597 val_AUC=0.9396 val_PR-AUC=0.4341 0.4s
+[epoch  7] loss=0.3566 val_AUC=0.9337 val_PR-AUC=0.4058 0.4s
+[epoch  8] loss=0.3557 val_AUC=0.9322 val_PR-AUC=0.4016 0.4s
+[epoch  9] loss=0.3407 val_AUC=0.9378 val_PR-AUC=0.4345 0.4s
+[epoch 10] loss=0.3429 val_AUC=0.9355 val_PR-AUC=0.3982 0.4s
+[epoch 11] loss=0.3476 val_AUC=0.9279 val_PR-AUC=0.4215 0.4s
+[epoch 12] loss=0.3319 val_AUC=0.9294 val_PR-AUC=0.4289 0.4s
+[epoch 13] loss=0.3272 val_AUC=0.9358 val_PR-AUC=0.4327 0.4s
+[epoch 14] loss=0.3224 val_AUC=0.9365 val_PR-AUC=0.4424 0.4s
+[epoch 15] loss=0.3138 val_AUC=0.9320 val_PR-AUC=0.4466 0.4s
+[epoch 16] loss=0.3209 val_AUC=0.9338 val_PR-AUC=0.4206 0.4s
+[epoch 17] loss=0.2964 val_AUC=0.9378 val_PR-AUC=0.4338 0.4s
+[epoch 18] loss=0.2932 val_AUC=0.9299 val_PR-AUC=0.3811 0.4s
+[epoch 19] loss=0.3053 val_AUC=0.9327 val_PR-AUC=0.4316 0.4s
+[epoch 20] loss=0.2884 val_AUC=0.9203 val_PR-AUC=0.4059 0.4s
+[epoch 21] loss=0.2942 val_AUC=0.9227 val_PR-AUC=0.3814 0.4s
+[epoch 22] loss=0.2814 val_AUC=0.9206 val_PR-AUC=0.4159 0.4s
+[epoch 23] loss=0.2773 val_AUC=0.9155 val_PR-AUC=0.3885 0.4s
+[epoch 24] loss=0.2856 val_AUC=0.9163 val_PR-AUC=0.3851 0.4s
+[epoch 25] loss=0.2520 val_AUC=0.9135 val_PR-AUC=0.3570 0.4s
+[epoch 26] loss=0.2561 val_AUC=0.9188 val_PR-AUC=0.3843 0.4s
+[早停] epoch 26，最佳 epoch 6
+[纯时序GRU] 测试集: AUC=0.9108 PR-AUC=0.5373 POD=0.456 FAR=0.435 CSI=0.338
+[持续法] 测试集: AUC=0.8911 PR-AUC=0.2690 POD=0.754 FAR=0.785 CSI=0.201
+
+======================================================================
+CV fold 5/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4988 val_AUC=0.9137 val_PR-AUC=0.3868 6.8s
+[epoch  1] loss=0.4226 val_AUC=0.9148 val_PR-AUC=0.4191 6.9s
+[epoch  2] loss=0.3948 val_AUC=0.9192 val_PR-AUC=0.3702 6.9s
+[epoch  3] loss=0.3659 val_AUC=0.9278 val_PR-AUC=0.3816 7.1s
+[epoch  4] loss=0.3646 val_AUC=0.9191 val_PR-AUC=0.3894 7.0s
+[epoch  5] loss=0.3282 val_AUC=0.9238 val_PR-AUC=0.3930 6.9s
+[epoch  6] loss=0.3292 val_AUC=0.9276 val_PR-AUC=0.3785 6.9s
+[epoch  7] loss=0.2987 val_AUC=0.9152 val_PR-AUC=0.3902 7.0s
+[epoch  8] loss=0.3066 val_AUC=0.9105 val_PR-AUC=0.3502 7.1s
+[epoch  9] loss=0.2853 val_AUC=0.8901 val_PR-AUC=0.3381 7.0s
+[epoch 10] loss=0.3120 val_AUC=0.9214 val_PR-AUC=0.4121 6.9s
+[epoch 11] loss=0.2627 val_AUC=0.9061 val_PR-AUC=0.3848 7.0s
+[epoch 12] loss=0.2481 val_AUC=0.9038 val_PR-AUC=0.3704 7.1s
+[epoch 13] loss=0.2434 val_AUC=0.9118 val_PR-AUC=0.3440 7.1s
+[epoch 14] loss=0.2604 val_AUC=0.9105 val_PR-AUC=0.3275 7.0s
+[epoch 15] loss=0.2355 val_AUC=0.9120 val_PR-AUC=0.2881 7.2s
+[epoch 16] loss=0.2075 val_AUC=0.9257 val_PR-AUC=0.4368 7.0s
+[epoch 17] loss=0.2243 val_AUC=0.8919 val_PR-AUC=0.3836 7.0s
+[epoch 18] loss=0.2016 val_AUC=0.9251 val_PR-AUC=0.3994 7.2s
+[epoch 19] loss=0.2176 val_AUC=0.9166 val_PR-AUC=0.3361 7.1s
+[epoch 20] loss=0.2193 val_AUC=0.9108 val_PR-AUC=0.3027 7.1s
+[epoch 21] loss=0.1677 val_AUC=0.9195 val_PR-AUC=0.3917 7.1s
+[epoch 22] loss=0.1944 val_AUC=0.9250 val_PR-AUC=0.4181 7.2s
+[epoch 23] loss=0.1672 val_AUC=0.9051 val_PR-AUC=0.3188 7.0s
+[早停] epoch 23，最佳 epoch 3
+[CNN+云图] 测试集: AUC=0.8896 PR-AUC=0.3081 POD=0.491 FAR=0.717 CSI=0.219
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4562 val_AUC=0.8967 val_PR-AUC=0.2993 0.7s
+[epoch  1] loss=0.3997 val_AUC=0.9117 val_PR-AUC=0.3624 0.7s
+[epoch  2] loss=0.3591 val_AUC=0.9164 val_PR-AUC=0.4046 0.7s
+[epoch  3] loss=0.3128 val_AUC=0.9135 val_PR-AUC=0.3979 0.7s
+[epoch  4] loss=0.3045 val_AUC=0.9193 val_PR-AUC=0.4179 0.7s
+[epoch  5] loss=0.2932 val_AUC=0.8980 val_PR-AUC=0.3268 0.7s
+[epoch  6] loss=0.2431 val_AUC=0.9201 val_PR-AUC=0.3815 0.7s
+[epoch  7] loss=0.2483 val_AUC=0.9169 val_PR-AUC=0.3863 0.7s
+[epoch  8] loss=0.2328 val_AUC=0.9267 val_PR-AUC=0.4139 0.7s
+[epoch  9] loss=0.2086 val_AUC=0.9227 val_PR-AUC=0.4208 0.7s
+[epoch 10] loss=0.2044 val_AUC=0.9146 val_PR-AUC=0.3988 0.7s
+[epoch 11] loss=0.1875 val_AUC=0.8986 val_PR-AUC=0.3110 0.7s
+[epoch 12] loss=0.1584 val_AUC=0.8788 val_PR-AUC=0.3087 0.7s
+[epoch 13] loss=0.1814 val_AUC=0.9035 val_PR-AUC=0.3620 0.7s
+[epoch 14] loss=0.1730 val_AUC=0.8967 val_PR-AUC=0.3174 0.7s
+[epoch 15] loss=0.1359 val_AUC=0.9064 val_PR-AUC=0.3545 0.7s
+[epoch 16] loss=0.1258 val_AUC=0.8900 val_PR-AUC=0.3318 0.7s
+[epoch 17] loss=0.1263 val_AUC=0.8953 val_PR-AUC=0.3264 0.7s
+[epoch 18] loss=0.1304 val_AUC=0.8804 val_PR-AUC=0.2873 0.7s
+[epoch 19] loss=0.1158 val_AUC=0.9060 val_PR-AUC=0.3495 0.7s
+[epoch 20] loss=0.1265 val_AUC=0.8928 val_PR-AUC=0.2971 0.6s
+[epoch 21] loss=0.0973 val_AUC=0.8977 val_PR-AUC=0.3136 0.7s
+[epoch 22] loss=0.1075 val_AUC=0.8889 val_PR-AUC=0.3271 0.7s
+[epoch 23] loss=0.1154 val_AUC=0.8826 val_PR-AUC=0.2997 0.7s
+[epoch 24] loss=0.0867 val_AUC=0.8908 val_PR-AUC=0.3013 0.7s
+[epoch 25] loss=0.1070 val_AUC=0.8851 val_PR-AUC=0.3188 0.7s
+[epoch 26] loss=0.0791 val_AUC=0.8583 val_PR-AUC=0.2677 0.7s
+[epoch 27] loss=0.0706 val_AUC=0.8733 val_PR-AUC=0.2825 0.7s
+[epoch 28] loss=0.0771 val_AUC=0.8668 val_PR-AUC=0.2483 0.6s
+[早停] epoch 28，最佳 epoch 8
+[特征+云图] 测试集: AUC=0.8935 PR-AUC=0.2875 POD=0.649 FAR=0.654 CSI=0.291
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4652 val_AUC=0.9035 val_PR-AUC=0.3970 0.4s
+[epoch  1] loss=0.4102 val_AUC=0.9178 val_PR-AUC=0.3903 0.4s
+[epoch  2] loss=0.4090 val_AUC=0.9220 val_PR-AUC=0.3776 0.4s
+[epoch  3] loss=0.3900 val_AUC=0.9241 val_PR-AUC=0.3967 0.4s
+[epoch  4] loss=0.3925 val_AUC=0.9266 val_PR-AUC=0.4109 0.4s
+[epoch  5] loss=0.3845 val_AUC=0.9283 val_PR-AUC=0.3933 0.4s
+[epoch  6] loss=0.3804 val_AUC=0.9188 val_PR-AUC=0.3911 0.4s
+[epoch  7] loss=0.3624 val_AUC=0.9293 val_PR-AUC=0.3924 0.4s
+[epoch  8] loss=0.3665 val_AUC=0.9270 val_PR-AUC=0.3823 0.4s
+[epoch  9] loss=0.3560 val_AUC=0.9294 val_PR-AUC=0.4189 0.4s
+[epoch 10] loss=0.3618 val_AUC=0.9324 val_PR-AUC=0.4051 0.4s
+[epoch 11] loss=0.3490 val_AUC=0.9306 val_PR-AUC=0.3964 0.4s
+[epoch 12] loss=0.3393 val_AUC=0.9359 val_PR-AUC=0.4241 0.4s
+[epoch 13] loss=0.3180 val_AUC=0.9296 val_PR-AUC=0.4241 0.4s
+[epoch 14] loss=0.3381 val_AUC=0.9289 val_PR-AUC=0.4085 0.4s
+[epoch 15] loss=0.3337 val_AUC=0.9210 val_PR-AUC=0.4059 0.4s
+[epoch 16] loss=0.3260 val_AUC=0.9236 val_PR-AUC=0.3755 0.4s
+[epoch 17] loss=0.3142 val_AUC=0.9273 val_PR-AUC=0.3973 0.4s
+[epoch 18] loss=0.3131 val_AUC=0.9313 val_PR-AUC=0.3894 0.4s
+[epoch 19] loss=0.2968 val_AUC=0.9272 val_PR-AUC=0.3638 0.4s
+[epoch 20] loss=0.2936 val_AUC=0.9221 val_PR-AUC=0.3733 0.4s
+[epoch 21] loss=0.2887 val_AUC=0.9228 val_PR-AUC=0.3765 0.4s
+[epoch 22] loss=0.2770 val_AUC=0.9242 val_PR-AUC=0.3612 0.4s
+[epoch 23] loss=0.2747 val_AUC=0.9099 val_PR-AUC=0.3567 0.4s
+[epoch 24] loss=0.2743 val_AUC=0.9179 val_PR-AUC=0.3371 0.4s
+[epoch 25] loss=0.2778 val_AUC=0.9201 val_PR-AUC=0.3616 0.4s
+[epoch 26] loss=0.2422 val_AUC=0.9147 val_PR-AUC=0.3411 0.4s
+[epoch 27] loss=0.2402 val_AUC=0.9210 val_PR-AUC=0.3570 0.4s
+[epoch 28] loss=0.2570 val_AUC=0.9173 val_PR-AUC=0.3373 0.4s
+[epoch 29] loss=0.2438 val_AUC=0.9162 val_PR-AUC=0.3571 0.4s
+[epoch 30] loss=0.2281 val_AUC=0.9166 val_PR-AUC=0.3308 0.4s
+[epoch 31] loss=0.2193 val_AUC=0.9178 val_PR-AUC=0.3266 0.4s
+[epoch 32] loss=0.2338 val_AUC=0.9102 val_PR-AUC=0.3204 0.4s
+[早停] epoch 32，最佳 epoch 12
+[纯时序GRU] 测试集: AUC=0.9105 PR-AUC=0.2879 POD=0.825 FAR=0.710 CSI=0.273
+[持续法] 测试集: AUC=0.8713 PR-AUC=0.2790 POD=0.702 FAR=0.804 CSI=0.181
+
+======================================================================
+CV fold 6/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=4.9%
+############################################################
+[epoch  0] loss=0.4844 val_AUC=0.9091 val_PR-AUC=0.3209 6.9s
+[epoch  1] loss=0.4082 val_AUC=0.9144 val_PR-AUC=0.3745 6.7s
+[epoch  2] loss=0.3960 val_AUC=0.9286 val_PR-AUC=0.4329 6.9s
+[epoch  3] loss=0.3524 val_AUC=0.9230 val_PR-AUC=0.4144 7.1s
+[epoch  4] loss=0.3545 val_AUC=0.9250 val_PR-AUC=0.3903 7.0s
+[epoch  5] loss=0.3340 val_AUC=0.9316 val_PR-AUC=0.3638 6.9s
+[epoch  6] loss=0.2923 val_AUC=0.9167 val_PR-AUC=0.3918 6.9s
+[epoch  7] loss=0.3015 val_AUC=0.9166 val_PR-AUC=0.3898 7.1s
+[epoch  8] loss=0.2660 val_AUC=0.9102 val_PR-AUC=0.3448 6.9s
+[epoch  9] loss=0.2743 val_AUC=0.9205 val_PR-AUC=0.3777 7.0s
+[epoch 10] loss=0.2674 val_AUC=0.9104 val_PR-AUC=0.3523 7.3s
+[epoch 11] loss=0.2542 val_AUC=0.9097 val_PR-AUC=0.3385 7.1s
+[epoch 12] loss=0.2831 val_AUC=0.9326 val_PR-AUC=0.3878 7.1s
+[epoch 13] loss=0.2411 val_AUC=0.9265 val_PR-AUC=0.3646 7.3s
+[epoch 14] loss=0.2193 val_AUC=0.9132 val_PR-AUC=0.3411 7.1s
+[epoch 15] loss=0.2227 val_AUC=0.8908 val_PR-AUC=0.2883 7.1s
+[epoch 16] loss=0.2210 val_AUC=0.9121 val_PR-AUC=0.3025 7.2s
+[epoch 17] loss=0.2448 val_AUC=0.8803 val_PR-AUC=0.2674 7.0s
+[epoch 18] loss=0.2321 val_AUC=0.9166 val_PR-AUC=0.3278 7.1s
+[epoch 19] loss=0.2102 val_AUC=0.9058 val_PR-AUC=0.3321 7.2s
+[epoch 20] loss=0.1796 val_AUC=0.9037 val_PR-AUC=0.3497 7.0s
+[epoch 21] loss=0.1812 val_AUC=0.8846 val_PR-AUC=0.3169 7.1s
+[epoch 22] loss=0.2117 val_AUC=0.8804 val_PR-AUC=0.2573 7.0s
+[epoch 23] loss=0.1922 val_AUC=0.9068 val_PR-AUC=0.3403 7.2s
+[epoch 24] loss=0.1988 val_AUC=0.8994 val_PR-AUC=0.3351 6.9s
+[epoch 25] loss=0.1851 val_AUC=0.9048 val_PR-AUC=0.3531 7.1s
+[epoch 26] loss=0.1825 val_AUC=0.8885 val_PR-AUC=0.3175 7.1s
+[epoch 27] loss=0.1704 val_AUC=0.8998 val_PR-AUC=0.3355 7.2s
+[epoch 28] loss=0.1829 val_AUC=0.8953 val_PR-AUC=0.2791 7.0s
+[epoch 29] loss=0.1667 val_AUC=0.8902 val_PR-AUC=0.3169 7.3s
+[epoch 30] loss=0.1341 val_AUC=0.8938 val_PR-AUC=0.2521 7.0s
+[epoch 31] loss=0.1647 val_AUC=0.9019 val_PR-AUC=0.2869 7.1s
+[epoch 32] loss=0.1325 val_AUC=0.8980 val_PR-AUC=0.2962 7.0s
+[早停] epoch 32，最佳 epoch 12
+[CNN+云图] 测试集: AUC=0.8874 PR-AUC=0.3393 POD=0.405 FAR=0.709 CSI=0.204
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=4.9%
+############################################################
+[epoch  0] loss=0.4687 val_AUC=0.9071 val_PR-AUC=0.3963 1.0s
+[epoch  1] loss=0.3970 val_AUC=0.9012 val_PR-AUC=0.3732 0.6s
+[epoch  2] loss=0.3613 val_AUC=0.9204 val_PR-AUC=0.4145 0.6s
+[epoch  3] loss=0.3181 val_AUC=0.8932 val_PR-AUC=0.3919 0.6s
+[epoch  4] loss=0.3268 val_AUC=0.9105 val_PR-AUC=0.4555 0.6s
+[epoch  5] loss=0.2868 val_AUC=0.8886 val_PR-AUC=0.4299 0.6s
+[epoch  6] loss=0.2434 val_AUC=0.9014 val_PR-AUC=0.4199 0.6s
+[epoch  7] loss=0.2298 val_AUC=0.8779 val_PR-AUC=0.4025 0.6s
+[epoch  8] loss=0.2165 val_AUC=0.8846 val_PR-AUC=0.3804 0.6s
+[epoch  9] loss=0.2189 val_AUC=0.8752 val_PR-AUC=0.4095 0.6s
+[epoch 10] loss=0.1933 val_AUC=0.8746 val_PR-AUC=0.3331 0.6s
+[epoch 11] loss=0.1962 val_AUC=0.8934 val_PR-AUC=0.3342 0.6s
+[epoch 12] loss=0.1970 val_AUC=0.8535 val_PR-AUC=0.3149 0.6s
+[epoch 13] loss=0.1541 val_AUC=0.8773 val_PR-AUC=0.3483 0.6s
+[epoch 14] loss=0.1611 val_AUC=0.8561 val_PR-AUC=0.2741 0.6s
+[epoch 15] loss=0.1336 val_AUC=0.8430 val_PR-AUC=0.3037 0.6s
+[epoch 16] loss=0.1365 val_AUC=0.8640 val_PR-AUC=0.3253 0.6s
+[epoch 17] loss=0.1201 val_AUC=0.8510 val_PR-AUC=0.2924 0.6s
+[epoch 18] loss=0.1294 val_AUC=0.8757 val_PR-AUC=0.3444 0.6s
+[epoch 19] loss=0.1261 val_AUC=0.8622 val_PR-AUC=0.3179 0.6s
+[epoch 20] loss=0.1193 val_AUC=0.8636 val_PR-AUC=0.3066 0.6s
+[epoch 21] loss=0.1185 val_AUC=0.8384 val_PR-AUC=0.2760 0.6s
+[epoch 22] loss=0.1139 val_AUC=0.8615 val_PR-AUC=0.3162 0.6s
+[早停] epoch 22，最佳 epoch 2
+[特征+云图] 测试集: AUC=0.8841 PR-AUC=0.4377 POD=0.468 FAR=0.615 CSI=0.268
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=4.9%
+############################################################
+[epoch  0] loss=0.4758 val_AUC=0.9123 val_PR-AUC=0.3990 0.4s
+[epoch  1] loss=0.4180 val_AUC=0.9186 val_PR-AUC=0.3865 0.4s
+[epoch  2] loss=0.4093 val_AUC=0.9297 val_PR-AUC=0.4117 0.4s
+[epoch  3] loss=0.3926 val_AUC=0.9123 val_PR-AUC=0.3845 0.4s
+[epoch  4] loss=0.3904 val_AUC=0.9325 val_PR-AUC=0.4170 0.4s
+[epoch  5] loss=0.3930 val_AUC=0.9334 val_PR-AUC=0.4123 0.4s
+[epoch  6] loss=0.3735 val_AUC=0.9353 val_PR-AUC=0.4005 0.4s
+[epoch  7] loss=0.3737 val_AUC=0.9297 val_PR-AUC=0.3987 0.4s
+[epoch  8] loss=0.3897 val_AUC=0.9315 val_PR-AUC=0.3978 0.4s
+[epoch  9] loss=0.3479 val_AUC=0.9305 val_PR-AUC=0.3979 0.4s
+[epoch 10] loss=0.3488 val_AUC=0.9340 val_PR-AUC=0.4034 0.4s
+[epoch 11] loss=0.3609 val_AUC=0.9309 val_PR-AUC=0.3982 0.4s
+[epoch 12] loss=0.3525 val_AUC=0.9406 val_PR-AUC=0.4156 0.4s
+[epoch 13] loss=0.3430 val_AUC=0.9409 val_PR-AUC=0.4196 0.4s
+[epoch 14] loss=0.3375 val_AUC=0.9388 val_PR-AUC=0.4042 0.4s
+[epoch 15] loss=0.3401 val_AUC=0.9218 val_PR-AUC=0.3652 0.4s
+[epoch 16] loss=0.2991 val_AUC=0.9269 val_PR-AUC=0.3719 0.4s
+[epoch 17] loss=0.3050 val_AUC=0.9289 val_PR-AUC=0.3934 0.4s
+[epoch 18] loss=0.3057 val_AUC=0.9285 val_PR-AUC=0.4000 0.4s
+[epoch 19] loss=0.3216 val_AUC=0.9179 val_PR-AUC=0.3803 0.4s
+[epoch 20] loss=0.3066 val_AUC=0.9212 val_PR-AUC=0.3847 0.4s
+[epoch 21] loss=0.2961 val_AUC=0.9310 val_PR-AUC=0.3812 0.4s
+[epoch 22] loss=0.2890 val_AUC=0.9280 val_PR-AUC=0.3812 0.4s
+[epoch 23] loss=0.2843 val_AUC=0.9272 val_PR-AUC=0.4012 0.4s
+[epoch 24] loss=0.2922 val_AUC=0.9176 val_PR-AUC=0.3649 0.4s
+[epoch 25] loss=0.2854 val_AUC=0.9138 val_PR-AUC=0.3634 0.4s
+[epoch 26] loss=0.2712 val_AUC=0.9144 val_PR-AUC=0.3569 0.4s
+[epoch 27] loss=0.2705 val_AUC=0.9150 val_PR-AUC=0.3634 0.4s
+[epoch 28] loss=0.2648 val_AUC=0.9196 val_PR-AUC=0.3637 0.4s
+[epoch 29] loss=0.2779 val_AUC=0.9144 val_PR-AUC=0.3640 0.4s
+[epoch 30] loss=0.2745 val_AUC=0.9125 val_PR-AUC=0.3474 0.4s
+[epoch 31] loss=0.2627 val_AUC=0.9119 val_PR-AUC=0.3312 0.4s
+[epoch 32] loss=0.2492 val_AUC=0.9062 val_PR-AUC=0.3307 0.4s
+[epoch 33] loss=0.2509 val_AUC=0.9062 val_PR-AUC=0.3322 0.4s
+[早停] epoch 33，最佳 epoch 13
+[纯时序GRU] 测试集: AUC=0.8984 PR-AUC=0.4913 POD=0.519 FAR=0.518 CSI=0.333
+[持续法] 测试集: AUC=0.8537 PR-AUC=0.2672 POD=0.709 FAR=0.776 CSI=0.205
+
+======================================================================
+CV fold 7/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.4%
+############################################################
+[epoch  0] loss=0.4946 val_AUC=0.9083 val_PR-AUC=0.3819 6.8s
+[epoch  1] loss=0.4142 val_AUC=0.9186 val_PR-AUC=0.4240 6.7s
+[epoch  2] loss=0.4195 val_AUC=0.9192 val_PR-AUC=0.3625 6.7s
+[epoch  3] loss=0.3983 val_AUC=0.9248 val_PR-AUC=0.4481 6.8s
+[epoch  4] loss=0.3583 val_AUC=0.9223 val_PR-AUC=0.3646 6.8s
+[epoch  5] loss=0.3529 val_AUC=0.9143 val_PR-AUC=0.3966 6.8s
+[epoch  6] loss=0.3408 val_AUC=0.9146 val_PR-AUC=0.3925 7.0s
+[epoch  7] loss=0.3154 val_AUC=0.9159 val_PR-AUC=0.4213 6.8s
+[epoch  8] loss=0.2917 val_AUC=0.8415 val_PR-AUC=0.2360 6.9s
+[epoch  9] loss=0.2934 val_AUC=0.9164 val_PR-AUC=0.4576 6.9s
+[epoch 10] loss=0.2894 val_AUC=0.9168 val_PR-AUC=0.4258 7.0s
+[epoch 11] loss=0.2618 val_AUC=0.8820 val_PR-AUC=0.4115 6.9s
+[epoch 12] loss=0.2778 val_AUC=0.9149 val_PR-AUC=0.3723 7.1s
+[epoch 13] loss=0.2533 val_AUC=0.9043 val_PR-AUC=0.3626 6.9s
+[epoch 14] loss=0.2321 val_AUC=0.9037 val_PR-AUC=0.3410 6.9s
+[epoch 15] loss=0.2442 val_AUC=0.9177 val_PR-AUC=0.4626 7.0s
+[epoch 16] loss=0.2418 val_AUC=0.8942 val_PR-AUC=0.3943 6.9s
+[epoch 17] loss=0.2095 val_AUC=0.9029 val_PR-AUC=0.4145 6.9s
+[epoch 18] loss=0.2014 val_AUC=0.9017 val_PR-AUC=0.3713 7.1s
+[epoch 19] loss=0.1974 val_AUC=0.9064 val_PR-AUC=0.4371 6.9s
+[epoch 20] loss=0.2068 val_AUC=0.8702 val_PR-AUC=0.3407 7.0s
+[epoch 21] loss=0.2262 val_AUC=0.8959 val_PR-AUC=0.3358 7.2s
+[epoch 22] loss=0.1846 val_AUC=0.8963 val_PR-AUC=0.3610 7.0s
+[epoch 23] loss=0.1907 val_AUC=0.9058 val_PR-AUC=0.4578 6.9s
+[早停] epoch 23，最佳 epoch 3
+[CNN+云图] 测试集: AUC=0.9483 PR-AUC=0.4257 POD=0.519 FAR=0.571 CSI=0.307
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.4%
+############################################################
+[epoch  0] loss=0.4648 val_AUC=0.8383 val_PR-AUC=0.2879 0.6s
+[epoch  1] loss=0.4113 val_AUC=0.9191 val_PR-AUC=0.4211 0.6s
+[epoch  2] loss=0.3620 val_AUC=0.9227 val_PR-AUC=0.3979 0.6s
+[epoch  3] loss=0.3329 val_AUC=0.9043 val_PR-AUC=0.3505 0.6s
+[epoch  4] loss=0.2933 val_AUC=0.9124 val_PR-AUC=0.3661 0.6s
+[epoch  5] loss=0.2651 val_AUC=0.8948 val_PR-AUC=0.3184 0.6s
+[epoch  6] loss=0.2551 val_AUC=0.8691 val_PR-AUC=0.3215 0.6s
+[epoch  7] loss=0.2362 val_AUC=0.8717 val_PR-AUC=0.3433 0.6s
+[epoch  8] loss=0.2137 val_AUC=0.8811 val_PR-AUC=0.3441 0.6s
+[epoch  9] loss=0.2085 val_AUC=0.8621 val_PR-AUC=0.3666 0.6s
+[epoch 10] loss=0.1780 val_AUC=0.8737 val_PR-AUC=0.3262 0.6s
+[epoch 11] loss=0.1759 val_AUC=0.8768 val_PR-AUC=0.2807 0.6s
+[epoch 12] loss=0.1774 val_AUC=0.8530 val_PR-AUC=0.2834 0.6s
+[epoch 13] loss=0.1718 val_AUC=0.8625 val_PR-AUC=0.3048 0.6s
+[epoch 14] loss=0.1541 val_AUC=0.8340 val_PR-AUC=0.2775 0.6s
+[epoch 15] loss=0.1513 val_AUC=0.8432 val_PR-AUC=0.2943 0.6s
+[epoch 16] loss=0.1561 val_AUC=0.8586 val_PR-AUC=0.2828 0.6s
+[epoch 17] loss=0.1394 val_AUC=0.8511 val_PR-AUC=0.3058 0.6s
+[epoch 18] loss=0.1267 val_AUC=0.8410 val_PR-AUC=0.2952 0.6s
+[epoch 19] loss=0.1285 val_AUC=0.8403 val_PR-AUC=0.2358 0.6s
+[epoch 20] loss=0.1240 val_AUC=0.8351 val_PR-AUC=0.2965 0.6s
+[epoch 21] loss=0.1345 val_AUC=0.8493 val_PR-AUC=0.3126 0.6s
+[epoch 22] loss=0.1266 val_AUC=0.8615 val_PR-AUC=0.3189 0.6s
+[早停] epoch 22，最佳 epoch 2
+[特征+云图] 测试集: AUC=0.8925 PR-AUC=0.3182 POD=0.442 FAR=0.755 CSI=0.187
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.4%
+############################################################
+[epoch  0] loss=0.4807 val_AUC=0.9000 val_PR-AUC=0.3981 0.4s
+[epoch  1] loss=0.4292 val_AUC=0.9225 val_PR-AUC=0.4022 0.4s
+[epoch  2] loss=0.4079 val_AUC=0.9279 val_PR-AUC=0.4082 0.4s
+[epoch  3] loss=0.4069 val_AUC=0.9297 val_PR-AUC=0.4063 0.4s
+[epoch  4] loss=0.3946 val_AUC=0.9305 val_PR-AUC=0.4120 0.4s
+[epoch  5] loss=0.3808 val_AUC=0.9335 val_PR-AUC=0.4263 0.4s
+[epoch  6] loss=0.3781 val_AUC=0.9302 val_PR-AUC=0.4031 0.4s
+[epoch  7] loss=0.3727 val_AUC=0.9333 val_PR-AUC=0.4183 0.4s
+[epoch  8] loss=0.3637 val_AUC=0.9343 val_PR-AUC=0.4053 0.4s
+[epoch  9] loss=0.3606 val_AUC=0.9355 val_PR-AUC=0.4350 0.4s
+[epoch 10] loss=0.3671 val_AUC=0.9390 val_PR-AUC=0.4162 0.4s
+[epoch 11] loss=0.3399 val_AUC=0.9337 val_PR-AUC=0.4047 0.4s
+[epoch 12] loss=0.3339 val_AUC=0.9296 val_PR-AUC=0.4240 0.4s
+[epoch 13] loss=0.3418 val_AUC=0.9331 val_PR-AUC=0.4098 0.4s
+[epoch 14] loss=0.3472 val_AUC=0.9359 val_PR-AUC=0.4169 0.4s
+[epoch 15] loss=0.3409 val_AUC=0.9352 val_PR-AUC=0.4215 0.4s
+[epoch 16] loss=0.3157 val_AUC=0.9350 val_PR-AUC=0.3994 0.4s
+[epoch 17] loss=0.3344 val_AUC=0.9234 val_PR-AUC=0.3856 0.4s
+[epoch 18] loss=0.3259 val_AUC=0.9291 val_PR-AUC=0.3955 0.4s
+[epoch 19] loss=0.3154 val_AUC=0.9337 val_PR-AUC=0.3853 0.4s
+[epoch 20] loss=0.3108 val_AUC=0.9224 val_PR-AUC=0.3871 0.4s
+[epoch 21] loss=0.3213 val_AUC=0.9208 val_PR-AUC=0.3876 0.4s
+[epoch 22] loss=0.2968 val_AUC=0.9171 val_PR-AUC=0.3803 0.4s
+[epoch 23] loss=0.3098 val_AUC=0.9099 val_PR-AUC=0.3559 0.4s
+[epoch 24] loss=0.2979 val_AUC=0.9144 val_PR-AUC=0.3527 0.4s
+[epoch 25] loss=0.3051 val_AUC=0.9147 val_PR-AUC=0.3482 0.4s
+[epoch 26] loss=0.2775 val_AUC=0.9105 val_PR-AUC=0.3666 0.4s
+[epoch 27] loss=0.2859 val_AUC=0.9151 val_PR-AUC=0.3531 0.4s
+[epoch 28] loss=0.2763 val_AUC=0.9064 val_PR-AUC=0.3661 0.4s
+[epoch 29] loss=0.2790 val_AUC=0.9085 val_PR-AUC=0.3396 0.4s
+[epoch 30] loss=0.2840 val_AUC=0.9052 val_PR-AUC=0.3553 0.4s
+[早停] epoch 30，最佳 epoch 10
+[纯时序GRU] 测试集: AUC=0.9370 PR-AUC=0.3004 POD=0.481 FAR=0.731 CSI=0.208
+[持续法] 测试集: AUC=0.8724 PR-AUC=0.1551 POD=0.615 FAR=0.862 CSI=0.127
+
+======================================================================
+CV fold 8/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=4.9%
+############################################################
+[epoch  0] loss=0.4818 val_AUC=0.8927 val_PR-AUC=0.3727 6.8s
+[epoch  1] loss=0.4047 val_AUC=0.9160 val_PR-AUC=0.3793 6.9s
+[epoch  2] loss=0.3872 val_AUC=0.8987 val_PR-AUC=0.3711 7.0s
+[epoch  3] loss=0.3426 val_AUC=0.9255 val_PR-AUC=0.4016 7.0s
+[epoch  4] loss=0.3238 val_AUC=0.9161 val_PR-AUC=0.4145 7.0s
+[epoch  5] loss=0.3315 val_AUC=0.9227 val_PR-AUC=0.4517 7.2s
+[epoch  6] loss=0.2992 val_AUC=0.9181 val_PR-AUC=0.3337 7.0s
+[epoch  7] loss=0.2942 val_AUC=0.9147 val_PR-AUC=0.4042 6.9s
+[epoch  8] loss=0.2972 val_AUC=0.9175 val_PR-AUC=0.3560 7.0s
+[epoch  9] loss=0.2863 val_AUC=0.9200 val_PR-AUC=0.4095 7.1s
+[epoch 10] loss=0.2522 val_AUC=0.9111 val_PR-AUC=0.4039 7.3s
+[epoch 11] loss=0.2611 val_AUC=0.9030 val_PR-AUC=0.3418 7.0s
+[epoch 12] loss=0.2397 val_AUC=0.9102 val_PR-AUC=0.4088 7.0s
+[epoch 13] loss=0.2330 val_AUC=0.9181 val_PR-AUC=0.4495 7.1s
+[epoch 14] loss=0.2639 val_AUC=0.9189 val_PR-AUC=0.4381 7.3s
+[epoch 15] loss=0.2310 val_AUC=0.9065 val_PR-AUC=0.3961 7.1s
+[epoch 16] loss=0.2664 val_AUC=0.9186 val_PR-AUC=0.3715 7.0s
+[epoch 17] loss=0.2141 val_AUC=0.8811 val_PR-AUC=0.3469 7.1s
+[epoch 18] loss=0.2160 val_AUC=0.8901 val_PR-AUC=0.3887 7.2s
+[epoch 19] loss=0.2148 val_AUC=0.9024 val_PR-AUC=0.4178 7.0s
+[epoch 20] loss=0.2228 val_AUC=0.8839 val_PR-AUC=0.3861 7.3s
+[epoch 21] loss=0.1858 val_AUC=0.8803 val_PR-AUC=0.3578 7.1s
+[epoch 22] loss=0.1989 val_AUC=0.8799 val_PR-AUC=0.3070 7.1s
+[epoch 23] loss=0.2023 val_AUC=0.8630 val_PR-AUC=0.3250 7.1s
+[早停] epoch 23，最佳 epoch 3
+[CNN+云图] 测试集: AUC=0.8385 PR-AUC=0.3253 POD=0.402 FAR=0.694 CSI=0.210
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=4.9%
+############################################################
+[epoch  0] loss=0.4485 val_AUC=0.9144 val_PR-AUC=0.3637 0.6s
+[epoch  1] loss=0.3970 val_AUC=0.9065 val_PR-AUC=0.3448 0.6s
+[epoch  2] loss=0.3384 val_AUC=0.9053 val_PR-AUC=0.3193 0.6s
+[epoch  3] loss=0.2973 val_AUC=0.9108 val_PR-AUC=0.3502 1.1s
+[epoch  4] loss=0.2955 val_AUC=0.9014 val_PR-AUC=0.3188 0.6s
+[epoch  5] loss=0.2608 val_AUC=0.9019 val_PR-AUC=0.3237 0.6s
+[epoch  6] loss=0.2559 val_AUC=0.8934 val_PR-AUC=0.3342 0.6s
+[epoch  7] loss=0.2142 val_AUC=0.8695 val_PR-AUC=0.2789 0.6s
+[epoch  8] loss=0.1828 val_AUC=0.8509 val_PR-AUC=0.2847 0.6s
+[epoch  9] loss=0.1927 val_AUC=0.8444 val_PR-AUC=0.2972 0.6s
+[epoch 10] loss=0.1663 val_AUC=0.8096 val_PR-AUC=0.2643 0.6s
+[epoch 11] loss=0.1920 val_AUC=0.8028 val_PR-AUC=0.2475 0.6s
+[epoch 12] loss=0.1491 val_AUC=0.7995 val_PR-AUC=0.2438 0.6s
+[epoch 13] loss=0.1619 val_AUC=0.8220 val_PR-AUC=0.2707 0.6s
+[epoch 14] loss=0.1341 val_AUC=0.8345 val_PR-AUC=0.2635 0.6s
+[epoch 15] loss=0.1388 val_AUC=0.7775 val_PR-AUC=0.2190 0.6s
+[epoch 16] loss=0.1445 val_AUC=0.7882 val_PR-AUC=0.2638 0.6s
+[epoch 17] loss=0.1169 val_AUC=0.8029 val_PR-AUC=0.2747 0.6s
+[epoch 18] loss=0.1212 val_AUC=0.7762 val_PR-AUC=0.2383 0.6s
+[epoch 19] loss=0.1216 val_AUC=0.8212 val_PR-AUC=0.2802 0.6s
+[epoch 20] loss=0.1319 val_AUC=0.8152 val_PR-AUC=0.2384 0.6s
+[早停] epoch 20，最佳 epoch 0
+[特征+云图] 测试集: AUC=0.8611 PR-AUC=0.3021 POD=0.329 FAR=0.707 CSI=0.184
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=4.9%
+############################################################
+[epoch  0] loss=0.4642 val_AUC=0.9064 val_PR-AUC=0.3512 0.4s
+[epoch  1] loss=0.3993 val_AUC=0.9194 val_PR-AUC=0.3689 0.4s
+[epoch  2] loss=0.3847 val_AUC=0.9257 val_PR-AUC=0.3733 0.4s
+[epoch  3] loss=0.3667 val_AUC=0.9202 val_PR-AUC=0.3288 0.4s
+[epoch  4] loss=0.3640 val_AUC=0.9130 val_PR-AUC=0.3666 0.4s
+[epoch  5] loss=0.3625 val_AUC=0.9264 val_PR-AUC=0.3864 0.4s
+[epoch  6] loss=0.3556 val_AUC=0.9298 val_PR-AUC=0.3988 0.4s
+[epoch  7] loss=0.3592 val_AUC=0.9286 val_PR-AUC=0.4010 0.4s
+[epoch  8] loss=0.3455 val_AUC=0.9271 val_PR-AUC=0.3809 0.4s
+[epoch  9] loss=0.3362 val_AUC=0.9217 val_PR-AUC=0.3944 0.4s
+[epoch 10] loss=0.3234 val_AUC=0.9260 val_PR-AUC=0.3888 0.4s
+[epoch 11] loss=0.3285 val_AUC=0.9281 val_PR-AUC=0.4112 0.4s
+[epoch 12] loss=0.3194 val_AUC=0.9296 val_PR-AUC=0.3807 0.4s
+[epoch 13] loss=0.3149 val_AUC=0.9267 val_PR-AUC=0.3988 0.4s
+[epoch 14] loss=0.3063 val_AUC=0.9289 val_PR-AUC=0.3765 0.4s
+[epoch 15] loss=0.2988 val_AUC=0.9267 val_PR-AUC=0.3421 0.4s
+[epoch 16] loss=0.3084 val_AUC=0.9253 val_PR-AUC=0.3780 0.4s
+[epoch 17] loss=0.2915 val_AUC=0.9304 val_PR-AUC=0.3770 0.4s
+[epoch 18] loss=0.2892 val_AUC=0.9204 val_PR-AUC=0.3767 0.4s
+[epoch 19] loss=0.2773 val_AUC=0.9172 val_PR-AUC=0.3262 0.4s
+[epoch 20] loss=0.2764 val_AUC=0.9119 val_PR-AUC=0.3529 0.4s
+[epoch 21] loss=0.2661 val_AUC=0.9274 val_PR-AUC=0.3538 0.4s
+[epoch 22] loss=0.2641 val_AUC=0.9170 val_PR-AUC=0.3623 0.4s
+[epoch 23] loss=0.2750 val_AUC=0.9124 val_PR-AUC=0.3423 0.4s
+[epoch 24] loss=0.2518 val_AUC=0.9225 val_PR-AUC=0.3646 0.4s
+[epoch 25] loss=0.2625 val_AUC=0.9101 val_PR-AUC=0.3445 0.4s
+[epoch 26] loss=0.2471 val_AUC=0.9105 val_PR-AUC=0.3408 0.4s
+[epoch 27] loss=0.2691 val_AUC=0.9149 val_PR-AUC=0.3522 0.4s
+[epoch 28] loss=0.2347 val_AUC=0.9144 val_PR-AUC=0.3368 0.4s
+[epoch 29] loss=0.2195 val_AUC=0.9157 val_PR-AUC=0.3350 0.4s
+[epoch 30] loss=0.2324 val_AUC=0.9124 val_PR-AUC=0.3490 0.4s
+[epoch 31] loss=0.2415 val_AUC=0.9111 val_PR-AUC=0.3068 0.4s
+[epoch 32] loss=0.2224 val_AUC=0.9085 val_PR-AUC=0.2968 0.4s
+[epoch 33] loss=0.2243 val_AUC=0.9122 val_PR-AUC=0.3113 0.4s
+[epoch 34] loss=0.2208 val_AUC=0.9086 val_PR-AUC=0.3166 0.4s
+[epoch 35] loss=0.2038 val_AUC=0.9006 val_PR-AUC=0.2953 0.4s
+[epoch 36] loss=0.2155 val_AUC=0.8989 val_PR-AUC=0.3049 0.4s
+[epoch 37] loss=0.2041 val_AUC=0.9097 val_PR-AUC=0.3126 0.4s
+[早停] epoch 37，最佳 epoch 17
+[纯时序GRU] 测试集: AUC=0.8572 PR-AUC=0.2919 POD=0.390 FAR=0.568 CSI=0.258
+[持续法] 测试集: AUC=0.7941 PR-AUC=0.1533 POD=0.573 FAR=0.799 CSI=0.175
+
+======================================================================
+CV fold 9/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4733 val_AUC=0.9140 val_PR-AUC=0.3313 7.0s
+[epoch  1] loss=0.4271 val_AUC=0.8906 val_PR-AUC=0.3959 7.0s
+[epoch  2] loss=0.3784 val_AUC=0.9131 val_PR-AUC=0.4451 6.9s
+[epoch  3] loss=0.3653 val_AUC=0.8997 val_PR-AUC=0.4036 7.3s
+[epoch  4] loss=0.3456 val_AUC=0.9019 val_PR-AUC=0.4421 7.0s
+[epoch  5] loss=0.3072 val_AUC=0.8928 val_PR-AUC=0.4318 7.1s
+[epoch  6] loss=0.3067 val_AUC=0.8526 val_PR-AUC=0.3715 7.0s
+[epoch  7] loss=0.2865 val_AUC=0.9028 val_PR-AUC=0.4189 7.1s
+[epoch  8] loss=0.2713 val_AUC=0.8841 val_PR-AUC=0.3770 7.1s
+[epoch  9] loss=0.2765 val_AUC=0.8406 val_PR-AUC=0.3387 7.2s
+[epoch 10] loss=0.2636 val_AUC=0.8588 val_PR-AUC=0.3759 7.5s
+[epoch 11] loss=0.2542 val_AUC=0.8411 val_PR-AUC=0.3188 7.2s
+[epoch 12] loss=0.2547 val_AUC=0.8615 val_PR-AUC=0.3692 7.3s
+[epoch 13] loss=0.2418 val_AUC=0.8687 val_PR-AUC=0.4050 7.4s
+[epoch 14] loss=0.2202 val_AUC=0.8610 val_PR-AUC=0.3032 7.3s
+[epoch 15] loss=0.2007 val_AUC=0.8469 val_PR-AUC=0.3345 7.4s
+[epoch 16] loss=0.1904 val_AUC=0.8413 val_PR-AUC=0.3389 7.1s
+[epoch 17] loss=0.2133 val_AUC=0.8498 val_PR-AUC=0.3006 7.5s
+[epoch 18] loss=0.1936 val_AUC=0.7971 val_PR-AUC=0.3020 7.1s
+[epoch 19] loss=0.2083 val_AUC=0.8668 val_PR-AUC=0.3454 7.1s
+[epoch 20] loss=0.1875 val_AUC=0.8029 val_PR-AUC=0.3147 7.2s
+[早停] epoch 20，最佳 epoch 0
+[CNN+云图] 测试集: AUC=0.8453 PR-AUC=0.2872 POD=0.370 FAR=0.769 CSI=0.166
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4528 val_AUC=0.8882 val_PR-AUC=0.3870 0.6s
+[epoch  1] loss=0.3852 val_AUC=0.8776 val_PR-AUC=0.3318 0.6s
+[epoch  2] loss=0.3497 val_AUC=0.8864 val_PR-AUC=0.3431 0.6s
+[epoch  3] loss=0.3287 val_AUC=0.9087 val_PR-AUC=0.3560 0.6s
+[epoch  4] loss=0.2604 val_AUC=0.8981 val_PR-AUC=0.3385 0.6s
+[epoch  5] loss=0.2796 val_AUC=0.8853 val_PR-AUC=0.3474 0.6s
+[epoch  6] loss=0.2632 val_AUC=0.8522 val_PR-AUC=0.3483 0.6s
+[epoch  7] loss=0.2307 val_AUC=0.8710 val_PR-AUC=0.3223 0.6s
+[epoch  8] loss=0.1994 val_AUC=0.8819 val_PR-AUC=0.3443 0.6s
+[epoch  9] loss=0.2231 val_AUC=0.8828 val_PR-AUC=0.3514 0.6s
+[epoch 10] loss=0.2033 val_AUC=0.8761 val_PR-AUC=0.3080 0.6s
+[epoch 11] loss=0.1739 val_AUC=0.8927 val_PR-AUC=0.3750 0.6s
+[epoch 12] loss=0.1638 val_AUC=0.8827 val_PR-AUC=0.3710 0.6s
+[epoch 13] loss=0.1563 val_AUC=0.8798 val_PR-AUC=0.3343 0.6s
+[epoch 14] loss=0.1359 val_AUC=0.8962 val_PR-AUC=0.3102 0.6s
+[epoch 15] loss=0.1277 val_AUC=0.8504 val_PR-AUC=0.3161 0.6s
+[epoch 16] loss=0.1310 val_AUC=0.8658 val_PR-AUC=0.3130 0.6s
+[epoch 17] loss=0.1362 val_AUC=0.8690 val_PR-AUC=0.3266 0.6s
+[epoch 18] loss=0.1198 val_AUC=0.8437 val_PR-AUC=0.2952 0.6s
+[epoch 19] loss=0.1202 val_AUC=0.8542 val_PR-AUC=0.3148 0.6s
+[epoch 20] loss=0.1069 val_AUC=0.8762 val_PR-AUC=0.3412 0.6s
+[epoch 21] loss=0.1110 val_AUC=0.8811 val_PR-AUC=0.2792 0.6s
+[epoch 22] loss=0.1036 val_AUC=0.8542 val_PR-AUC=0.2358 0.6s
+[epoch 23] loss=0.1009 val_AUC=0.8529 val_PR-AUC=0.2480 0.6s
+[早停] epoch 23，最佳 epoch 3
+[特征+云图] 测试集: AUC=0.8343 PR-AUC=0.2185 POD=0.301 FAR=0.846 CSI=0.113
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.0%
+############################################################
+[epoch  0] loss=0.4457 val_AUC=0.9108 val_PR-AUC=0.3949 0.4s
+[epoch  1] loss=0.3932 val_AUC=0.9217 val_PR-AUC=0.3946 0.4s
+[epoch  2] loss=0.3775 val_AUC=0.9182 val_PR-AUC=0.3886 0.4s
+[epoch  3] loss=0.3751 val_AUC=0.9195 val_PR-AUC=0.3995 0.4s
+[epoch  4] loss=0.3880 val_AUC=0.9272 val_PR-AUC=0.3659 0.4s
+[epoch  5] loss=0.3704 val_AUC=0.9138 val_PR-AUC=0.3854 0.4s
+[epoch  6] loss=0.3599 val_AUC=0.9161 val_PR-AUC=0.4063 0.4s
+[epoch  7] loss=0.3499 val_AUC=0.9231 val_PR-AUC=0.4020 0.4s
+[epoch  8] loss=0.3482 val_AUC=0.9316 val_PR-AUC=0.3977 0.4s
+[epoch  9] loss=0.3249 val_AUC=0.9231 val_PR-AUC=0.4158 0.4s
+[epoch 10] loss=0.3336 val_AUC=0.9270 val_PR-AUC=0.3811 0.4s
+[epoch 11] loss=0.3239 val_AUC=0.9147 val_PR-AUC=0.3866 0.4s
+[epoch 12] loss=0.3322 val_AUC=0.9204 val_PR-AUC=0.4002 0.4s
+[epoch 13] loss=0.3162 val_AUC=0.9230 val_PR-AUC=0.3763 0.4s
+[epoch 14] loss=0.2915 val_AUC=0.9148 val_PR-AUC=0.3812 0.4s
+[epoch 15] loss=0.3097 val_AUC=0.9114 val_PR-AUC=0.3635 0.4s
+[epoch 16] loss=0.2821 val_AUC=0.9105 val_PR-AUC=0.3935 0.4s
+[epoch 17] loss=0.2709 val_AUC=0.9128 val_PR-AUC=0.4116 0.4s
+[epoch 18] loss=0.2833 val_AUC=0.9156 val_PR-AUC=0.4042 0.4s
+[epoch 19] loss=0.2660 val_AUC=0.9190 val_PR-AUC=0.3832 0.4s
+[epoch 20] loss=0.2786 val_AUC=0.9140 val_PR-AUC=0.4007 0.4s
+[epoch 21] loss=0.2582 val_AUC=0.9121 val_PR-AUC=0.3729 0.4s
+[epoch 22] loss=0.2527 val_AUC=0.9118 val_PR-AUC=0.3544 0.4s
+[epoch 23] loss=0.2510 val_AUC=0.9092 val_PR-AUC=0.4050 0.4s
+[epoch 24] loss=0.2438 val_AUC=0.9046 val_PR-AUC=0.4018 0.4s
+[epoch 25] loss=0.2619 val_AUC=0.9050 val_PR-AUC=0.4079 0.4s
+[epoch 26] loss=0.2376 val_AUC=0.9106 val_PR-AUC=0.4143 0.4s
+[epoch 27] loss=0.2337 val_AUC=0.8953 val_PR-AUC=0.4039 0.4s
+[epoch 28] loss=0.2294 val_AUC=0.9103 val_PR-AUC=0.3956 0.4s
+[早停] epoch 28，最佳 epoch 8
+[纯时序GRU] 测试集: AUC=0.8657 PR-AUC=0.2840 POD=0.370 FAR=0.667 CSI=0.213
+[持续法] 测试集: AUC=0.7932 PR-AUC=0.1657 POD=0.534 FAR=0.839 CSI=0.141
+
+======================================================================
+CV fold 10/10
+======================================================================
+
+############################################################
+# CNN+云图 参数量=192,529 正样本率=5.3%
+############################################################
+[epoch  0] loss=0.4857 val_AUC=0.9075 val_PR-AUC=0.3643 7.2s
+[epoch  1] loss=0.4336 val_AUC=0.9186 val_PR-AUC=0.3531 7.3s
+[epoch  2] loss=0.3894 val_AUC=0.8756 val_PR-AUC=0.3492 7.3s
+[epoch  3] loss=0.3618 val_AUC=0.9231 val_PR-AUC=0.3462 7.4s
+[epoch  4] loss=0.3480 val_AUC=0.9150 val_PR-AUC=0.4189 7.1s
+[epoch  5] loss=0.3365 val_AUC=0.9276 val_PR-AUC=0.4372 7.2s
+[epoch  6] loss=0.3035 val_AUC=0.9204 val_PR-AUC=0.4358 7.2s
+[epoch  7] loss=0.3084 val_AUC=0.8954 val_PR-AUC=0.3946 7.2s
+[epoch  8] loss=0.2983 val_AUC=0.9120 val_PR-AUC=0.4042 7.3s
+[epoch  9] loss=0.2813 val_AUC=0.9114 val_PR-AUC=0.4065 7.5s
+[epoch 10] loss=0.2825 val_AUC=0.9236 val_PR-AUC=0.3984 7.3s
+[epoch 11] loss=0.2601 val_AUC=0.9169 val_PR-AUC=0.3983 7.2s
+[epoch 12] loss=0.2694 val_AUC=0.9121 val_PR-AUC=0.4005 7.3s
+[epoch 13] loss=0.2414 val_AUC=0.9066 val_PR-AUC=0.4250 7.4s
+[epoch 14] loss=0.2776 val_AUC=0.9019 val_PR-AUC=0.3118 7.4s
+[epoch 15] loss=0.2281 val_AUC=0.8987 val_PR-AUC=0.3309 7.4s
+[epoch 16] loss=0.2142 val_AUC=0.8874 val_PR-AUC=0.3001 7.6s
+[epoch 17] loss=0.2657 val_AUC=0.9019 val_PR-AUC=0.3300 7.5s
+[epoch 18] loss=0.2299 val_AUC=0.9064 val_PR-AUC=0.3554 7.6s
+[epoch 19] loss=0.2045 val_AUC=0.9156 val_PR-AUC=0.3710 7.3s
+[epoch 20] loss=0.2202 val_AUC=0.8893 val_PR-AUC=0.3035 7.3s
+[epoch 21] loss=0.2003 val_AUC=0.9253 val_PR-AUC=0.3847 7.3s
+[epoch 22] loss=0.2089 val_AUC=0.8980 val_PR-AUC=0.2806 7.4s
+[epoch 23] loss=0.2074 val_AUC=0.9060 val_PR-AUC=0.2968 7.5s
+[epoch 24] loss=0.2017 val_AUC=0.8990 val_PR-AUC=0.3051 7.4s
+[epoch 25] loss=0.1928 val_AUC=0.9213 val_PR-AUC=0.4276 7.6s
+[早停] epoch 25，最佳 epoch 5
+[CNN+云图] 测试集: AUC=0.9066 PR-AUC=0.3502 POD=0.697 FAR=0.657 CSI=0.299
+
+############################################################
+# 特征+云图 参数量=163,201 正样本率=5.3%
+############################################################
+[epoch  0] loss=0.4537 val_AUC=0.9058 val_PR-AUC=0.4154 0.7s
+[epoch  1] loss=0.4055 val_AUC=0.9087 val_PR-AUC=0.4082 0.7s
+[epoch  2] loss=0.3484 val_AUC=0.9128 val_PR-AUC=0.3156 0.7s
+[epoch  3] loss=0.3183 val_AUC=0.9022 val_PR-AUC=0.3166 0.7s
+[epoch  4] loss=0.3040 val_AUC=0.9022 val_PR-AUC=0.3862 0.6s
+[epoch  5] loss=0.2733 val_AUC=0.8967 val_PR-AUC=0.3234 0.6s
+[epoch  6] loss=0.2514 val_AUC=0.8987 val_PR-AUC=0.3029 0.6s
+[epoch  7] loss=0.2429 val_AUC=0.9083 val_PR-AUC=0.3679 0.6s
+[epoch  8] loss=0.2387 val_AUC=0.8995 val_PR-AUC=0.3388 0.6s
+[epoch  9] loss=0.2204 val_AUC=0.8857 val_PR-AUC=0.3024 0.6s
+[epoch 10] loss=0.1772 val_AUC=0.9080 val_PR-AUC=0.3492 0.6s
+[epoch 11] loss=0.1591 val_AUC=0.8793 val_PR-AUC=0.2962 0.6s
+[epoch 12] loss=0.1872 val_AUC=0.8689 val_PR-AUC=0.2674 0.7s
+[epoch 13] loss=0.1577 val_AUC=0.8770 val_PR-AUC=0.3005 0.7s
+[epoch 14] loss=0.1628 val_AUC=0.8961 val_PR-AUC=0.3724 0.7s
+[epoch 15] loss=0.1298 val_AUC=0.8792 val_PR-AUC=0.2768 0.7s
+[epoch 16] loss=0.1473 val_AUC=0.8412 val_PR-AUC=0.2536 0.7s
+[epoch 17] loss=0.1099 val_AUC=0.8684 val_PR-AUC=0.2977 0.7s
+[epoch 18] loss=0.1099 val_AUC=0.8572 val_PR-AUC=0.3107 0.7s
+[epoch 19] loss=0.1141 val_AUC=0.8468 val_PR-AUC=0.2751 0.7s
+[epoch 20] loss=0.1073 val_AUC=0.8507 val_PR-AUC=0.2567 0.7s
+[epoch 21] loss=0.1037 val_AUC=0.8656 val_PR-AUC=0.2676 0.7s
+[epoch 22] loss=0.1016 val_AUC=0.8724 val_PR-AUC=0.2890 0.6s
+[早停] epoch 22，最佳 epoch 2
+[特征+云图] 测试集: AUC=0.8641 PR-AUC=0.2173 POD=0.636 FAR=0.761 CSI=0.210
+
+############################################################
+# 纯时序GRU 参数量=96,001 正样本率=5.3%
+############################################################
+[epoch  0] loss=0.4564 val_AUC=0.9075 val_PR-AUC=0.3730 0.4s
+[epoch  1] loss=0.4149 val_AUC=0.9116 val_PR-AUC=0.3970 0.4s
+[epoch  2] loss=0.3925 val_AUC=0.9277 val_PR-AUC=0.3958 0.4s
+[epoch  3] loss=0.3790 val_AUC=0.9325 val_PR-AUC=0.4183 0.4s
+[epoch  4] loss=0.3765 val_AUC=0.9263 val_PR-AUC=0.3971 0.4s
+[epoch  5] loss=0.3756 val_AUC=0.9247 val_PR-AUC=0.3949 0.4s
+[epoch  6] loss=0.3889 val_AUC=0.9280 val_PR-AUC=0.4006 0.4s
+[epoch  7] loss=0.3646 val_AUC=0.9316 val_PR-AUC=0.3685 0.4s
+[epoch  8] loss=0.3598 val_AUC=0.9316 val_PR-AUC=0.4000 0.4s
+[epoch  9] loss=0.3519 val_AUC=0.9350 val_PR-AUC=0.4067 0.4s
+[epoch 10] loss=0.3518 val_AUC=0.9301 val_PR-AUC=0.4185 0.4s
+[epoch 11] loss=0.3389 val_AUC=0.9338 val_PR-AUC=0.4105 0.4s
+[epoch 12] loss=0.3267 val_AUC=0.9280 val_PR-AUC=0.4056 0.4s
+[epoch 13] loss=0.3300 val_AUC=0.9248 val_PR-AUC=0.4110 0.4s
+[epoch 14] loss=0.3479 val_AUC=0.9365 val_PR-AUC=0.4075 0.4s
+[epoch 15] loss=0.3289 val_AUC=0.9347 val_PR-AUC=0.3959 0.4s
+[epoch 16] loss=0.3176 val_AUC=0.9320 val_PR-AUC=0.4022 0.4s
+[epoch 17] loss=0.3049 val_AUC=0.9335 val_PR-AUC=0.4015 0.4s
+[epoch 18] loss=0.2989 val_AUC=0.9330 val_PR-AUC=0.4034 0.4s
+[epoch 19] loss=0.2968 val_AUC=0.9347 val_PR-AUC=0.3759 0.4s
+[epoch 20] loss=0.2909 val_AUC=0.9328 val_PR-AUC=0.3927 0.4s
+[epoch 21] loss=0.3233 val_AUC=0.9304 val_PR-AUC=0.3936 0.4s
+[epoch 22] loss=0.2938 val_AUC=0.9280 val_PR-AUC=0.4050 0.4s
+[epoch 23] loss=0.2814 val_AUC=0.9360 val_PR-AUC=0.4041 0.4s
+[epoch 24] loss=0.2704 val_AUC=0.9339 val_PR-AUC=0.3514 0.4s
+[epoch 25] loss=0.2885 val_AUC=0.9323 val_PR-AUC=0.3736 0.4s
+[epoch 26] loss=0.2873 val_AUC=0.9321 val_PR-AUC=0.3739 0.4s
+[epoch 27] loss=0.2771 val_AUC=0.9281 val_PR-AUC=0.3909 0.4s
+[epoch 28] loss=0.2581 val_AUC=0.9302 val_PR-AUC=0.3794 0.4s
+[epoch 29] loss=0.2659 val_AUC=0.9409 val_PR-AUC=0.3946 0.4s
+[epoch 30] loss=0.2612 val_AUC=0.9296 val_PR-AUC=0.3463 0.4s
+[epoch 31] loss=0.2656 val_AUC=0.9279 val_PR-AUC=0.3747 0.4s
+[epoch 32] loss=0.2594 val_AUC=0.9337 val_PR-AUC=0.3731 0.4s
+[epoch 33] loss=0.2452 val_AUC=0.9305 val_PR-AUC=0.3474 0.4s
+[epoch 34] loss=0.2534 val_AUC=0.9227 val_PR-AUC=0.3546 0.4s
+[epoch 35] loss=0.2396 val_AUC=0.9211 val_PR-AUC=0.3366 0.4s
+[epoch 36] loss=0.2456 val_AUC=0.9260 val_PR-AUC=0.3726 0.4s
+[epoch 37] loss=0.2310 val_AUC=0.9141 val_PR-AUC=0.3403 0.4s
+[epoch 38] loss=0.2385 val_AUC=0.9229 val_PR-AUC=0.3773 0.4s
+[epoch 39] loss=0.2270 val_AUC=0.9172 val_PR-AUC=0.3524 0.4s
+[epoch 40] loss=0.2214 val_AUC=0.9084 val_PR-AUC=0.3570 0.4s
+[epoch 41] loss=0.2170 val_AUC=0.9105 val_PR-AUC=0.3441 0.4s
+[epoch 42] loss=0.2125 val_AUC=0.9140 val_PR-AUC=0.3352 0.4s
+[epoch 43] loss=0.2183 val_AUC=0.9093 val_PR-AUC=0.3297 0.4s
+[epoch 44] loss=0.2035 val_AUC=0.9076 val_PR-AUC=0.3461 0.4s
+[epoch 45] loss=0.2115 val_AUC=0.9065 val_PR-AUC=0.3352 0.4s
+[epoch 46] loss=0.1963 val_AUC=0.9063 val_PR-AUC=0.3207 0.4s
+[epoch 47] loss=0.2049 val_AUC=0.9028 val_PR-AUC=0.3284 0.4s
+[epoch 48] loss=0.2004 val_AUC=0.9052 val_PR-AUC=0.3330 0.4s
+[epoch 49] loss=0.2176 val_AUC=0.9032 val_PR-AUC=0.3407 0.4s
+[早停] epoch 49，最佳 epoch 29
+[纯时序GRU] 测试集: AUC=0.9041 PR-AUC=0.2768 POD=0.667 FAR=0.796 CSI=0.185
+[持续法] 测试集: AUC=0.8090 PR-AUC=0.1849 POD=0.667 FAR=0.889 CSI=0.105
+
+==============================================================================
+10 折交叉验证汇总（RI 事件预测，正类稀少，重点看 AUC 与 PR-AUC）
+==============================================================================
+| 模型 | AUC | PR-AUC | POD | FAR | CSI |
+|---|---|---|---|---|---|
+| CNN+云图 | 0.8929±0.0385 | 0.3780±0.1024 | 0.480 | 0.641 | 0.254±0.061 |
+| 特征+云图 | 0.8782±0.0362 | 0.3177±0.1007 | 0.460 | 0.703 | 0.214±0.067 |
+| 纯时序GRU | 0.9043±0.0267 | 0.3700±0.1017 | 0.564 | 0.624 | 0.276±0.066 |
+| 持续法 | 0.8462±0.0361 | 0.2150±0.0518 | 0.611 | 0.812 | 0.165±0.039 |
+
+==============================================================================================
+配对检验（指标: test_auc），配对 t 检验 + Wilcoxon 符号秩
+==============================================================================================
+| A vs B | A 均值 | B 均值 | 差值 | A 胜出折数 | t | p(t) | p(Wilcoxon) | Cohen's d |
+|---|---|---|---|---|---|---|---|---|
+| CNN+云图 vs 特征+云图 | 0.8929 | 0.8782 | +0.0147 | 7/10 | +1.446 | 0.1822 | 0.1934 | +0.46 |
+| CNN+云图 vs 纯时序GRU | 0.8929 | 0.9043 | -0.0114 | 3/10 | -2.249 | 0.0511 | 0.0488 | -0.71 |
+| CNN+云图 vs 持续法 | 0.8929 | 0.8462 | +0.0468 | 9/10 | +4.898 | 0.0008 *** | 0.0039 | +1.55 |
+| 特征+云图 vs 纯时序GRU | 0.8782 | 0.9043 | -0.0261 | 2/10 | -2.885 | 0.0180 * | 0.0195 | -0.91 |
+| 特征+云图 vs 持续法 | 0.8782 | 0.8462 | +0.0321 | 9/10 | +2.681 | 0.0252 * | 0.0645 | +0.85 |
+| 纯时序GRU vs 持续法 | 0.9043 | 0.8462 | +0.0581 | 10/10 | +8.693 | 0.0000 *** | 0.0020 | +2.75 |
+
+  p<0.05 视为显著（*）；Cohen's d: 0.2 小效应 / 0.5 中 / 0.8 大效应
+  注意: K 折的 p 值有已知偏差（各折训练集重叠），应看作「证据强度」而非严格概率
+
+==============================================================================================
+配对检验（指标: test_pr_auc），配对 t 检验 + Wilcoxon 符号秩
+==============================================================================================
+| A vs B | A 均值 | B 均值 | 差值 | A 胜出折数 | t | p(t) | p(Wilcoxon) | Cohen's d |
+|---|---|---|---|---|---|---|---|---|
+| CNN+云图 vs 特征+云图 | 0.3780 | 0.3177 | +0.0604 | 9/10 | +2.849 | 0.0191 * | 0.0371 | +0.90 |
+| CNN+云图 vs 纯时序GRU | 0.3780 | 0.3700 | +0.0080 | 8/10 | +0.227 | 0.8255 | 0.4316 | +0.07 |
+| CNN+云图 vs 持续法 | 0.3780 | 0.2150 | +0.1630 | 10/10 | +4.935 | 0.0008 *** | 0.0020 | +1.56 |
+| 特征+云图 vs 纯时序GRU | 0.3177 | 0.3700 | -0.0523 | 3/10 | -1.734 | 0.1170 | 0.0645 | -0.55 |
+| 特征+云图 vs 持续法 | 0.3177 | 0.2150 | +0.1026 | 9/10 | +3.553 | 0.0062 ** | 0.0098 | +1.12 |
+| 纯时序GRU vs 持续法 | 0.3700 | 0.2150 | +0.1550 | 10/10 | +6.415 | 0.0001 *** | 0.0020 | +2.03 |
+
+  p<0.05 视为显著（*）；Cohen's d: 0.2 小效应 / 0.5 中 / 0.8 大效应
+  注意: K 折的 p 值有已知偏差（各折训练集重叠），应看作「证据强度」而非严格概率
+
+==============================================================================================
+配对检验（指标: test_CSI），配对 t 检验 + Wilcoxon 符号秩
+==============================================================================================
+| A vs B | A 均值 | B 均值 | 差值 | A 胜出折数 | t | p(t) | p(Wilcoxon) | Cohen's d |
+|---|---|---|---|---|---|---|---|---|
+| CNN+云图 vs 特征+云图 | 0.2539 | 0.2141 | +0.0398 | 8/10 | +1.970 | 0.0803 | 0.1602 | +0.62 |
+| CNN+云图 vs 纯时序GRU | 0.2539 | 0.2760 | -0.0221 | 2/10 | -0.951 | 0.3666 | 0.3223 | -0.30 |
+| CNN+云图 vs 持续法 | 0.2539 | 0.1647 | +0.0892 | 9/10 | +4.076 | 0.0028 ** | 0.0039 | +1.29 |
+| 特征+云图 vs 纯时序GRU | 0.2141 | 0.2760 | -0.0619 | 2/10 | -3.618 | 0.0056 ** | 0.0137 | -1.14 |
+| 特征+云图 vs 持续法 | 0.2141 | 0.1647 | +0.0494 | 9/10 | +3.174 | 0.0113 * | 0.0137 | +1.00 |
+| 纯时序GRU vs 持续法 | 0.2760 | 0.1647 | +0.1113 | 10/10 | +9.487 | 0.0000 *** | 0.0020 | +3.00 |
+
+  p<0.05 视为显著（*）；Cohen's d: 0.2 小效应 / 0.5 中 / 0.8 大效应
+  注意: K 折的 p 值有已知偏差（各折训练集重叠），应看作「证据强度」而非严格概率
+
+CV 结果已保存: /home/haru/Project/ds/typhoon-transformer/outputs/ri_events_64px/cv10_thr15_summary.json
+逐样本概率已保存: /home/haru/Project/ds/typhoon-transformer/outputs/ri_events_64px/cv10_thr15_summary.npz

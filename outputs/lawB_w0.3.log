@@ -1,0 +1,199 @@
+[data] 并入环境场 9 维: ['h500_mean', 'h500_grad_lat', 'u500', 'v500', 'speed500', 'shear', 'sst', 'msl', 'bst_dist']
+[data] 环境场覆盖 8.1% 的行、128 个台风
+[data] 已限制到有环境场的台风: 128 个，5904 行
+[samples] 构造 1644 个样本, x=(1644, 12, 17), y=(1644, 4, 2)
+[data] 载入 1644 个样本，特征维度 17
+[split] 台风 train=55 val=19 test=19 | 样本 train=912 val=360 test=372
+[train] 模型=transformer, 参数量=1,325,826, 设备=cuda
+[train] 样本数 训练=912 验证=360 测试=372
+[laws] 启用无标签物理惩罚：steering + smooth + curvature（k 由训练集定标 = 0.838，R² = 0.681）
+/home/haru/Project/ds/typhoon-transformer/src/training/trainer.py:315: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  lterm_s = {k: round(float(v), 4)
+  [laws] epoch 0 w=0.3 {'steering': 0.9913, 'smooth': 0.0, 'curvature': 0.0}  k=0.838
+  epoch 0 step 0/15 loss=306.81 km
+[epoch 0] train=348.23km val_mae=370.88km lr=6.67e-05 0.8s k=0.838
+  [laws] epoch 1 w=0.3 {'steering': 1.0594, 'smooth': 0.0004, 'curvature': 0.3856}  k=0.838
+  epoch 1 step 0/15 loss=321.37 km
+[epoch 1] train=360.07km val_mae=370.14km lr=1.00e-04 0.3s k=0.838
+  [laws] epoch 2 w=0.3 {'steering': 1.273, 'smooth': 0.0057, 'curvature': 0.2774}  k=0.838
+  epoch 2 step 0/15 loss=367.12 km
+[epoch 2] train=353.65km val_mae=369.78km lr=1.00e-04 0.3s k=0.838
+  [laws] epoch 3 w=0.3 {'steering': 1.165, 'smooth': 0.0113, 'curvature': 0.2077}  k=0.838
+  epoch 3 step 0/15 loss=343.32 km
+[epoch 3] train=349.30km val_mae=368.59km lr=9.99e-05 0.3s k=0.838
+  [laws] epoch 4 w=0.3 {'steering': 1.2159, 'smooth': 0.0153, 'curvature': 0.175}  k=0.838
+  epoch 4 step 0/15 loss=345.78 km
+[epoch 4] train=343.01km val_mae=367.33km lr=9.97e-05 0.3s k=0.838
+  [laws] epoch 5 w=0.3 {'steering': 1.0307, 'smooth': 0.0182, 'curvature': 0.047}  k=0.838
+  epoch 5 step 0/15 loss=335.26 km
+[epoch 5] train=334.55km val_mae=363.90km lr=9.93e-05 0.3s k=0.838
+  [laws] epoch 6 w=0.3 {'steering': 0.998, 'smooth': 0.0185, 'curvature': 0.001}  k=0.838
+  epoch 6 step 0/15 loss=298.92 km
+[epoch 6] train=327.94km val_mae=358.13km lr=9.88e-05 0.3s k=0.838
+  [laws] epoch 7 w=0.3 {'steering': 1.1619, 'smooth': 0.0163, 'curvature': 0.0104}  k=0.838
+  epoch 7 step 0/15 loss=313.76 km
+[epoch 7] train=321.80km val_mae=351.90km lr=9.81e-05 0.3s k=0.838
+  [laws] epoch 8 w=0.3 {'steering': 1.3154, 'smooth': 0.0197, 'curvature': 0.0034}  k=0.838
+  epoch 8 step 0/15 loss=341.56 km
+[epoch 8] train=315.45km val_mae=345.23km lr=9.73e-05 0.3s k=0.838
+  [laws] epoch 9 w=0.3 {'steering': 1.0384, 'smooth': 0.0242, 'curvature': 0.0004}  k=0.838
+  epoch 9 step 0/15 loss=305.12 km
+[epoch 9] train=308.93km val_mae=337.07km lr=9.63e-05 0.3s k=0.838
+  [laws] epoch 10 w=0.3 {'steering': 1.1088, 'smooth': 0.0338, 'curvature': 0.0055}  k=0.838
+  epoch 10 step 0/15 loss=284.27 km
+[epoch 10] train=301.42km val_mae=329.18km lr=9.52e-05 0.3s k=0.838
+  [laws] epoch 11 w=0.3 {'steering': 1.0587, 'smooth': 0.0486, 'curvature': 0.0155}  k=0.838
+  epoch 11 step 0/15 loss=309.23 km
+[epoch 11] train=293.53km val_mae=320.89km lr=9.40e-05 0.3s k=0.838
+  [laws] epoch 12 w=0.3 {'steering': 1.0124, 'smooth': 0.0561, 'curvature': 0.0299}  k=0.838
+  epoch 12 step 0/15 loss=278.62 km
+[epoch 12] train=285.84km val_mae=313.45km lr=9.26e-05 0.3s k=0.838
+  [laws] epoch 13 w=0.3 {'steering': 1.1467, 'smooth': 0.0551, 'curvature': 0.0186}  k=0.838
+  epoch 13 step 0/15 loss=277.35 km
+[epoch 13] train=278.23km val_mae=306.71km lr=9.11e-05 0.3s k=0.838
+  [laws] epoch 14 w=0.3 {'steering': 1.3191, 'smooth': 0.0635, 'curvature': 0.0124}  k=0.838
+  epoch 14 step 0/15 loss=327.95 km
+[epoch 14] train=271.47km val_mae=299.54km lr=8.95e-05 0.3s k=0.838
+  [laws] epoch 15 w=0.3 {'steering': 1.0606, 'smooth': 0.0672, 'curvature': 0.0334}  k=0.838
+  epoch 15 step 0/15 loss=285.20 km
+[epoch 15] train=265.04km val_mae=293.17km lr=8.77e-05 0.3s k=0.838
+  [laws] epoch 16 w=0.3 {'steering': 0.9469, 'smooth': 0.0841, 'curvature': 0.0156}  k=0.838
+  epoch 16 step 0/15 loss=257.34 km
+[epoch 16] train=259.30km val_mae=287.34km lr=8.58e-05 0.3s k=0.838
+  [laws] epoch 17 w=0.3 {'steering': 1.0368, 'smooth': 0.0913, 'curvature': 0.0223}  k=0.838
+  epoch 17 step 0/15 loss=251.30 km
+[epoch 17] train=253.94km val_mae=281.24km lr=8.39e-05 0.3s k=0.838
+  [laws] epoch 18 w=0.3 {'steering': 0.9802, 'smooth': 0.088, 'curvature': 0.0042}  k=0.838
+  epoch 18 step 0/15 loss=236.44 km
+[epoch 18] train=247.79km val_mae=275.56km lr=8.18e-05 0.3s k=0.838
+  [laws] epoch 19 w=0.3 {'steering': 1.0731, 'smooth': 0.0962, 'curvature': 0.0053}  k=0.838
+  epoch 19 step 0/15 loss=224.70 km
+[epoch 19] train=243.13km val_mae=268.67km lr=7.96e-05 0.3s k=0.838
+  [laws] epoch 20 w=0.3 {'steering': 0.8804, 'smooth': 0.1103, 'curvature': 0.009}  k=0.838
+  epoch 20 step 0/15 loss=206.35 km
+[epoch 20] train=237.47km val_mae=262.22km lr=7.73e-05 0.3s k=0.838
+  [laws] epoch 21 w=0.3 {'steering': 0.9608, 'smooth': 0.1344, 'curvature': 0.0095}  k=0.838
+  epoch 21 step 0/15 loss=214.52 km
+[epoch 21] train=232.30km val_mae=257.04km lr=7.50e-05 0.3s k=0.838
+  [laws] epoch 22 w=0.3 {'steering': 1.0545, 'smooth': 0.1405, 'curvature': 0.0058}  k=0.838
+  epoch 22 step 0/15 loss=233.05 km
+[epoch 22] train=226.80km val_mae=251.71km lr=7.26e-05 0.3s k=0.838
+  [laws] epoch 23 w=0.3 {'steering': 0.9436, 'smooth': 0.1548, 'curvature': 0.0015}  k=0.838
+  epoch 23 step 0/15 loss=221.69 km
+[epoch 23] train=222.32km val_mae=246.41km lr=7.01e-05 0.3s k=0.838
+  [laws] epoch 24 w=0.3 {'steering': 1.289, 'smooth': 0.1553, 'curvature': 0.0023}  k=0.838
+  epoch 24 step 0/15 loss=227.66 km
+[epoch 24] train=217.45km val_mae=242.39km lr=6.75e-05 0.2s k=0.838
+  [laws] epoch 25 w=0.3 {'steering': 0.9144, 'smooth': 0.1825, 'curvature': 0.0}  k=0.838
+  epoch 25 step 0/15 loss=200.49 km
+[epoch 25] train=213.19km val_mae=236.95km lr=6.49e-05 0.2s k=0.838
+  [laws] epoch 26 w=0.3 {'steering': 0.8511, 'smooth': 0.1898, 'curvature': 0.0}  k=0.838
+  epoch 26 step 0/15 loss=202.90 km
+[epoch 26] train=209.76km val_mae=234.47km lr=6.23e-05 0.3s k=0.838
+  [laws] epoch 27 w=0.3 {'steering': 1.1302, 'smooth': 0.2055, 'curvature': 0.0}  k=0.838
+  epoch 27 step 0/15 loss=252.96 km
+[epoch 27] train=206.18km val_mae=229.77km lr=5.96e-05 0.2s k=0.838
+  [laws] epoch 28 w=0.3 {'steering': 0.8863, 'smooth': 0.1838, 'curvature': 0.0004}  k=0.838
+  epoch 28 step 0/15 loss=197.60 km
+[epoch 28] train=202.49km val_mae=227.90km lr=5.69e-05 0.2s k=0.838
+  [laws] epoch 29 w=0.3 {'steering': 0.9472, 'smooth': 0.2149, 'curvature': 0.0092}  k=0.838
+  epoch 29 step 0/15 loss=199.17 km
+[epoch 29] train=199.42km val_mae=223.89km lr=5.41e-05 0.2s k=0.838
+  [laws] epoch 30 w=0.3 {'steering': 0.8597, 'smooth': 0.223, 'curvature': 0.0087}  k=0.838
+  epoch 30 step 0/15 loss=172.24 km
+[epoch 30] train=196.80km val_mae=220.90km lr=5.14e-05 0.2s k=0.838
+  [laws] epoch 31 w=0.3 {'steering': 0.9066, 'smooth': 0.2247, 'curvature': 0.0}  k=0.838
+  epoch 31 step 0/15 loss=200.79 km
+[epoch 31] train=193.74km val_mae=220.53km lr=4.86e-05 0.2s k=0.838
+  [laws] epoch 32 w=0.3 {'steering': 1.1208, 'smooth': 0.2454, 'curvature': 0.0}  k=0.838
+  epoch 32 step 0/15 loss=224.54 km
+[epoch 32] train=191.61km val_mae=218.65km lr=4.59e-05 0.2s k=0.838
+  [laws] epoch 33 w=0.3 {'steering': 1.0564, 'smooth': 0.2779, 'curvature': 0.0007}  k=0.838
+  epoch 33 step 0/15 loss=206.49 km
+[epoch 33] train=190.37km val_mae=212.96km lr=4.31e-05 0.3s k=0.838
+  [laws] epoch 34 w=0.3 {'steering': 0.8337, 'smooth': 0.2692, 'curvature': 0.0}  k=0.838
+  epoch 34 step 0/15 loss=156.30 km
+[epoch 34] train=187.50km val_mae=214.75km lr=4.04e-05 0.2s k=0.838
+  [laws] epoch 35 w=0.3 {'steering': 1.0221, 'smooth': 0.281, 'curvature': 0.0021}  k=0.838
+  epoch 35 step 0/15 loss=183.83 km
+[epoch 35] train=185.76km val_mae=210.44km lr=3.77e-05 0.2s k=0.838
+  [laws] epoch 36 w=0.3 {'steering': 0.9579, 'smooth': 0.2894, 'curvature': 0.0054}  k=0.838
+  epoch 36 step 0/15 loss=193.49 km
+[epoch 36] train=183.81km val_mae=210.96km lr=3.51e-05 0.2s k=0.838
+  [laws] epoch 37 w=0.3 {'steering': 0.8689, 'smooth': 0.2905, 'curvature': 0.0}  k=0.838
+  epoch 37 step 0/15 loss=176.33 km
+[epoch 37] train=182.10km val_mae=208.19km lr=3.25e-05 0.3s k=0.838
+  [laws] epoch 38 w=0.3 {'steering': 0.9593, 'smooth': 0.2686, 'curvature': 0.0065}  k=0.838
+  epoch 38 step 0/15 loss=198.98 km
+[epoch 38] train=180.53km val_mae=207.85km lr=2.99e-05 0.2s k=0.838
+  [laws] epoch 39 w=0.3 {'steering': 0.8804, 'smooth': 0.2558, 'curvature': 0.0045}  k=0.838
+  epoch 39 step 0/15 loss=192.78 km
+[epoch 39] train=178.69km val_mae=207.46km lr=2.74e-05 0.2s k=0.838
+  [laws] epoch 40 w=0.3 {'steering': 0.8899, 'smooth': 0.2838, 'curvature': 0.0003}  k=0.838
+  epoch 40 step 0/15 loss=186.06 km
+[epoch 40] train=178.16km val_mae=206.90km lr=2.50e-05 0.2s k=0.838
+  [laws] epoch 41 w=0.3 {'steering': 0.8643, 'smooth': 0.2749, 'curvature': 0.0}  k=0.838
+  epoch 41 step 0/15 loss=184.51 km
+[epoch 41] train=176.90km val_mae=205.58km lr=2.27e-05 0.2s k=0.838
+  [laws] epoch 42 w=0.3 {'steering': 0.8678, 'smooth': 0.3108, 'curvature': 0.0025}  k=0.838
+  epoch 42 step 0/15 loss=166.97 km
+[epoch 42] train=175.83km val_mae=205.55km lr=2.04e-05 0.3s k=0.838
+  [laws] epoch 43 w=0.3 {'steering': 1.0391, 'smooth': 0.2944, 'curvature': 0.0}  k=0.838
+  epoch 43 step 0/15 loss=188.26 km
+[epoch 43] train=174.50km val_mae=204.05km lr=1.82e-05 0.2s k=0.838
+  [laws] epoch 44 w=0.3 {'steering': 1.0144, 'smooth': 0.3099, 'curvature': 0.0}  k=0.838
+  epoch 44 step 0/15 loss=184.87 km
+[epoch 44] train=174.21km val_mae=204.82km lr=1.61e-05 0.2s k=0.838
+  [laws] epoch 45 w=0.3 {'steering': 0.7414, 'smooth': 0.298, 'curvature': 0.0019}  k=0.838
+  epoch 45 step 0/15 loss=162.05 km
+[epoch 45] train=173.24km val_mae=203.62km lr=1.42e-05 0.3s k=0.838
+  [laws] epoch 46 w=0.3 {'steering': 0.6813, 'smooth': 0.29, 'curvature': 0.0}  k=0.838
+  epoch 46 step 0/15 loss=132.93 km
+[epoch 46] train=172.15km val_mae=203.29km lr=1.23e-05 0.2s k=0.838
+  [laws] epoch 47 w=0.3 {'steering': 0.954, 'smooth': 0.304, 'curvature': 0.0006}  k=0.838
+  epoch 47 step 0/15 loss=182.77 km
+[epoch 47] train=172.18km val_mae=202.49km lr=1.05e-05 0.2s k=0.838
+  [laws] epoch 48 w=0.3 {'steering': 0.8967, 'smooth': 0.2969, 'curvature': 0.0}  k=0.838
+  epoch 48 step 0/15 loss=183.05 km
+[epoch 48] train=170.90km val_mae=202.24km lr=8.91e-06 0.3s k=0.838
+  [laws] epoch 49 w=0.3 {'steering': 0.917, 'smooth': 0.2832, 'curvature': 0.0}  k=0.838
+  epoch 49 step 0/15 loss=169.84 km
+[epoch 49] train=171.35km val_mae=202.23km lr=7.40e-06 0.2s k=0.838
+  [laws] epoch 50 w=0.3 {'steering': 0.8618, 'smooth': 0.2738, 'curvature': 0.0052}  k=0.838
+  epoch 50 step 0/15 loss=165.09 km
+[epoch 50] train=169.86km val_mae=202.17km lr=6.03e-06 0.2s k=0.838
+  [laws] epoch 51 w=0.3 {'steering': 0.7764, 'smooth': 0.3133, 'curvature': 0.0}  k=0.838
+  epoch 51 step 0/15 loss=147.05 km
+[epoch 51] train=171.27km val_mae=201.60km lr=4.78e-06 0.3s k=0.838
+  [laws] epoch 52 w=0.3 {'steering': 0.9523, 'smooth': 0.2871, 'curvature': 0.0014}  k=0.838
+  epoch 52 step 0/15 loss=179.82 km
+[epoch 52] train=170.00km val_mae=201.22km lr=3.68e-06 0.2s k=0.838
+  [laws] epoch 53 w=0.3 {'steering': 0.8283, 'smooth': 0.3063, 'curvature': 0.0009}  k=0.838
+  epoch 53 step 0/15 loss=163.48 km
+[epoch 53] train=169.46km val_mae=201.19km lr=2.71e-06 0.2s k=0.838
+  [laws] epoch 54 w=0.3 {'steering': 0.9306, 'smooth': 0.2983, 'curvature': 0.0032}  k=0.838
+  epoch 54 step 0/15 loss=187.99 km
+[epoch 54] train=169.92km val_mae=201.02km lr=1.89e-06 0.2s k=0.838
+  [laws] epoch 55 w=0.3 {'steering': 0.8235, 'smooth': 0.3172, 'curvature': 0.002}  k=0.838
+  epoch 55 step 0/15 loss=166.25 km
+[epoch 55] train=170.01km val_mae=201.06km lr=1.21e-06 0.2s k=0.838
+  [laws] epoch 56 w=0.3 {'steering': 0.8413, 'smooth': 0.3145, 'curvature': 0.0002}  k=0.838
+  epoch 56 step 0/15 loss=163.85 km
+[epoch 56] train=169.08km val_mae=201.11km lr=6.82e-07 0.3s k=0.838
+  [laws] epoch 57 w=0.3 {'steering': 0.8787, 'smooth': 0.2877, 'curvature': 0.0006}  k=0.838
+  epoch 57 step 0/15 loss=151.87 km
+[epoch 57] train=170.11km val_mae=201.08km lr=3.03e-07 0.2s k=0.838
+  [laws] epoch 58 w=0.3 {'steering': 0.9017, 'smooth': 0.3137, 'curvature': 0.0}  k=0.838
+  epoch 58 step 0/15 loss=210.86 km
+[epoch 58] train=170.28km val_mae=201.07km lr=7.59e-08 0.2s k=0.838
+  [laws] epoch 59 w=0.3 {'steering': 0.7864, 'smooth': 0.288, 'curvature': 0.0}  k=0.838
+  epoch 59 step 0/15 loss=149.05 km
+[epoch 59] train=169.74km val_mae=201.06km lr=0.00e+00 0.2s k=0.838
+
+======================================================================
+训练完成: 最佳 epoch=54, 验证误差=201.0 km
+| 模型 | 6h 误差(km) | 12h 误差(km) | 18h 误差(km) | 24h 误差(km) | 平均(km) |
+|---|---|---|---|---|---|
+| transformer | 73.5 | 155.9 | 260.3 | 376.1 | 216.5 |
+输出目录: outputs/lawB_w0.3
