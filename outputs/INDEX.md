@@ -14,7 +14,7 @@
 | `compare_gru/` | GRU 对照 | 206.5 km | 118.4 km | §3 | `scripts/path/compare.py` |
 | `compare_linear/` | 线性对照 | 259.6 km | 143.1 km | §3 | 同上 |
 | `compare_persistence/` | 持续法对照 | 566.6 km | 353.0 km | §3 | 同上 |
-| `comparison/` | **四模型汇总**（`metrics.md` + 图） | — | — | §3.2 | `scripts/path/compare.py --compare` |
+| `comparison/` | **四模型汇总**（`metrics.md` + 图） | — | — | §3.2 | `scripts/path/compare.py` |
 | `baselines/` | **基线表 + 3 张图**（入库） | — | — | §3.2 | `scripts/path/baseline_report.py` |
 
 > **口径提醒**：24h 单时效与 4 时效平均差 90 km 左右，引用时必须声明是哪个
@@ -154,7 +154,21 @@ MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python scripts/evaluation/plot_intensity_f
 
 ---
 
-## 五、数据构建日志
+## 五、日志与目录结构
+
+本目录的结构约定（2026-11-01 整理后）：
+
+| 位置 | 内容 |
+|---|---|
+| `logs/` | 13 个**散落的训练日志**（微波 `mw_*.log`、RI 概率 `ri_prob*.log`、强度重跑） |
+| `build_logs/` | 数据构建过程日志 |
+| `physics_experiments/` | 物理约束实验的全部产物（见 §九） |
+| 顶层 `*_summary.json` | **被脚本读取**的汇总（`acc_report.py` 依赖前两个，勿移动） |
+
+> `intensity_rerun_224_corr_summary.json` 与 `intensity_rerun_224_summary.json`
+> 是 `scripts/evaluation/acc_report.py` 的输入（默认路径），**不能挪走**。
+
+### 5.2 卫星 patch / 标量表构建记录
 
 `build_logs/` 记录了卫星 patch / 标量表的历次构建，对应技术报告 §2.4 的规模演进：
 
@@ -208,11 +222,22 @@ MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python scripts/evaluation/plot_intensity_f
 
 因此如需复现某项结果，重跑对应训练命令即可；仅"重新评估已有模型"这一操作
 需要重新训练（约原训练时间）。**依赖逐样本预测的细分分析**（如 §4.9 的
-分层验证）同样需要重跑训练来生成 `.npz`，具体命令见第九节。
+分层验证）同样需要重跑训练来生成 `.npz`，具体命令见第十节。
+
+> **2026-11-01 起有一个例外**：`scripts/evaluation/perturb_ensemble.py`
+> 需要 `--ckpt` 读入权重（这是第一个真正读 `.pt` 的脚本）。因此保留
+> **2 个**权重供其复用：`physics_experiments/phys_base/checkpoints/best.pt`
+> 与 `physics_experiments/phys_r0.1/checkpoints/best.pt`。
+> 它们同样不入库（`.gitignore` 的 `*.pt` 规则未变）。其余权重仍按上述政策清理。
 
 ---
 
 ## 八、目录命名与脚本默认值的对应关系
+
+> **环境场文件位置**：完整版在仓库根的 `data_ext/env_era5.parquet`
+> （128 台风 / 5866 行）。`data/processed/env_era5.parquet` 在本机是只读挂载上的
+> **5 台风样例（0.4% 覆盖）**，用它跑环境场消融会得到近乎退化的结果。
+> 文档中的 `--env` 参数已统一改为 `data_ext/env_era5.parquet`。
 
 以下 `--out` 默认值写死在脚本里，**改目录名会破坏默认命令**，故保持原名：
 
@@ -227,7 +252,25 @@ MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python scripts/evaluation/plot_intensity_f
 
 ---
 
-## 九、分时效相关与分层验证（2026-10-31 新增）
+## 九、物理约束与扰动集合（2026-11-01 新增）
+
+全部产物在 **`physics_experiments/`**，该目录的
+[README.md](physics_experiments/README.md) 含完整结果表与有效性判定。
+
+| 分组 | 目录 | 结论 |
+|---|---|---|
+| 基线 / 硬约束 / 权重扫描 | `phys_base` `phys_hard` `phys_r*` | 硬约束**有害**（+5.2 km，p=0.042，3 seed 一致） |
+| 多 seed 对照 | `phys_seed_base_*` `phys_seed_w0.1_*` | 3/3 一致为正，d=+2.73 |
+| 无效实验（权重 bug） | `phys_full` `phys_w0.01/0.03/0.3` | 物理项仅占 0.04~1.07%，等于没加 |
+
+**权重保留**：仅 `phys_base` 与 `phys_r0.1` 的 `best.pt`（供 `perturb_ensemble.py` 复用），
+其余 13 个已删（69.3 MB）。理由见 §七与上述 README。
+
+**散落的 15 个 `phys_*.log`** 已一并归入 `physics_experiments/`。
+
+---
+
+## 十、分时效相关与分层验证（2026-10-31 新增）
 
 | 文件 | 内容 | 用途 |
 |---|---|---|
@@ -266,3 +309,37 @@ python scripts/evaluation/stratify_by_change.py \
 
 `summary.json` 与日志**会**入库，所以 §4.9 的分层数字可以从仓库里的
 `figures/fig_stratify_change.png` 复核；只有逐样本的细分计算需要重跑。
+
+---
+
+## 十一、无标签物理律（2026-11-01 新增）
+
+| 目录 | 配置 | 结论 |
+|---|---|---|
+| `lawA_w0.0` `lawA_w0.1` `lawA_w0.5` | 全量 20094，seed 42，smooth+curvature | 119.04 / **118.32** / 120.76（w=0.5 过强） |
+| `lawA_s{0,1,2}_w{0.0,0.1}` | 全量，3 个种子 | 4/4 seed 一致 **−1.26 km**（p=0.13）；种子方差 1.48→0.32 |
+| `lawB_w0.0` `lawB_w0.3` | 环境场子集 1644 + storm 划分，三项全开 | w=0.3 更差 **+5.67 km**（6h +8.13，p<0.001） |
+
+每个目录内含 `checkpoints/best.pt`（不入库）、`logs/summary.json`、`logs/history.json`、
+`used_config.yaml`；同名 `.log` 是完整训练日志。结论与机制见技术报告 §4.13。
+
+**要点**：smooth/curvature 只约束"形状"，而两组的主导误差都是沿轨欠位移
+（B 组 24h 预测 345 km vs 实况 572 km）；steering 先验自身 6h 误差 140.6 km
+（模型 65.3），只在 24h 略好 11 km，因此不适合做锚点。
+
+**汇总表与配图**（从 checkpoint 重新推理，不依赖手工数字）：
+
+```bash
+python scripts/evaluation/law_summary.py            # -> physics_laws/law_summary.json
+python scripts/evaluation/plot_physics_law_figures.py
+# -> figures/fig_lawA_delta_by_seed.png
+#    figures/fig_lawA_step_profile.png
+#    figures/fig_lawB_diagnosis.png
+```
+
+`law_summary.py` 会把重新推理的 MAE 与各 run 的 `logs/summary.json` 逐项对账，
+不一致直接抛错（防止报告引用了错误的 checkpoint）。配对 bootstrap 以**台风**为单位重采样。
+
+**B 组复现需注意**：必须 `--env data_ext/env_era5.parquet --split storm`。
+环境场只覆盖 2017-2021 的 128 个台风，按年份切会得到空验证集（`val_mae=nan`）。
+
