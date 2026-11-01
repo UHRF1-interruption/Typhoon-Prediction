@@ -25,7 +25,7 @@
 
 用法:
     python scripts/evaluation/stratify_by_change.py \\
-        --npz outputs/intensity_rerun_224_corr_base/cv5_..._summary.npz
+        --npz outputs/intensity/rerun_224/intensity_rerun_224_corr_base/cv5_..._summary.npz
 """
 from __future__ import annotations
 

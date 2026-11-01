@@ -118,7 +118,7 @@ def main() -> int:
     ap.add_argument("--fold-seeds", nargs="*", type=int, default=[],
                     help="用多个不同的折划分 seed 重复 K 折，检验结果对划分的稳健性。"
                          "不指定时用 cfg.seed 单个划分")
-    ap.add_argument("--out", default="outputs/latitude_adaptive")
+    ap.add_argument("--out", default="outputs/path/latitude_adaptive")
     args = ap.parse_args()
 
     import torch

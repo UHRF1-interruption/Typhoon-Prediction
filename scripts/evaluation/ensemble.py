@@ -15,7 +15,7 @@
 用法:
     # 强度（读训练脚本落盘的 npz）
     python scripts/evaluation/ensemble.py \\
-        --npz outputs/intensity_rerun_224_pred_base/cv5_summary.npz
+        --npz outputs/intensity/rerun_224/intensity_rerun_224_pred_base/cv5_summary.npz
 
     # 只用其中几个模型
     python scripts/evaluation/ensemble.py --npz ... --models gru fusion_transformer+云图
@@ -71,13 +71,13 @@ def _dist_km(pred, true):
 def path_ensemble():
     """路径集成：纯轨迹 vs 环境场，按权重 w 混合。
 
-    注意：`outputs/stratified_ablation/pred_*_s*.npz` 的 10 个 job
+    注意：`outputs/path/ablation/stratified_ablation/pred_*_s*.npz` 的 10 个 job
     **测试集之间有样本重叠**（实测指纹相交 2402 次），所以：
       * 不做跨 job 的配对 t 检验（会把 p 值算小）
       * 改为**每个 job 内部逐样本配对检验**，再看方向一致性
     """
-    B = sorted(glob.glob("outputs/stratified_ablation/pred_baseline_s*.npz"))
-    E = sorted(glob.glob("outputs/stratified_ablation/pred_env_s*.npz"))
+    B = sorted(glob.glob("outputs/path/ablation/stratified_ablation/pred_baseline_s*.npz"))
+    E = sorted(glob.glob("outputs/path/ablation/stratified_ablation/pred_env_s*.npz"))
     if not B or not E:
         print("[错误] 找不到 stratified_ablation 的预测文件")
         return 1

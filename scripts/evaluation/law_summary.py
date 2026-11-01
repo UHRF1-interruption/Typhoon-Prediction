@@ -1,12 +1,12 @@
 """汇总「无标签物理律」两组实验（技术报告 §4.13），产出可复现的统计表。
 
-输出 `outputs/physics_laws/law_summary.json`，供
+输出 `outputs/physics/laws/law_summary.json`，供
 `scripts/evaluation/plot_physics_law_figures.py` 出图，也供报告核对数字。
 
 两组：
-* A 组 `outputs/lawA_*`：全量 20094 窗口，year 划分，smooth+curvature。
+* A 组 `outputs/physics/runs/lawA_*`：全量 20094 窗口，year 划分，smooth+curvature。
   含 4 个种子（42 / 0 / 1 / 2）的 w=0 与 w=0.1。
-* B 组 `outputs/lawB_*`：并入 9 维环境场（1644 窗口），storm 划分，三项全开。
+* B 组 `outputs/physics/runs/lawB_*`：并入 9 维环境场（1644 窗口），storm 划分，三项全开。
 
 口径
 ----
@@ -141,7 +141,7 @@ def summarize_run(res):
 def main() -> int:
     global N_BOOT
     ap = argparse.ArgumentParser(description="汇总无标签物理律实验（§4.13）")
-    ap.add_argument("--out", default="outputs/physics_laws")
+    ap.add_argument("--out", default="outputs/physics/laws")
     ap.add_argument("--boot", type=int, default=N_BOOT, help="bootstrap 次数")
     args = ap.parse_args()
     N_BOOT = args.boot
@@ -171,7 +171,7 @@ def main() -> int:
 
     # ---- A 组 ----
     runs_a, errs = {}, {}
-    for (grp, seed, w), d in discover("outputs/lawA_*"):
+    for (grp, seed, w), d in discover("outputs/physics/runs/lawA_*"):
         if grp != "A":
             continue
         res = run_one(d, bundle, spec, splits)
@@ -220,7 +220,7 @@ def main() -> int:
 
     # ---- B 组（环境场 + storm 划分）----
     env_path = ROOT / "data_ext" / "env_era5.parquet"
-    runs_b = discover("outputs/lawB_*")
+    runs_b = discover("outputs/physics/runs/lawB_*")
     if runs_b and env_path.exists():
         spec_mod = importlib.util.spec_from_file_location(
             "train_entry", ROOT / "scripts" / "path" / "train.py")

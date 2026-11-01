@@ -20,7 +20,7 @@ spread-skill 与覆盖率——用 MAE 评判它会重复 §4.11 的错误。
 用法
 ----
     python scripts/evaluation/perturb_ensemble.py \
-        --ckpt outputs/phys_seed_base_0/checkpoints/best.pt \
+        --ckpt outputs/physics/experiments/phys_seed_base_0/checkpoints/best.pt \
         --eps-km 100 --members 4 --steps 10
 """
 from __future__ import annotations

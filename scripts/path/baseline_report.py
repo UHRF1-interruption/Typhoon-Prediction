@@ -6,7 +6,7 @@
   python scripts/baseline_report.py
 
 产出:
-  outputs/baselines/
+  outputs/path/baselines/
     ├── baseline_table.md          各方法 24/48/72/120h 路径与强度误差
     ├── tra_error_vs_lead.png      路径误差-时效曲线（重点方法）
     ├── int_error_vs_lead.png      强度误差-时效曲线
@@ -66,7 +66,7 @@ def main() -> int:
 
     cfg = load_config(args.config, args.set)
     data_dir = _data_path(cfg, cfg.data.raw_dir) / "cma_attachments"
-    out_dir = ROOT / cfg.output.dir / "baselines"
+    out_dir = ROOT / cfg.output.dir / "path" / "baselines"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     tra, int_ = load_forecast_errors(data_dir)

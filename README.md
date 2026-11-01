@@ -116,7 +116,7 @@ Brier / BSS / ECE 与可靠性图检验（10 折，224 台风）：
 ```bash
 # 需要逐样本概率（train_ri.py 已自动生成 .npz）
 .venv/bin/python scripts/evaluation/prob_verify.py \
-    --npz outputs/ri_events_64px/cv10_thr15_summary.npz \
+    --npz outputs/ri/events_64px/cv10_thr15_summary.npz \
     --fig outputs/figures/ri_reliability.png
 ```
 
@@ -161,7 +161,7 @@ Brier / BSS / ECE 与可靠性图检验（10 折，224 台风）：
 ```bash
 # 需要先有逐样本预测（rerun_ablations.py 会自动生成 .npz）
 .venv/bin/python scripts/evaluation/stratify_by_change.py \
-    --npz outputs/intensity_rerun_224_pred_base/cv5_summary.npz
+    --npz outputs/intensity/rerun_224/intensity_rerun_224_pred_base/cv5_summary.npz
 ```
 
 ---
@@ -196,7 +196,7 @@ Brier / BSS / ECE 与可靠性图检验（10 折，224 台风）：
 
 # 强度：需要逐样本预测（rerun_ablations.py 会自动生成 npz）
 .venv/bin/python scripts/evaluation/ensemble.py \
-    --npz outputs/intensity_rerun_224_pred_base/cv5_summary.npz
+    --npz outputs/intensity/rerun_224/intensity_rerun_224_pred_base/cv5_summary.npz
 ```
 
 详见技术报告 §4.10。**注意**：路径任务的时效是 **6/12/18/24h**（`interval_hours=6`），

@@ -255,12 +255,12 @@ python scripts/data/era5_env.py --check
 
 **这说明**：路径预测的瓶颈**不在模型容量**，而在信息与数据量。
 
-![路径误差随时效变化](../outputs/comparison/mae_vs_horizon.png)
+![路径误差随时效变化](../outputs/path/baselines/comparison/mae_vs_horizon.png)
 
 *图 3-1：路径误差随时效变化（测试集）。GRU 与 Transformer 两条曲线几乎重合，
 线性模型在高时效明显落后，持续法误差随时间近似线性增长。*
 
-![典型台风路径对比](../outputs/comparison/track_examples.png)
+![典型台风路径对比](../outputs/path/baselines/comparison/track_examples.png)
 
 *图 3-2：典型台风的观测轨迹与各模型预测轨迹（随机抽取的测试样本）。*
 
@@ -281,11 +281,11 @@ python scripts/data/era5_env.py --check
 **差距 3.9 倍**。这不是模型问题——AIFS、GraphCast、盘古都是经过海量数据
 预训练的全球气象模型，本研究是从零训练的小样本模型。
 
-![业务方法路径误差排名](../outputs/baselines/method_ranking.png)
+![业务方法路径误差排名](../outputs/path/baselines/method_ranking.png)
 
 *图 3-3：2024-2025 年 21 个业务与 AI 方法的 24h 路径误差排名。*
 
-![业务方法误差随时效](../outputs/baselines/tra_error_vs_lead.png)
+![业务方法误差随时效](../outputs/path/baselines/tra_error_vs_lead.png)
 
 *图 3-4：业务方法的路径误差随时效变化。*
 
@@ -402,10 +402,10 @@ d=−2.27，胜率 5/5）。说明：
 | 特征+云图 vs GRU | **+0.177**（云图更差） | **0/15** | 1.3e-10 | **+4.29** |
 | 持续法 vs GRU | +0.637（GRU 更好） | 0/15 | 2.5e-13 | +6.80 |
 
-> **数据位置**：上表四行分别对应 `outputs/intensity_rerun_base/cv5_summary.json`、
-> `outputs/sat_intensity_history/cv5_32px-255norm-15feat_summary.json`、
-> `outputs/sat_intensity_history/cv5_satellite-model-dropout-0-25_65c72974_summary.json`、
-> `outputs/sat_intensity_history/cv5_summary.json`，各文件 `_meta` 字段标注了对应行号。
+> **数据位置**：上表四行分别对应 `outputs/intensity/rerun/intensity_rerun_base/cv5_summary.json`、
+> `outputs/intensity/sat_intensity_history/cv5_32px-255norm-15feat_summary.json`、
+> `outputs/intensity/sat_intensity_history/cv5_satellite-model-dropout-0-25_65c72974_summary.json`、
+> `outputs/intensity/sat_intensity_history/cv5_summary.json`，各文件 `_meta` 字段标注了对应行号。
 > 完整目录说明见 [outputs/INDEX.md](../outputs/INDEX.md)。
 
 > p 值由 `scipy.stats.ttest_1samp` 对逐 job 差值做单样本 t 检验得到。各 job 的
@@ -499,10 +499,10 @@ p=0.0005）与 RI 事件预测（GRU AUC 0.879/0.904；云图 0.868/0.894，差�
 
 #### 4.1.5 与业务强度误差的量级参考
 
-![业务方法强度误差随时效](../outputs/baselines/int_error_vs_lead.png)
+![业务方法强度误差随时效](../outputs/path/baselines/int_error_vs_lead.png)
 
 *图 4-3：2024-2025 年西北太平洋 21 个业务与 AI 方法的强度误差随时效变化
-（原始数据见 `outputs/baselines/baseline_table.md`）。*
+（原始数据见 `outputs/path/baselines/baseline_table.md`）。*
 
 业务方法 24h 强度误差约为 **4.0-4.5 m/s**（CMA 中央气象台 4.0、JTWC 4.1、
 日本 AI 台风 4.4、香港天文台 4.5）。
@@ -1176,7 +1176,7 @@ x = σ_弱/σ_强 < −ρ + √(ρ²+3)          ρ = 两模型误差的相关�
 
 | 项 | 说明 |
 |---|---|
-| 只有 2 个路径模型 | `outputs/parallel/` 只存了 json 与权重，无逐样本预测，无法加入第三个 |
+| 只有 2 个路径模型 | `outputs/path/runs/parallel/` 只存了 json 与权重，无逐样本预测，无法加入第三个 |
 | 只在环境场子集测 | 128 台风；全量 1420 台风没有对应的逐样本预测文件 |
 | 权重是先验 0.5 | 没有用验证集拟合权重；若要拟合需重跑并存验证集预测 |
 | oracle 仅作判据 | 强度任务的 oracle 可到 1.5235（比 GRU 好 0.01），但比 job 间标准差 0.072 小 7 倍，实际无法分辨 |
@@ -1550,13 +1550,13 @@ steering 残差在 w=0.3 下只降了 8%（1.165 → 1.071）——模型宁可�
 复现：
 
 ```bash
-# A 组（seed 42 的两次即 outputs/lawA_w*，其余种子命名 lawA_s*_w*）
+# A 组（seed 42 的两次即 outputs/physics/runs/lawA_w*，其余种子命名 lawA_s*_w*）
 for s in 42 0 1 2; do
   for w in 0.0 0.1; do
     if [ "$s" = "42" ]; then name="lawA_w$w"; else name="lawA_s${s}_w$w"; fi
     MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python -u scripts/path/train.py \
       --set seed=$s device=cuda train.law_weight=$w train.log_physics=true \
-            output.run_name=$name > outputs/$name.log 2>&1
+            output.run_name=physics/runs/$name > outputs/logs/$name.log 2>&1
   done
 done
 
@@ -1565,7 +1565,7 @@ for w in 0.0 0.3; do
   MPLCONFIGDIR=/tmp/mpl-cache .venv/bin/python -u scripts/path/train.py \
     --env data_ext/env_era5.parquet --split storm \
     --set device=cuda train.law_weight=$w train.log_physics=true \
-          output.run_name=lawB_w$w > outputs/lawB_w$w.log 2>&1
+          output.run_name=physics/runs/lawB_w$w > outputs/logs/lawB_w$w.log 2>&1
 done
 ```
 
@@ -2113,12 +2113,14 @@ typhoon-transformer/
 │   ├── models/    模型定义
 │   ├── training/  训练循环、损失
 │   └── evaluation/ 评估与绘图
-├── outputs/                   实验结果（索引见 outputs/INDEX.md）
+├── outputs/                   实验结果（按任务分组，索引见 outputs/INDEX.md）
 └── tests/test_core.py         14 项自检
 ```
 
-> `outputs/` 中仅保留指标与预测（约 3 MB）。模型权重 `*.pt` 属训练产物，
-> `.gitignore` 已排除，且全仓库无脚本读取它们——复现只需重跑对应命令。
+> `outputs/` 按任务分为 `path/`、`intensity/`、`physics/`、`ri/` 四组，
+> 公共的 `figures/`、`logs/`、`build_logs/` 留在顶层，结构见 [outputs/INDEX.md](../outputs/INDEX.md) §五。
+> 入库的只有指标、日志与图（316 个文件）；模型权重 `*.pt` 与逐样本 `*.npz`
+> 属训练产物，`.gitignore` 已排除——复现只需重跑对应命令。
 > 各目录内容、关键数字与对应报告章节见 [outputs/INDEX.md](../outputs/INDEX.md)。
 
 ### 10.2 复现命令

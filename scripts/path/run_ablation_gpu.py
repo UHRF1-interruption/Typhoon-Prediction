@@ -15,7 +15,7 @@
         --seeds 0 1 2 3 4 --workers 4 --device cpu
 
 输出:
-    outputs/env_ablation/ablation.json   （与 ablate_environment.py 格式一致）
+    outputs/path/ablation/env_ablation/ablation.json   （与 ablate_environment.py 格式一致）
 """
 from __future__ import annotations
 
@@ -79,7 +79,7 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=3, help="并行进程数")
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--epochs", type=int, default=30)
-    ap.add_argument("--out", default="outputs/parallel")
+    ap.add_argument("--out", default="outputs/path/runs/parallel")
     ap.add_argument("--threads", type=int, default=0,
                     help="每个进程的 CPU 线程数（0=自动按核心数/进程数分配）。"
                          "CPU 并行时设小可避免线程争抢")
@@ -130,7 +130,7 @@ def main() -> int:
         print("\n[错误] 检测到多个 seed 的结果完全相同，说明发生了文件覆盖：")
         for v, ss in dup.items():
             print(f"  seed {ss} 结果一致: {v}")
-        print("请检查输出目录是否隔离，重跑前先清空 outputs/parallel/")
+        print("请检查输出目录是否隔离，重跑前先清空 outputs/path/runs/parallel/")
         return 1
 
     # 汇总

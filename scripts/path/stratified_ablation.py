@@ -43,7 +43,7 @@ def main() -> int:
     ap.add_argument("--device", default="auto")
     ap.add_argument("--seeds", nargs="*", type=int, default=[0])
     ap.add_argument("--epochs", type=int, default=30)
-    ap.add_argument("--out", default="outputs/stratified_ablation")
+    ap.add_argument("--out", default="outputs/path/ablation/stratified_ablation")
     ap.add_argument("--folds", type=int, default=0,
                     help="K 折交叉验证的折数（推荐 5）。>0 时忽略 --seeds")
     args = ap.parse_args()

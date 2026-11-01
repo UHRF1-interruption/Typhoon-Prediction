@@ -47,8 +47,8 @@ def path_acc(files):
 
 
 def fig_acc_by_lead():
-    base = path_acc(sorted(glob.glob("outputs/stratified_ablation/pred_baseline_s*.npz")))
-    env = path_acc(sorted(glob.glob("outputs/stratified_ablation/pred_env_s*.npz")))
+    base = path_acc(sorted(glob.glob("outputs/path/ablation/stratified_ablation/pred_baseline_s*.npz")))
+    env = path_acc(sorted(glob.glob("outputs/path/ablation/stratified_ablation/pred_env_s*.npz")))
     leads = [3, 6, 9, 12]
     n = min(len(base), len(env))
     base, env = base[:n], env[:n]
@@ -81,8 +81,8 @@ def fig_acc_by_lead():
 
 
 def fig_sat_acc_by_lead():
-    cands = [Path("outputs/intensity_rerun_224_corr_summary.json"),
-             Path("outputs/intensity_rerun_224_summary.json")]
+    cands = [Path("outputs/intensity/summaries/intensity_rerun_224_corr_summary.json"),
+             Path("outputs/intensity/summaries/intensity_rerun_224_summary.json")]
     src = next((c for c in cands if c.exists()), None)
     if src is None:
         print("[跳过] 找不到强度汇总 JSON")
@@ -115,7 +115,7 @@ def fig_sat_acc_by_lead():
 
 
 def fig_stratify_change():
-    files = sorted(glob.glob("outputs/intensity_rerun_224_pred_base/*.npz"))
+    files = sorted(glob.glob("outputs/intensity/rerun_224/intensity_rerun_224_pred_base/*.npz"))
     if not files:
         print("[跳过] 找不到逐样本预测 npz")
         return

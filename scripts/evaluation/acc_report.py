@@ -131,11 +131,11 @@ def main() -> int:
     if args.task in ("path", "auto"):
         groups = {
             "路径 · 纯轨迹（baseline）":
-                sorted(glob.glob("outputs/stratified_ablation/pred_baseline_s*.npz")),
+                sorted(glob.glob("outputs/path/ablation/stratified_ablation/pred_baseline_s*.npz")),
             "路径 · +环境场（env）":
-                sorted(glob.glob("outputs/stratified_ablation/pred_env_s*.npz")),
+                sorted(glob.glob("outputs/path/ablation/stratified_ablation/pred_env_s*.npz")),
             "路径 · 纬度自适应（env）":
-                sorted(glob.glob("outputs/latitude_adaptive/pred_env_j0_*.npz")),
+                sorted(glob.glob("outputs/path/latitude_adaptive/pred_env_j0_*.npz")),
         }
         got = {}
         for label, files in groups.items():
@@ -186,8 +186,8 @@ def _report_intensity(pred_dir: str | None):
         return
 
     # 优先用带逐时效 corr_by_step 的新结果；没有就退回旧汇总（只有标量）
-    cands = [Path("outputs/intensity_rerun_224_corr_summary.json"),
-             Path("outputs/intensity_rerun_224_summary.json")]
+    cands = [Path("outputs/intensity/summaries/intensity_rerun_224_corr_summary.json"),
+             Path("outputs/intensity/summaries/intensity_rerun_224_summary.json")]
     summary = next((c for c in cands if c.exists()), None)
     if summary is None:
         print("\n[强度] 既无 pred_*.npz，也无汇总 JSON")

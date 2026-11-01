@@ -30,7 +30,7 @@ RI 正样本率约 4.8%（阈值 15 m/s）时 w_pos ≈ 10.4，模型输出的 q
 
 用法:
     python scripts/evaluation/prob_verify.py \\
-        --npz outputs/ri_events_64px/cv10_thr15_summary.npz
+        --npz outputs/ri/events_64px/cv10_thr15_summary.npz
 """
 from __future__ import annotations
 

@@ -255,9 +255,9 @@ def fig_feature_ablation(variants: list[tuple[str, Path]], out: Path,
 def main() -> int:
     ap = argparse.ArgumentParser(description="生成技术报告 §4 的配图")
     ap.add_argument("--out-dir", default=str(ROOT / "outputs" / "figures"))
-    ap.add_argument("--history", default=str(ROOT / "outputs" / "sat_intensity_history"))
-    ap.add_argument("--ri-dir", default=str(ROOT / "outputs" / "ri_events_64px"))
-    ap.add_argument("--ablation", default=str(ROOT / "outputs"),
+    ap.add_argument("--history", default=str(ROOT / "outputs" / "intensity" / "sat_intensity_history"))
+    ap.add_argument("--ri-dir", default=str(ROOT / "outputs" / "ri" / "events_64px"))
+    ap.add_argument("--ablation", default=str(ROOT / "outputs" / "intensity" / "rerun_224"),
                     help="特征消融结果所在目录（读 intensity_rerun_224_*）")
     args = ap.parse_args()
 
@@ -271,7 +271,7 @@ def main() -> int:
     # 图 B：§4.1.2 四轮消融
     fig_cloud_rounds(
         [
-            ("#1 90 storms, 32px", hist / ".." / "intensity_rerun_base" / "cv5_summary.json"),
+            ("#1 90 storms, 32px", hist / ".." / "rerun" / "intensity_rerun_base" / "cv5_summary.json"),
             ("#2 224 storms, 32px", hist / "cv5_32px-255norm-15feat_summary.json"),
             ("#3 + dropout 0.25", hist / "cv5_satellite-model-dropout-0-25_65c72974_summary.json"),
             ("#4 64px + zscore + 23 feat", hist / "cv5_summary.json"),
@@ -287,7 +287,7 @@ def main() -> int:
     # 224 台风版本（2026-10-30 重跑）。base 必须与变体同源，否则会变成
     # 跨数据集的错误比较。
     abl = Path(args.ablation) if getattr(args, "ablation", None) else \
-        ROOT / "outputs"
+        ROOT / "outputs" / "intensity" / "rerun_224"
     fig_feature_ablation(
         [
             ("+ warm-core", abl / "intensity_rerun_224_warmcore" / "cv5_summary.json"),

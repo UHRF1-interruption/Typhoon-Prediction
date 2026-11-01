@@ -1,6 +1,6 @@
 """为技术报告 §4.13 生成三张配图。
 
-数据来源：`outputs/physics_laws/law_summary.json`（由 `law_summary.py` 生成，
+数据来源：`outputs/physics/laws/law_summary.json`（由 `law_summary.py` 生成，
 其中每个数字都由 checkpoint 重新推理得到，无手工填入值）。
 
     fig_lawA_delta_by_seed.png   A 组：4 个种子的逐时效配对差
@@ -123,7 +123,7 @@ def fig_b_diagnosis(d, path):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="生成 §4.13 配图")
-    ap.add_argument("--json", default="outputs/physics_laws/law_summary.json")
+    ap.add_argument("--json", default="outputs/physics/laws/law_summary.json")
     args = ap.parse_args()
     d = json.loads((ROOT / args.json).read_text(encoding="utf-8"))
     OUT.mkdir(parents=True, exist_ok=True)
